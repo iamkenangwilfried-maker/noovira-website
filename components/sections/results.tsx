@@ -4,7 +4,7 @@ import { Star } from "lucide-react";
 
 const videoTestimonials = [
   {
-    src: "/videos/vid1.mov",
+    youtubeId: "hn1SIFFnDBY",
     name: "Mike R.",
     role: "Eagle Roofing, Texas",
     result: "$31k recovered in 30 days",
@@ -12,7 +12,7 @@ const videoTestimonials = [
     quote: "Noovira built our website in 48 hours and the AI follows up every missed call. We booked 3 jobs the first week.",
   },
   {
-    src: "/videos/vid2.mp4",
+    youtubeId: "n2y_YvYNfv4",
     name: "Jason T.",
     role: "Summit Pro Roofing, Florida",
     result: "220% more Google reviews",
@@ -53,18 +53,16 @@ export default function Results() {
               transition={{ duration: 0.6, delay: 0.1 + i * 0.15 }}
               className="bg-white rounded-2xl overflow-hidden border border-card-border shadow-sm"
             >
-              {/* Video — portrait ratio to show full face */}
-              <div className="relative bg-navy/5" style={{ aspectRatio: "3/4" }}>
-                <video
-                  className="w-full h-full object-cover object-top"
-                  controls
-                  playsInline
-                  preload="metadata"
-                >
-                  <source src={t.src} type={t.src.endsWith(".mov") ? "video/quicktime" : "video/mp4"} />
-                  <source src={t.src} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+              {/* Video — YouTube Shorts embed */}
+              <div className="relative bg-navy/5" style={{ aspectRatio: "9/16" }}>
+                <iframe
+                  src={`https://www.youtube.com/embed/${t.youtubeId}?rel=0&modestbranding=1`}
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                  title={`Témoignage ${t.name}`}
+                />
               </div>
 
               {/* Info */}
