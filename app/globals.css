@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #E8ECF1;
+  --navy: #0F172A;
+  --secondary: #334155;
+  --accent: #0369A1;
+  --accent-hover: #0284C7;
+  --success: #059669;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #E8ECF1;
+  color: var(--navy);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Force uniform gray background on all sections */
+section, footer, header {
+  background-color: transparent !important;
+}
+
+/* Remove dividers between sections */
+.section-divider {
+  border-top: none;
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, #0369A1 0%, #0ea5e9 50%, #0369A1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
