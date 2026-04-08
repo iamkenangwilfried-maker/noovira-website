@@ -1,9 +1,23 @@
 import { Instagram, Youtube, Facebook } from "lucide-react";
 
 const links = {
-  Services: ["Free Website", "Speed to Lead", "Google Reviews", "DB Reactivation"],
-  Company: ["About Us", "Case Studies", "Pricing", "Blog"],
-  Legal: ["Privacy Policy", "Terms of Service", "Cookie Policy"],
+  Services: [
+    { label: "Free Website", href: "#" },
+    { label: "Speed to Lead", href: "#" },
+    { label: "Google Reviews", href: "#" },
+    { label: "DB Reactivation", href: "#" },
+  ],
+  Company: [
+    { label: "About Us", href: "#" },
+    { label: "Case Studies", href: "#" },
+    { label: "Pricing", href: "#pricing" },
+    { label: "Blog", href: "#" },
+  ],
+  Legal: [
+    { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Terms of Service", href: "/terms-of-service" },
+    { label: "Cookie Policy", href: "/cookie-policy" },
+  ],
 };
 
 const socials = [
@@ -46,9 +60,9 @@ export default function Footer() {
               <h4 className="font-heading font-semibold text-navy text-sm mb-4">{group}</h4>
               <ul className="space-y-2.5">
                 {items.map((item) => (
-                  <li key={item}>
-                    <a href="#" className="text-secondary/60 text-sm hover:text-navy transition-colors">
-                      {item}
+                  <li key={item.label}>
+                    <a href={item.href} className="text-secondary/60 text-sm hover:text-navy transition-colors">
+                      {item.label}
                     </a>
                   </li>
                 ))}
