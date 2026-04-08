@@ -24,7 +24,7 @@ export default function PrivacyPolicy() {
             <section>
               <h2 className="text-xl font-semibold text-navy mb-3">1. Who We Are</h2>
               <p className="text-sm leading-relaxed">
-                Noovira AI (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) is a digital agency that builds free websites and AI-powered systems for roofing contractors. Our registered business operates online at <strong>nooviraai.com</strong>. If you have any questions about this policy, contact us at <a href="mailto:hello@nooviraai.com" className="text-accent hover:underline">hello@nooviraai.com</a>.
+                Noovira AI (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) is a digital agency that builds free websites and AI-powered systems for roofing contractors. Our registered business operates online at <strong>nooviraai.com</strong>. If you have any questions about this policy, contact us at <a href="mailto:contact@nooviraai.com" className="text-accent hover:underline">contact@nooviraai.com</a>.
               </p>
             </section>
 
@@ -88,7 +88,7 @@ export default function PrivacyPolicy() {
                 <li>Request data portability.</li>
                 <li>Withdraw consent at any time (where processing is based on consent).</li>
               </ul>
-              <p className="text-sm leading-relaxed mt-3">To exercise any of these rights, email us at <a href="mailto:hello@nooviraai.com" className="text-accent hover:underline">hello@nooviraai.com</a>.</p>
+              <p className="text-sm leading-relaxed mt-3">To exercise any of these rights, email us at <a href="mailto:contact@nooviraai.com" className="text-accent hover:underline">contact@nooviraai.com</a>.</p>
             </section>
 
             <section>
@@ -116,7 +116,7 @@ export default function PrivacyPolicy() {
               <h2 className="text-xl font-semibold text-navy mb-3">11. Contact</h2>
               <p className="text-sm leading-relaxed">
                 For any questions or concerns about this Privacy Policy, please contact us at:<br />
-                <a href="mailto:hello@nooviraai.com" className="text-accent hover:underline">hello@nooviraai.com</a>
+                <a href="mailto:contact@nooviraai.com" className="text-accent hover:underline">contact@nooviraai.com</a>
               </p>
             </section>
 

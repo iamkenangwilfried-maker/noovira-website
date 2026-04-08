@@ -123,7 +123,7 @@ export default function CookiePolicy() {
               <h2 className="text-xl font-semibold text-navy mb-3">8. Contact</h2>
               <p className="text-sm leading-relaxed">
                 For any questions about our use of cookies, please contact us at:<br />
-                <a href="mailto:hello@nooviraai.com" className="text-accent hover:underline">hello@nooviraai.com</a>
+                <a href="mailto:contact@nooviraai.com" className="text-accent hover:underline">contact@nooviraai.com</a>
               </p>
             </section>
 

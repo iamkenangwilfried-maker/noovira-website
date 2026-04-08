@@ -111,7 +111,7 @@ export default function TermsOfService() {
               <h2 className="text-xl font-semibold text-navy mb-3">11. Contact</h2>
               <p className="text-sm leading-relaxed">
                 For any questions regarding these Terms of Service, please contact us at:<br />
-                <a href="mailto:hello@nooviraai.com" className="text-accent hover:underline">hello@nooviraai.com</a>
+                <a href="mailto:contact@nooviraai.com" className="text-accent hover:underline">contact@nooviraai.com</a>
               </p>
             </section>
 
