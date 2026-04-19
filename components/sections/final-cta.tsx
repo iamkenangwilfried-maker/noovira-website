@@ -1,5 +1,4 @@
 "use client";
-import Script from "next/script";
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 
@@ -13,28 +12,6 @@ const guarantees = [
 export default function FinalCTA() {
   return (
     <section className="py-14 bg-muted section-divider relative overflow-hidden" id="book">
-      <Script
-        src="https://app.cal.com/embed/embed.js"
-        strategy="afterInteractive"
-        onLoad={() => {
-          // @ts-ignore
-          Cal("init", { origin: "https://cal.com" });
-          // @ts-ignore
-          Cal("inline", {
-            elementOrSelector: "#cal-inline",
-            calLink: "noovira-audit/60min",
-            layout: "month_view",
-          });
-          // @ts-ignore
-          Cal("ui", {
-            theme: "light",
-            styles: { branding: { brandColor: "#16A34A" } },
-            hideEventTypeDetails: false,
-            layout: "month_view",
-          });
-        }}
-      />
-
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -99,7 +76,14 @@ export default function FinalCTA() {
                 </h3>
                 <p className="text-secondary text-sm">60 minutes · Zoom · Free</p>
               </div>
-              <div id="cal-inline" style={{ width: "100%", height: "700px", overflow: "scroll" }} />
+              <iframe
+                src="https://cal.com/noovira-audit/60min?overlayCalendar=true&embed=true&theme=light&brandColor=16A34A"
+                width="100%"
+                height="700"
+                frameBorder="0"
+                title="Book a Free Strategy Call"
+                style={{ display: "block" }}
+              />
             </div>
           </motion.div>
         </div>
