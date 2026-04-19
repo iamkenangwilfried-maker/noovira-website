@@ -8,9 +8,9 @@
   --background: #E8ECF1;
   --navy: #0F172A;
   --secondary: #334155;
-  --accent: #0369A1;
-  --accent-hover: #0284C7;
-  --success: #059669;
+  --accent: #16A34A;
+  --accent-hover: #15803D;
+  --success: #16A34A;
 }
 
 * {
@@ -46,7 +46,7 @@ section, footer, header {
 
 @layer utilities {
   .text-gradient {
-    background: linear-gradient(135deg, #0369A1 0%, #0ea5e9 50%, #0369A1 100%);
+    background: linear-gradient(135deg, #16A34A 0%, #22C55E 50%, #16A34A 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
