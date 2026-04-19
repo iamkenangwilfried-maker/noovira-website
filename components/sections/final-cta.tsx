@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 
@@ -10,6 +11,30 @@ const guarantees = [
 ];
 
 export default function FinalCTA() {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://app.cal.com/embed/embed.js";
+    script.async = true;
+    script.onload = () => {
+      // @ts-ignore
+      const Cal = window.Cal;
+      if (!Cal) return;
+      Cal("init", { origin: "https://cal.com" });
+      Cal("inline", {
+        elementOrSelector: "#cal-inline",
+        calLink: "noovira-audit/60min",
+        layout: "month_view",
+      });
+      Cal("ui", {
+        theme: "light",
+        styles: { branding: { brandColor: "#16A34A" } },
+        hideEventTypeDetails: false,
+        layout: "month_view",
+      });
+    };
+    document.head.appendChild(script);
+    return () => { document.head.removeChild(script); };
+  }, []);
 
   return (
     <section className="py-14 bg-muted section-divider relative overflow-hidden" id="book">
@@ -33,7 +58,7 @@ export default function FinalCTA() {
               Ready to Stop Losing Jobs to Missed Calls?
             </h2>
             <p className="text-secondary text-base leading-relaxed mb-8">
-              Book a free 30-minute strategy call. We'll audit your current
+              Book a free 60-minute strategy call. We'll audit your current
               setup, show you exactly where you're losing revenue, and outline
               what we'd build for you — no pitch, no pressure.
             </p>
@@ -75,13 +100,9 @@ export default function FinalCTA() {
                 <h3 className="font-heading font-bold text-navy text-xl mb-1">
                   Book Your Free Strategy Call
                 </h3>
-                <p className="text-secondary text-sm">30 minutes · Zoom · Free</p>
+                <p className="text-secondary text-sm">60 minutes · Zoom · Free</p>
               </div>
-              <iframe
-                src="https://cal.com/noovira-audit/30min?embed=true&theme=light"
-                style={{ width: "100%", height: "700px", border: "none" }}
-                title="Book a Free Strategy Call"
-              />
+              <div id="cal-inline" style={{ width: "100%", height: "700px", overflow: "scroll" }} />
             </div>
           </motion.div>
         </div>
