@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
 const links = [
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Results", href: "#results" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "FAQ", href: "#faq" },
+  { label: "How It Works", href: "/#how-it-works" },
+  { label: "Results", href: "/#results" },
+  { label: "Pricing", href: "/#pricing" },
+  { label: "FAQ", href: "/#faq" },
 ];
 
 export default function Navbar() {
@@ -27,7 +27,7 @@ export default function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center">
+        <a href="/" className="flex items-center">
           <img src="/logo.png" alt="Noovira AI" className="h-28 w-auto" />
         </a>
 
@@ -46,8 +46,8 @@ export default function Navbar() {
 
         {/* CTA */}
         <a
-          href="#book"
-          className="hidden md:inline-flex items-center px-5 py-2 rounded-full bg-navy text-white text-sm font-semibold hover:bg-navy-light transition-colors"
+          href="/#book"
+          className="hidden md:inline-flex items-center px-5 py-2 rounded-full bg-accent text-white text-sm font-semibold hover:bg-accent-hover transition-colors"
         >
           Book Free Call
         </a>
@@ -76,9 +76,9 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="#book"
+            href="/#book"
             onClick={() => setOpen(false)}
-            className="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-navy text-white text-sm font-semibold"
+            className="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-accent text-white text-sm font-semibold"
           >
             Book Free Call
           </a>

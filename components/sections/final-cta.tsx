@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import Script from "next/script";
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 
@@ -11,33 +11,30 @@ const guarantees = [
 ];
 
 export default function FinalCTA() {
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://app.cal.com/embed/embed.js";
-    script.async = true;
-    script.onload = () => {
-      // @ts-ignore
-      const Cal = window.Cal;
-      if (!Cal) return;
-      Cal("init", { origin: "https://cal.com" });
-      Cal("inline", {
-        elementOrSelector: "#cal-inline",
-        calLink: "noovira-audit/60min",
-        layout: "month_view",
-      });
-      Cal("ui", {
-        theme: "light",
-        styles: { branding: { brandColor: "#16A34A" } },
-        hideEventTypeDetails: false,
-        layout: "month_view",
-      });
-    };
-    document.head.appendChild(script);
-    return () => { document.head.removeChild(script); };
-  }, []);
-
   return (
     <section className="py-14 bg-muted section-divider relative overflow-hidden" id="book">
+      <Script
+        src="https://app.cal.com/embed/embed.js"
+        strategy="afterInteractive"
+        onLoad={() => {
+          // @ts-ignore
+          Cal("init", { origin: "https://cal.com" });
+          // @ts-ignore
+          Cal("inline", {
+            elementOrSelector: "#cal-inline",
+            calLink: "noovira-audit/60min",
+            layout: "month_view",
+          });
+          // @ts-ignore
+          Cal("ui", {
+            theme: "light",
+            styles: { branding: { brandColor: "#16A34A" } },
+            hideEventTypeDetails: false,
+            layout: "month_view",
+          });
+        }}
+      />
+
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -87,7 +84,7 @@ export default function FinalCTA() {
             </div>
           </motion.div>
 
-          {/* Right — Calendly embed */}
+          {/* Right — Cal.com embed */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}

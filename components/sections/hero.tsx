@@ -94,7 +94,7 @@ export default function Hero() {
         >
           <a
             href="#book"
-            className="group inline-flex items-center justify-center gap-2 bg-navy text-white w-full sm:w-auto px-6 py-3.5 rounded-full font-semibold text-sm sm:text-base hover:bg-navy-light transition-all hover:shadow-lg hover:shadow-navy/20"
+            className="group inline-flex items-center justify-center gap-2 bg-accent text-white w-full sm:w-auto px-6 py-3.5 rounded-full font-semibold text-sm sm:text-base hover:bg-accent-hover transition-all hover:shadow-lg hover:shadow-accent/20"
           >
             <Phone size={16} />
             Book Your Free Strategy Call
