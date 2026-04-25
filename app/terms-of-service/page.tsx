@@ -24,7 +24,7 @@ export default function TermsOfService() {
             <section>
               <h2 className="text-xl font-semibold text-navy mb-3">1. Agreement to Terms</h2>
               <p className="text-sm leading-relaxed">
-                By accessing or using the Noovira AI website (<strong>nooviraai.com</strong>) or any of our services, you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree with these terms, please do not use our services.
+                These Terms of Service are issued by <strong>NOVIRA AI LIMITED</strong> (Company Number: 17159912), a private limited company registered in England and Wales, trading as Noovira AI. Our registered office is at Office 18190, 182-184 High Street North, East Ham, London, E6 2JA, United Kingdom. By accessing or using <strong>nooviraai.com</strong> or any of our services, you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree, please do not use our services.
               </p>
             </section>
 
@@ -96,7 +96,7 @@ export default function TermsOfService() {
             <section>
               <h2 className="text-xl font-semibold text-navy mb-3">9. Governing Law</h2>
               <p className="text-sm leading-relaxed">
-                These Terms of Service shall be governed by and construed in accordance with applicable laws. Disputes will be resolved through good-faith negotiation first, followed by binding arbitration if necessary.
+                These Terms of Service shall be governed by and construed in accordance with the laws of England and Wales. The courts of England and Wales shall have exclusive jurisdiction over any disputes arising out of or relating to these terms. Disputes will be resolved through good-faith negotiation first, followed by binding arbitration or litigation in the appropriate English courts if necessary.
               </p>
             </section>
 

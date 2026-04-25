@@ -1,8 +1,19 @@
 "use client";
 import { motion } from "framer-motion";
 import { ArrowRight, Phone } from "lucide-react";
+import { useState, useRef } from "react";
+
+const VSL_URL = "https://va2daaa0foumxg0g.public.blob.vercel-storage.com/vsl_web-9QhBFioxP3MeytlHvHKxlASn3weLe7.mp4";
 
 export default function Hero() {
+  const [playing, setPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handlePlay = () => {
+    setPlaying(true);
+    videoRef.current?.play();
+  };
+
   return (
     <section className="relative bg-background flex flex-col items-center justify-start overflow-hidden pt-20 sm:pt-24 pb-12 sm:pb-16">
       {/* Grid background */}
@@ -39,10 +50,11 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.1 }}
           className="font-heading font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-navy leading-[1.1] tracking-tight text-center mb-8"
         >
-          We Build{" "}
-          <span className="text-gradient">Free Websites</span>
-          {" & "}AI Systems That Turn{" "}
-          <span className="text-gradient">Missed Calls</span> Into Booked Jobs
+          We Help{" "}
+          <span className="text-gradient">Roofing & HVAC Contractors</span>
+          {" "}Get Free High Converting Websites + AI System That Turns{" "}
+          <span className="text-gradient">Leads & Missed Calls</span>
+          {" "}Into Booked Jobs
         </motion.h1>
 
         {/* ── VIDEO directly under the title ── */}
@@ -52,22 +64,34 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="w-full max-w-3xl mb-8"
         >
-          <div className="relative aspect-video rounded-2xl overflow-hidden border border-card-border shadow-xl bg-navy/5 cursor-pointer group">
-            <img
-              src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&auto=format&fit=crop&q=80"
-              alt="Watch our intro video"
-              className="w-full h-full object-cover opacity-80 group-hover:opacity-70 transition-opacity"
+          <div className="relative aspect-video rounded-2xl overflow-hidden border border-card-border shadow-xl bg-black">
+            {/* Native video — preload=none so page loads instantly, video fetches only on click */}
+            <video
+              ref={videoRef}
+              src={VSL_URL}
+              preload="none"
+              playsInline
+              controls={playing}
+              className="w-full h-full object-cover"
+              poster="/vsl-poster.jpg"
             />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-20 h-20 bg-navy rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
-                <svg className="w-8 h-8 text-white fill-white ml-1" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
+
+            {/* Play overlay — hidden once playing */}
+            {!playing && (
+              <div
+                className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer group bg-black/40 hover:bg-black/30 transition-colors"
+                onClick={handlePlay}
+              >
+                <div className="w-20 h-20 bg-accent rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform mb-4">
+                  <svg className="w-8 h-8 text-white fill-white ml-1" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+                <span className="text-white text-sm font-semibold tracking-wide drop-shadow">
+                  Watch — 1 min 57 sec
+                </span>
               </div>
-            </div>
-            <div className="absolute bottom-4 left-4 bg-navy/60 backdrop-blur-sm px-3 py-1.5 rounded-full">
-              <span className="text-white text-xs font-medium">3:42 min — Watch before booking</span>
-            </div>
+            )}
           </div>
         </motion.div>
 

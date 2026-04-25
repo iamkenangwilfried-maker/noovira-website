@@ -122,7 +122,7 @@ export default function CookiePolicy() {
             <section>
               <h2 className="text-xl font-semibold text-navy mb-3">8. Contact</h2>
               <p className="text-sm leading-relaxed">
-                For any questions about our use of cookies, please contact us at:<br />
+                This Cookie Policy is issued by <strong>NOVIRA AI LIMITED</strong> (Company Number: 17159912), registered in England and Wales, trading as Noovira AI. For any questions about our use of cookies, please contact us at:<br />
                 <a href="mailto:contact@nooviraai.com" className="text-accent hover:underline">contact@nooviraai.com</a>
               </p>
             </section>

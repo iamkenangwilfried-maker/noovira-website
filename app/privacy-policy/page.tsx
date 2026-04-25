@@ -24,7 +24,7 @@ export default function PrivacyPolicy() {
             <section>
               <h2 className="text-xl font-semibold text-navy mb-3">1. Who We Are</h2>
               <p className="text-sm leading-relaxed">
-                Noovira AI (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) is a digital agency that builds free websites and AI-powered systems for roofing contractors. Our registered business operates online at <strong>nooviraai.com</strong>. If you have any questions about this policy, contact us at <a href="mailto:contact@nooviraai.com" className="text-accent hover:underline">contact@nooviraai.com</a>.
+                Noovira AI is the trading name of <strong>NOVIRA AI LIMITED</strong> (Company Number: 17159912), a private limited company incorporated in England and Wales. Our registered office is at Office 18190, 182-184 High Street North, East Ham, London, E6 2JA, United Kingdom. We operate online at <strong>nooviraai.com</strong>. If you have any questions about this policy, contact us at <a href="mailto:contact@nooviraai.com" className="text-accent hover:underline">contact@nooviraai.com</a>.
               </p>
             </section>
 
@@ -53,9 +53,9 @@ export default function PrivacyPolicy() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-navy mb-3">4. Legal Basis for Processing (GDPR)</h2>
+              <h2 className="text-xl font-semibold text-navy mb-3">4. Legal Basis for Processing (UK GDPR)</h2>
               <p className="text-sm leading-relaxed">
-                For users in the European Economic Area (EEA) and UK, we process personal data under the following legal bases: <strong>Consent</strong> (for cookies and marketing communications), <strong>Contractual necessity</strong> (to deliver our services), and <strong>Legitimate interests</strong> (for analytics and business operations).
+                As a UK-registered company, we process personal data in accordance with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018. Our legal bases include: <strong>Consent</strong> (for cookies and marketing communications), <strong>Contractual necessity</strong> (to deliver our services), and <strong>Legitimate interests</strong> (for analytics and business operations). Users in the EEA are also covered under GDPR.
               </p>
             </section>
 
@@ -101,7 +101,7 @@ export default function PrivacyPolicy() {
             <section>
               <h2 className="text-xl font-semibold text-navy mb-3">9. International Transfers</h2>
               <p className="text-sm leading-relaxed">
-                Noovira AI serves clients in the US, UK, Australia, and New Zealand. Your data may be processed in countries outside your own. We ensure appropriate safeguards are in place for all international transfers.
+                NOVIRA AI LIMITED is based in the United Kingdom and serves clients in the US, UK, Australia, and New Zealand. Your data may be processed in countries outside your own. We ensure appropriate safeguards are in place for all international transfers, in accordance with UK GDPR and applicable data protection laws.
               </p>
             </section>
 
