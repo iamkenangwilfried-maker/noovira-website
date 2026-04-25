@@ -1,6 +1,7 @@
 import Navbar from "@/components/sections/navbar";
 import Hero from "@/components/sections/hero";
 import Portfolio from "@/components/sections/portfolio";
+import Proof from "@/components/sections/proof";
 import VideoStats from "@/components/sections/video-stats";
 import Results from "@/components/sections/results";
 import Problem from "@/components/sections/problem";
@@ -16,6 +17,7 @@ export default function Home() {
       <Navbar />
       <Hero />         {/* Titre → Vidéo → Sous-titre → Boutons → Trusted by */}
       <Portfolio />    {/* Our Work — slider */}
+      <Proof />        {/* Real Results — screenshots clients */}
       <VideoStats />   {/* Speed to Lead / Reviews / Recovery */}
       <Results />      {/* Proven Results — vidéos témoignages */}
       <Problem />      {/* The Problem */}

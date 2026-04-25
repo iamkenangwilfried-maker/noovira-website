@@ -27,7 +27,7 @@ const plans = [
     name: "Growth",
     tagline: "Get Leads",
     setup: "$997 one-time AI System Build",
-    price: "$597",
+    price: "$1,497",
     period: "/mo",
     desc: "Everything in Starter plus the Speed to Lead AI and Google Review automation. This is where contractors 3× their inbound.",
     cta: "Start Growing",
@@ -51,9 +51,9 @@ const plans = [
     name: "Scale",
     tagline: "Get Clients",
     setup: "$1,497 one-time AI System Build",
-    price: "$997",
+    price: "$2,497",
     period: "/mo",
-    desc: "For contractors ready to dominate their market. Includes database reactivation, seasonal campaigns, and a dedicated account manager.",
+    desc: "For contractors ready to dominate their market. Includes database reactivation, local SEO management, seasonal campaigns, and a dedicated account manager.",
     cta: "Let's Scale",
     ctaStyle: "bg-white border-2 border-navy text-navy hover:bg-navy hover:text-white",
     featured: false,
@@ -66,6 +66,11 @@ const plans = [
       "Seasonal campaigns (storm season, etc.)",
       "Referral sequence automation",
       "Competitor review analysis (quarterly)",
+      "— Local SEO Management —",
+      "Full on-page SEO optimization",
+      "Google Business Profile management",
+      "Local citation & directory building",
+      "Monthly keyword rankings report",
       "Priority support (4h response)",
       "Dedicated account manager",
       "Quarterly strategy call",
@@ -148,32 +153,50 @@ export default function Pricing() {
                 </a>
 
                 <ul className="space-y-3">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-3">
-                      <Check
-                        size={16}
-                        className={`flex-shrink-0 mt-0.5 ${plan.featured ? "text-success" : "text-success"}`}
-                      />
-                      <span className={`text-sm ${plan.featured ? "text-white/70" : "text-secondary"}`}>
-                        {f}
-                      </span>
-                    </li>
-                  ))}
+                  {plan.features.map((f) =>
+                    f.startsWith("—") ? (
+                      <li key={f} className="pt-1">
+                        <span className={`text-xs font-bold uppercase tracking-widest ${plan.featured ? "text-accent" : "text-accent"}`}>
+                          {f.replace(/—/g, "").trim()}
+                        </span>
+                      </li>
+                    ) : (
+                      <li key={f} className="flex items-start gap-3">
+                        <Check
+                          size={16}
+                          className={`flex-shrink-0 mt-0.5 ${plan.featured ? "text-success" : "text-success"}`}
+                        />
+                        <span className={`text-sm ${plan.featured ? "text-white/70" : "text-secondary"}`}>
+                          {f}
+                        </span>
+                      </li>
+                    )
+                  )}
                 </ul>
               </div>
             </motion.div>
           ))}
         </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center text-secondary/50 text-sm mt-10"
+          className="mt-12 bg-white border border-card-border rounded-2xl px-8 py-7 max-w-3xl mx-auto flex flex-col sm:flex-row items-center gap-5 shadow-sm"
         >
-          No long-term contracts. Cancel anytime. 30-day money-back if we don't deliver.
-        </motion.p>
+          <div className="text-4xl flex-shrink-0">🛡️</div>
+          <div className="text-center sm:text-left">
+            <p className="font-heading font-bold text-navy text-lg leading-snug">
+              Our 60-Day Results Guarantee
+            </p>
+            <p className="text-secondary text-sm mt-1.5 leading-relaxed">
+              We are so confident in our systems that if you don't see measurable
+              results within your first 60 days, we keep working for free until
+              you do. No contracts. No risk. All on us.
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

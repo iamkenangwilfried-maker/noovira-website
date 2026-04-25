@@ -74,10 +74,10 @@ export default function FinalCTA() {
                 <h3 className="font-heading font-bold text-navy text-xl mb-1">
                   Book Your Free Strategy Call
                 </h3>
-                <p className="text-secondary text-sm">60 minutes · Zoom · Free</p>
+                <p className="text-secondary text-sm">45 minutes · Google Meet · Free</p>
               </div>
               <iframe
-                src="https://cal.com/noovira-audit/60min?overlayCalendar=true&embed=true&theme=light&brandColor=16A34A"
+                src="https://link.nooviraai.com/widget/bookings/45min-nooviraai-call"
                 width="100%"
                 height="700"
                 frameBorder="0"
