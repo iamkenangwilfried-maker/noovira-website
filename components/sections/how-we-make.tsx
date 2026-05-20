@@ -1,125 +1,92 @@
 "use client";
 import { motion } from "framer-motion";
-import { CheckCircle2 } from "lucide-react";
-
-const PILLARS = [
-  {
-    icon: "🎯",
-    title: "Spécialisés Construction",
-    desc: "Nous ne faisons pas de sites pour tout le monde. Notre expertise est les PMEs suisses du bâtiment — nous connaissons votre métier, vos clients et ce qui convertit.",
-  },
-  {
-    icon: "⚡",
-    title: "48h de livraison",
-    desc: "Pas de mois d'attente. Votre site est en ligne en 48 heures ouvrables, prêt à générer des leads dès le premier jour.",
-  },
-  {
-    icon: "📊",
-    title: "Orienté résultats",
-    desc: "Chaque décision de design est orientée conversion. Notre objectif n'est pas un beau site — c'est un site qui remplit votre carnet de chantiers.",
-  },
-  {
-    icon: "🇨🇭",
-    title: "Ancré en Suisse",
-    desc: "Nous comprenons le marché suisse, les attentes locales et les spécificités régionales. Vos clients se reconnaissent dans ce que vous leur présentez.",
-  },
-];
+import { Play } from "lucide-react";
 
 export default function HowWeMake() {
   return (
-    <section className="section-alt py-24 lg:py-32" id="processus">
+    <section className="section-dark py-24 lg:py-32 border-t border-border-dark" id="comment">
       <div className="max-w-7xl mx-auto px-6">
 
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-
-          {/* Left — text */}
-          <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-2xl mb-14"
+        >
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-beige/60 mb-4 block">
+            Notre méthode
+          </span>
+          <h2
+            className="font-heading font-bold text-text-light leading-[1.05] tracking-tight"
+            style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
           >
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-muted mb-5 block">
-              Notre approche
-            </span>
-            <h2
-              className="font-heading font-bold text-dark leading-[1.05] tracking-tight mb-6"
-              style={{ fontSize: "clamp(2rem, 4vw, 3.25rem)" }}
+            Voici comment nous créons
+            <br />
+            des sites qui{" "}
+            <span className="text-beige">génèrent des leads.</span>
+          </h2>
+        </motion.div>
+
+        {/* Video embed */}
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="relative rounded-3xl overflow-hidden border border-border-dark bg-dark-alt"
+          style={{ aspectRatio: "16/9", maxHeight: "560px" }}
+        >
+          {/* YouTube embed — using first testimonial video as demo */}
+          <iframe
+            src="https://www.youtube.com/embed/hn1SIFFnDBY?rel=0&modestbranding=1&controls=1"
+            title="Comment Noovira AI crée des sites web"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full"
+            style={{ border: "none" }}
+          />
+        </motion.div>
+
+        {/* 3 key points below the video */}
+        <div className="grid md:grid-cols-3 gap-px mt-px bg-border-dark rounded-b-3xl overflow-hidden border border-t-0 border-border-dark">
+          {[
+            {
+              step: "01",
+              title: "Appel découverte",
+              desc: "Nous analysons votre activité, vos concurrents et votre zone de chalandise pour créer une stratégie sur-mesure.",
+            },
+            {
+              step: "02",
+              title: "Design & développement",
+              desc: "Votre site est conçu de A à Z — aucun template, aucun compromis. Livré en 48h, prêt à générer des leads.",
+            },
+            {
+              step: "03",
+              title: "Lancement & suivi",
+              desc: "Mise en ligne, SEO de base, fiche Google configurée. Nous restons à vos côtés pour optimiser en continu.",
+            },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="bg-dark-alt px-8 py-8"
             >
-              Conçu pour votre métier.<br />
-              Pas pour le vôtre.
-            </h2>
-            <p className="text-body text-base leading-relaxed mb-10">
-              La plupart des agences web font des sites génériques qui pourraient être pour
-              n'importe qui. Nous sommes différents — nous créons des sites qui parlent
-              directement aux propriétaires suisses cherchant un artisan de confiance.
-            </p>
-
-            <div className="grid sm:grid-cols-2 gap-6">
-              {PILLARS.map((p, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="bg-white rounded-2xl p-5 border border-border"
-                >
-                  <span className="text-2xl mb-3 block">{p.icon}</span>
-                  <h3 className="font-heading font-bold text-dark text-base mb-2">{p.title}</h3>
-                  <p className="text-sm text-body leading-relaxed">{p.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Right — visual card */}
-          <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="relative"
-          >
-            <div className="bg-dark rounded-3xl p-8 lg:p-10">
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-beige/60 mb-6 block">
-                Ce que vous obtenez
+              <span className="text-xs font-bold text-beige/50 tracking-widest block mb-3">
+                {item.step}
               </span>
-              <ul className="space-y-5">
-                {[
-                  "Site professionnel livré en 48h",
-                  "Design 100% sur-mesure à votre image",
-                  "Hébergement, domaine & SSL inclus",
-                  "Formulaires de contact optimisés",
-                  "Fiche Google Business configurée",
-                  "Responsive — parfait sur mobile",
-                  "Optimisé pour les recherches locales",
-                  "Support technique continu",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-text-light/80 text-sm font-medium">
-                    <CheckCircle2 size={18} className="text-beige flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-8 pt-8 border-t border-border-dark">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-2 bg-beige text-dark px-6 py-3.5 rounded-full font-bold text-sm hover:bg-beige-light transition-colors w-full justify-center"
-                >
-                  Démarrer votre projet
-                </a>
-              </div>
-            </div>
-
-            {/* Floating badge */}
-            <div className="absolute -top-4 -right-4 bg-beige text-dark rounded-2xl px-4 py-3 shadow-xl">
-              <div className="text-2xl font-bold font-heading leading-none">48h</div>
-              <div className="text-xs font-semibold mt-0.5">Délai garanti</div>
-            </div>
-          </motion.div>
-
+              <h3 className="font-heading font-bold text-text-light text-lg mb-2">
+                {item.title}
+              </h3>
+              <p className="text-text-light/45 text-sm leading-relaxed">{item.desc}</p>
+            </motion.div>
+          ))}
         </div>
+
       </div>
     </section>
   );

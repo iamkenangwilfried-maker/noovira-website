@@ -88,6 +88,16 @@ section {
   }
 }
 
+/* ─── Hero scrolling columns ─────────────────────────────── */
+@keyframes scroll-col-up {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+@keyframes scroll-col-down {
+  0%   { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
