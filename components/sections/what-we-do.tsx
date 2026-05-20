@@ -33,7 +33,7 @@ export default function WhatWeDo() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="section-dark py-20 lg:py-28" id="services">
+    <section className="section-white py-20 lg:py-28" id="services">
       <div className="max-w-7xl mx-auto px-6">
 
         <div className="grid lg:grid-cols-[1fr_1.7fr] gap-10 lg:gap-20 items-start">
@@ -47,7 +47,7 @@ export default function WhatWeDo() {
               transition={{ duration: 0.6 }}
             >
               <h2
-                className="font-heading text-text-light leading-[1.0] tracking-tight mb-10"
+                className="font-heading text-dark leading-[1.0] tracking-tight mb-10"
                 style={{ fontSize: "clamp(3rem, 6vw, 6rem)" }}
               >
                 Ce que<br />nous<br />faisons
@@ -55,7 +55,7 @@ export default function WhatWeDo() {
 
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 border border-white/30 text-text-light px-6 py-3.5 rounded-full font-bold text-sm hover:border-white hover:bg-white hover:text-dark transition-all"
+                className="inline-flex items-center gap-2 border border-dark/25 text-dark px-6 py-3.5 rounded-full font-bold text-sm hover:border-dark hover:bg-dark hover:text-white transition-all"
               >
                 Démarrer votre projet <ArrowUpRight size={14} />
               </a>
@@ -63,25 +63,25 @@ export default function WhatWeDo() {
           </div>
 
           {/* ── RIGHT: Service rows ── */}
-          <div className="border-t border-white/10">
+          <div className="border-t border-dark/10">
             {SERVICES.map((s, i) => {
               const isOpen = open === i;
               return (
-                <div key={i} className="border-b border-white/10">
+                <div key={i} className="border-b border-dark/10">
                   <button
                     onClick={() => setOpen(isOpen ? null : i)}
                     className="w-full flex items-center justify-between py-8 text-left group"
                   >
                     <span
-                      className="font-heading text-text-light group-hover:text-beige transition-colors leading-tight"
+                      className="font-heading text-dark group-hover:text-[#888] transition-colors leading-tight"
                       style={{ fontSize: "clamp(1.5rem, 3vw, 2.4rem)" }}
                     >
                       {s.title}
                     </span>
                     <div className="flex-shrink-0 ml-6">
                       {isOpen
-                        ? <ArrowUpRight size={28} className="text-text-light" />
-                        : <ArrowRight   size={28} className="text-text-light/30 group-hover:text-text-light transition-colors" />
+                        ? <ArrowUpRight size={28} className="text-dark" />
+                        : <ArrowRight   size={28} className="text-dark/25 group-hover:text-dark transition-colors" />
                       }
                     </div>
                   </button>
@@ -96,7 +96,7 @@ export default function WhatWeDo() {
                         className="overflow-hidden"
                       >
                         <div className="pb-8">
-                          <p className="text-text-light/55 text-base leading-relaxed max-w-2xl">
+                          <p className="text-dark/55 text-base leading-relaxed max-w-2xl">
                             {s.description}
                           </p>
                         </div>

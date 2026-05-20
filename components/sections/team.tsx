@@ -68,7 +68,7 @@ function TeamCard({ m, delay = 0 }: { m: typeof TEAM[0]; delay?: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay }}
-      className="flex-shrink-0 rounded-2xl overflow-hidden border border-border-dark"
+      className="flex-shrink-0 rounded-2xl overflow-hidden border border-dark/10"
       style={{ width: "260px" }}
     >
       {/* Portrait area — tall colored bg with large initials */}
@@ -94,14 +94,14 @@ function TeamCard({ m, delay = 0 }: { m: typeof TEAM[0]; delay?: number }) {
       </div>
 
       {/* Name + role */}
-      <div className="bg-[#1A1A1A] p-5 border-t border-border-dark">
-        <div className="font-heading font-bold text-text-light text-base mb-1">
+      <div className="bg-white p-5 border-t border-dark/10">
+        <div className="font-heading font-bold text-dark text-base mb-1">
           {m.name}
         </div>
         <div className="text-xs font-semibold uppercase tracking-widest" style={{ color: m.accent }}>
           {m.role}
         </div>
-        <div className="text-text-light/30 text-[11px] mt-1">{m.origin}</div>
+        <div className="text-dark/30 text-[11px] mt-1">{m.origin}</div>
       </div>
     </motion.div>
   );
@@ -126,7 +126,7 @@ export default function Team() {
   const onMouseUp = () => { dragging.current = false; };
 
   return (
-    <section className="section-dark py-20 lg:py-28 overflow-hidden" id="equipe">
+    <section className="section-white py-20 lg:py-28 overflow-hidden" id="equipe">
       {/* Heading */}
       <div className="max-w-7xl mx-auto px-6 mb-12">
         <motion.div
@@ -137,12 +137,12 @@ export default function Team() {
           className="text-center"
         >
           <h2
-            className="font-heading text-text-light leading-[1.05] tracking-tight mb-4"
+            className="font-heading text-dark leading-[1.05] tracking-tight mb-4"
             style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
           >
             Notre <span className="font-black">Équipe</span>
           </h2>
-          <p className="text-text-light/40 text-sm max-w-md mx-auto leading-relaxed">
+          <p className="text-dark/40 text-sm max-w-md mx-auto leading-relaxed">
             Des experts passionnés dédiés à faire grandir les artisans suisses en ligne.
           </p>
         </motion.div>

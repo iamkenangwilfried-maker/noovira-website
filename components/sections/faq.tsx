@@ -47,88 +47,88 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section className="section-dark py-20 lg:py-28" id="faq">
+    <section className="section-white py-20 lg:py-28" id="faq">
       <div className="max-w-7xl mx-auto px-6">
 
-        {/* Full-width rounded dark card — Sher exact */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="rounded-3xl overflow-hidden"
-          style={{ background: "#232323" }}
-        >
-          <div className="grid lg:grid-cols-[1fr_1.8fr]">
+        <div className="grid lg:grid-cols-[1fr_1.8fr] gap-10 lg:gap-20 items-start">
 
-            {/* ── LEFT: Title + CTA ── */}
-            <div className="p-10 lg:p-14 border-b lg:border-b-0 lg:border-r border-white/10">
-              <div className="lg:sticky lg:top-32">
-                <h2
-                  className="font-heading text-text-light leading-[1.05] tracking-tight mb-8"
-                  style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
-                >
-                  Questions<br />
-                  fréquemment<br />
-                  <span className="font-black">posées</span>
-                </h2>
+          {/* ── LEFT: Title + CTA (sticky) ── */}
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2
+                className="font-heading text-dark leading-[1.05] tracking-tight mb-8"
+                style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
+              >
+                Questions<br />
+                fréquemment<br />
+                <span className="font-black">posées</span>
+              </h2>
 
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-2 border border-white/30 text-text-light px-6 py-3.5 rounded-full font-bold text-sm hover:border-white hover:bg-white hover:text-dark transition-all"
-                >
-                  Nous contacter <ArrowUpRight size={14} />
-                </a>
-              </div>
-            </div>
-
-            {/* ── RIGHT: Accordion ── */}
-            <div className="p-10 lg:p-14">
-              <div className="border-t border-white/10">
-                {FAQS.map((faq, i) => (
-                  <div key={i} className="border-b border-white/10">
-                    <button
-                      onClick={() => setOpen(open === i ? null : i)}
-                      className="w-full text-left py-7 flex items-start justify-between gap-8 group"
-                    >
-                      <span
-                        className="font-heading text-text-light group-hover:text-beige transition-colors leading-snug"
-                        style={{ fontSize: "clamp(1rem, 2vw, 1.4rem)" }}
-                      >
-                        {faq.q}
-                      </span>
-                      <div className="flex-shrink-0 mt-1">
-                        {open === i
-                          ? <Minus size={18} className="text-text-light/60" />
-                          : <Plus  size={18} className="text-text-light/40 group-hover:text-text-light/60 transition-colors" />
-                        }
-                      </div>
-                    </button>
-
-                    <AnimatePresence initial={false}>
-                      {open === i && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: "easeInOut" }}
-                          className="overflow-hidden"
-                        >
-                          <div className="pb-7 pr-10">
-                            <p className="text-text-light/50 text-sm leading-relaxed">
-                              {faq.a}
-                            </p>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                ))}
-              </div>
-            </div>
-
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 border border-dark/25 text-dark px-6 py-3.5 rounded-full font-bold text-sm hover:border-dark hover:bg-dark hover:text-white transition-all"
+              >
+                Nous contacter <ArrowUpRight size={14} />
+              </a>
+            </motion.div>
           </div>
-        </motion.div>
+
+          {/* ── RIGHT: Accordion ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <div className="border-t border-dark/10">
+              {FAQS.map((faq, i) => (
+                <div key={i} className="border-b border-dark/10">
+                  <button
+                    onClick={() => setOpen(open === i ? null : i)}
+                    className="w-full text-left py-7 flex items-start justify-between gap-8 group"
+                  >
+                    <span
+                      className="font-heading text-dark group-hover:text-[#888] transition-colors leading-snug"
+                      style={{ fontSize: "clamp(1rem, 2vw, 1.4rem)" }}
+                    >
+                      {faq.q}
+                    </span>
+                    <div className="flex-shrink-0 mt-1">
+                      {open === i
+                        ? <Minus size={18} className="text-dark/60" />
+                        : <Plus  size={18} className="text-dark/30 group-hover:text-dark/60 transition-colors" />
+                      }
+                    </div>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {open === i && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pb-7 pr-10">
+                          <p className="text-dark/55 text-sm leading-relaxed">
+                            {faq.a}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+        </div>
 
       </div>
     </section>

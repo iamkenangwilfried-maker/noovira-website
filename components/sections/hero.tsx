@@ -4,38 +4,39 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Play } from "lucide-react";
 
 /**
- * Hero — Sher Agency homepage structure:
+ * Hero — Sher Agency exact clone:
  * • Dark background, full-screen
- * • Stars + rating centered
- * • H1 centered, large
- * • Two CTA buttons
- * • Floating scattered company name tags
- * • Video thumbnail embedded at bottom of hero (clickable, plays inline)
+ * • Floating WEBSITE SCREENSHOT CARDS that FALL from above on page load
+ *   → on hover, the card scales up = preview of the website
+ * • Centered: stars, H1, two CTAs
+ * • Large 16:9 video thumbnail at bottom (click to play)
  */
 
 const VIDEO_ID = "hn1SIFFnDBY";
 
-const TAGS = [
-  { label: "B3 Construction Corp",     rotate: -4,   x: "8%",   y: "42%" },
-  { label: "TEK Construction Group",   rotate: 12,   x: "24%",  y: "54%" },
-  { label: "CR Design & Remodel",      rotate: -18,  x: "2%",   y: "62%" },
-  { label: "C&M Home Builders",        rotate: 6,    x: "76%",  y: "50%" },
-  { label: "Schmitt Company",          rotate: -8,   x: "86%",  y: "42%" },
-  { label: "Qualmax",                  rotate: 22,   x: "90%",  y: "58%" },
-  { label: "42 Parallel Construction", rotate: -14,  x: "4%",   y: "72%" },
-  { label: "B2 Builders",              rotate: 8,    x: "80%",  y: "68%" },
-  { label: "Iron Star Construction",   rotate: -6,   x: "68%",  y: "76%" },
-  { label: "Skender",                  rotate: 16,   x: "3%",   y: "82%" },
-  { label: "Leopardo",                 rotate: -20,  x: "22%",  y: "66%" },
-  { label: "Clune Construction",       rotate: 4,    x: "84%",  y: "80%" },
-  { label: "FH Paschen",               rotate: -10,  x: "16%",  y: "76%" },
-  { label: "JDG Constructions",        rotate: 14,   x: "46%",  y: "46%" },
-  { label: "5 Star Roof Care",         rotate: -24,  x: "91%",  y: "70%" },
-  { label: "Bechtel",                  rotate: 6,    x: "30%",  y: "82%" },
-  { label: "Oasis Builders",           rotate: -12,  x: "64%",  y: "44%" },
-  { label: "Roulin Couverture",        rotate: 10,   x: "5%",   y: "52%" },
-  { label: "Favre Rénovation",         rotate: -16,  x: "78%",  y: "86%" },
-  { label: "Müller Charpente",         rotate: 8,    x: "40%",  y: "88%" },
+// mshots thumbnail helper (same as Portfolio)
+const shot = (url: string) =>
+  `https://s.wordpress.com/mshots/v1/https%3A%2F%2F${encodeURIComponent(url)}?w=400&h=266`;
+
+// Website screenshot cards scattered across the hero background
+const CARDS = [
+  { url: "b3constructioncorp.com",       rotate: -5,   x: "3%",   y: "18%" },
+  { url: "tekconstructiongroup.com",      rotate: 10,   x: "20%",  y: "10%" },
+  { url: "cr-design-remodel.webflow.io", rotate: -14,  x: "38%",  y: "6%"  },
+  { url: "candmhomebuilders.com",         rotate: 7,    x: "57%",  y: "12%" },
+  { url: "schmittcompany.com",            rotate: -9,   x: "74%",  y: "7%"  },
+  { url: "qualmax.co.nz",                 rotate: 18,   x: "88%",  y: "18%" },
+  { url: "42parallelconstruction.com",    rotate: -16,  x: "8%",   y: "60%" },
+  { url: "b2builders.com",               rotate: 6,    x: "83%",  y: "58%" },
+  { url: "ironstarconstruction.com",      rotate: -8,   x: "92%",  y: "38%" },
+  { url: "skender.com",                   rotate: 14,   x: "1%",   y: "40%" },
+  { url: "leopardo.com",                  rotate: -20,  x: "27%",  y: "70%" },
+  { url: "clunegc.com",                   rotate: 5,    x: "68%",  y: "72%" },
+  { url: "fhpaschen.com",                 rotate: -11,  x: "13%",  y: "78%" },
+  { url: "jdgconstructions.com.au",       rotate: 15,   x: "50%",  y: "76%" },
+  { url: "5starroofcare.co.uk",           rotate: -22,  x: "88%",  y: "80%" },
+  { url: "bechtel.com",                   rotate: 8,    x: "32%",  y: "82%" },
+  { url: "oasisbuildersinc.com",          rotate: -6,   x: "63%",  y: "56%" },
 ];
 
 export default function Hero() {
@@ -46,33 +47,54 @@ export default function Hero() {
       className="section-dark relative overflow-hidden pb-16 lg:pb-24"
       style={{ minHeight: "100vh", paddingTop: "72px" }}
     >
-      {/* ── Tag cloud — scattered company name pills ── */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
-        {TAGS.map((tag, i) => (
+      {/* ── WEBSITE SCREENSHOT CARDS — fall from above on load, scale on hover ── */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-10" aria-hidden>
+        {CARDS.map((card, i) => (
           <motion.div
-            key={tag.label}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.8 + i * 0.06 }}
+            key={card.url}
+            initial={{ opacity: 0, y: -160 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 1.1,
+              delay: 0.4 + i * 0.07,
+              type: "spring",
+              stiffness: 55,
+              damping: 14,
+            }}
+            whileHover={{ scale: 2.2, zIndex: 60 }}
             style={{
               position: "absolute",
-              left: tag.x,
-              top: tag.y,
-              transform: `rotate(${tag.rotate}deg)`,
+              left: card.x,
+              top: card.y,
+              rotate: `${card.rotate}deg`,
+              pointerEvents: "auto",
+              cursor: "pointer",
+              transformOrigin: "center center",
             }}
           >
-            <span
-              className="inline-block bg-text-light text-dark text-xs font-semibold px-4 py-2 rounded-full whitespace-nowrap shadow-sm"
-              style={{ fontSize: "12px" }}
+            {/* Mini screenshot card */}
+            <div
+              className="rounded-xl overflow-hidden shadow-2xl border border-white/20 bg-[#222]"
+              style={{ width: "112px", height: "76px" }}
             >
-              {tag.label}
-            </span>
+              <img
+                src={shot(card.url)}
+                alt=""
+                className="w-full h-full object-cover object-top"
+                loading="lazy"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.opacity = "0.12";
+                }}
+              />
+            </div>
           </motion.div>
         ))}
       </div>
 
       {/* ── Centered content ── */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-12 lg:pt-20">
+      <div
+        className="relative z-20 flex flex-col items-center justify-center text-center px-6 pt-12 lg:pt-20"
+      >
 
         {/* Stars */}
         <motion.div
@@ -124,11 +146,11 @@ export default function Hero() {
           </a>
         </motion.div>
 
-        {/* ── VIDEO THUMBNAIL — Sher homepage embedded video ── */}
+        {/* ── VIDEO THUMBNAIL — full-width at bottom of hero ── */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.45 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
           className="relative w-full max-w-5xl rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl"
           style={{ aspectRatio: "16/9" }}
         >
@@ -147,7 +169,6 @@ export default function Hero() {
               className="absolute inset-0 w-full h-full group"
               aria-label="Voir comment nous travaillons"
             >
-              {/* YouTube thumbnail */}
               <img
                 src={`https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`}
                 alt="Comment Noovira crée des sites web pour artisans"
@@ -156,18 +177,15 @@ export default function Hero() {
                   (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${VIDEO_ID}/hqdefault.jpg`;
                 }}
               />
-
-              {/* Dark gradient overlay */}
+              {/* Overlay */}
               <div className="absolute inset-0 bg-dark/50 group-hover:bg-dark/35 transition-colors" />
-
-              {/* Caption bottom-left */}
+              {/* Caption */}
               <div className="absolute bottom-6 left-6 right-6 text-left">
                 <p className="text-text-light/80 text-sm font-bold uppercase tracking-widest">
                   Comment nous créons des sites qui génèrent des leads.
                 </p>
               </div>
-
-              {/* Play button — center */}
+              {/* Play button */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-white flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
                 <Play size={24} className="text-dark fill-dark ml-1" />
               </div>
