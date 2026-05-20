@@ -1,123 +1,71 @@
 "use client";
-import { useState, useRef, useCallback } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus } from "lucide-react";
+import { Plus, Minus, ArrowUpRight } from "lucide-react";
 
-/* ─── Before/After comparison slider ─────────────────────── */
+/**
+ * Process — exact Sher Agency layout:
+ * • Dark background
+ * • LEFT: huge rotated vertical text "Comment Notre Processus Fonctionne"
+ * • RIGHT: 5-step accordion, each step opens to show image + text
+ * • Bottom: two CTA buttons
+ */
+
 function thumb(url: string) {
-  return `https://s.wordpress.com/mshots/v1/https%3A%2F%2F${encodeURIComponent(url)}?w=800&h=500`;
+  return `https://s.wordpress.com/mshots/v1/https%3A%2F%2F${encodeURIComponent(url)}?w=900&h=560`;
 }
 
-function BeforeAfter() {
-  const [position, setPosition] = useState(50);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const dragging = useRef(false);
-
-  const update = useCallback((clientX: number) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const pct  = Math.max(4, Math.min(96, ((clientX - rect.left) / rect.width) * 100));
-    setPosition(pct);
-  }, []);
-
-  return (
-    <div
-      ref={containerRef}
-      className="relative overflow-hidden rounded-2xl select-none"
-      style={{ aspectRatio: "16/9", cursor: "col-resize" }}
-      onMouseDown={() => { dragging.current = true; }}
-      onMouseUp={() =>   { dragging.current = false; }}
-      onMouseLeave={() => { dragging.current = false; }}
-      onMouseMove={(e) => { if (dragging.current) update(e.clientX); }}
-      onTouchStart={(e) => update(e.touches[0].clientX)}
-      onTouchMove={(e) =>  update(e.touches[0].clientX)}
-    >
-      {/* AFTER — full width base layer */}
-      <img
-        src={thumb("b3constructioncorp.com")}
-        alt="Après refonte Noovira"
-        className="absolute inset-0 w-full h-full object-cover object-top"
-        draggable={false}
-      />
-
-      {/* BEFORE — clipped left layer */}
-      <div
-        className="absolute inset-0 overflow-hidden"
-        style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
-      >
-        <img
-          src={thumb("qualmax.co.nz")}
-          alt="Avant refonte"
-          className="absolute inset-0 w-full h-full object-cover object-top"
-          draggable={false}
-        />
-      </div>
-
-      {/* Divider line */}
-      <div
-        className="absolute top-0 bottom-0 w-0.5 bg-white/90 shadow-2xl"
-        style={{ left: `${position}%`, transform: "translateX(-50%)" }}
-      >
-        {/* Handle */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white shadow-xl flex items-center justify-center">
-          <svg viewBox="0 0 24 24" className="w-4 h-4 text-dark" fill="none" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l-4 3 4 3M16 9l4 3-4 3" />
-          </svg>
-        </div>
-      </div>
-
-      {/* Labels */}
-      <div className="absolute top-3 left-3 bg-dark/70 text-white/90 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full backdrop-blur-sm">
-        Avant
-      </div>
-      <div className="absolute top-3 right-3 bg-beige text-dark text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full">
-        Après ✦ Noovira
-      </div>
-    </div>
-  );
-}
-
-/* ─── Process steps ───────────────────────────────────────── */
 const STEPS = [
   {
     id: "01",
-    title: "Planification & Stratégie UX",
-    desc: "On commence par comprendre votre activité, vos clients cibles et votre zone géographique. On définit ensemble la structure et les objectifs de votre site avant de toucher au design.",
-    deliverable: "Brief complet & architecture du site",
-    duration: "Semaine 1 — 2h de travail ensemble",
-    visual: null,
+    title: "Planification & UX",
+    image: thumb("qualmax.co.nz"),
+    imageAlt: "Wireframe UX planning",
+    text: [
+      "La première étape est la plus importante : comprendre le parcours de vos visiteurs.",
+      "Quelles questions ont-ils en arrivant ? Quelles objections faut-il lever ? Comment leur inspirer confiance immédiatement ?",
+      "Nous répondons à toutes ces questions lors d'un atelier de stratégie de 1h30 où nous posons les bases de votre site.",
+    ],
   },
   {
     id: "02",
-    title: "Design Visuel Sur-Mesure",
-    desc: "Notre équipe crée une maquette desktop + mobile à votre image : vos couleurs, votre logo, vos photos. Aucun template générique — chaque élément est pensé pour inspirer confiance immédiatement.",
-    deliverable: "Maquette Figma complète pour validation",
-    duration: "Semaine 1",
-    visual: "before-after",
+    title: "Design Visuel",
+    image: thumb("b3constructioncorp.com"),
+    imageAlt: "Maquettes design",
+    text: [
+      "En fonction de votre activité et de vos clients cibles, nous explorons les directions visuelles qui inspirent le plus confiance.",
+      "Nous vous proposons des maquettes desktop + mobile et n'avançons à l'étape suivante qu'après votre validation complète.",
+    ],
   },
   {
     id: "03",
     title: "Rédaction des Textes",
-    desc: "Nous rédigeons tous les textes de votre site en français : accroche, description de vos services, zones d'intervention, appels à l'action. Des textes clairs qui convertissent.",
-    deliverable: "Textes validés & prêts à publier",
-    duration: "Semaine 1–2",
-    visual: null,
+    image: null,
+    imageAlt: null,
+    text: [
+      "La clé d'un bon texte web, c'est la clarté et la concision.",
+      "Nous rédigeons l'ensemble des textes de votre site en français — accroche, présentation de vos services, zones d'intervention, appels à l'action. Des textes optimisés SEO dès le départ.",
+    ],
   },
   {
     id: "04",
     title: "Développement & Tests",
-    desc: "On intègre le design, on branche les formulaires, on configure l'hébergement et le domaine. On teste chaque page sur desktop, tablette et mobile. Votre site est prêt.",
-    deliverable: "Site live, sécurisé, rapide (PageSpeed 90+)",
-    duration: "Semaine 2",
-    visual: null,
+    image: thumb("tekconstructiongroup.com"),
+    imageAlt: "Développement code",
+    text: [
+      "On intègre le design approuvé, on branche les formulaires de contact, on configure l'hébergement, le SSL et votre nom de domaine.",
+      "Chaque page est testée sur desktop, tablette et mobile. Vitesse PageSpeed optimisée. Votre site est prêt.",
+    ],
   },
   {
     id: "05",
-    title: "Lancement & Génération de Trafic",
-    desc: "Mise en ligne, soumission à Google, configuration de votre fiche Google Business. Pour les clients Scale, on lance les premières campagnes SEO et publicité pour attirer vos premiers leads.",
-    deliverable: "Site indexé, trafic local en route",
-    duration: "Semaine 2 — Lancement officiel",
-    visual: null,
+    title: "Lancement & Trafic",
+    image: thumb("skender.com"),
+    imageAlt: "Analytics Google",
+    text: [
+      "Une fois votre site en ligne, il est temps d'envoyer des visiteurs dessus.",
+      "Nous configurons votre fiche Google Business, soumettons votre site à Google, et pour les clients SEO & Publicité, nous lançons vos premières campagnes.",
+    ],
   },
 ];
 
@@ -125,72 +73,52 @@ export default function Process() {
   const [open, setOpen] = useState<string | null>("01");
 
   return (
-    <section className="section-alt py-24 lg:py-32" id="processus">
+    <section className="section-dark py-20 lg:py-28 overflow-hidden" id="processus">
       <div className="max-w-7xl mx-auto px-6">
 
-        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-16 lg:gap-24">
+        <div className="grid lg:grid-cols-[220px_1fr] gap-10 lg:gap-0 items-start">
 
-          {/* Left — sticky header */}
-          <div className="lg:sticky lg:top-32 lg:self-start">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+          {/* ── LEFT: Rotated vertical text (Sher exact) ── */}
+          <div className="hidden lg:flex items-center justify-center" style={{ minHeight: "700px" }}>
+            <div
+              style={{
+                writingMode: "vertical-rl",
+                transform: "rotate(180deg)",
+                fontSize: "clamp(2.5rem, 5vw, 5rem)",
+                fontWeight: 800,
+                color: "rgba(247,244,239,0.08)",
+                letterSpacing: "-0.03em",
+                lineHeight: 1,
+                userSelect: "none",
+                whiteSpace: "nowrap",
+              }}
             >
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-muted mb-5 block">
-                Notre processus
-              </span>
-              <h2
-                className="font-heading font-bold text-dark leading-[1.05] tracking-tight mb-6"
-                style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)" }}
-              >
-                Comment notre
-                <br />
-                processus{" "}
-                <span className="text-muted">fonctionne.</span>
-              </h2>
-              <p className="text-body leading-relaxed text-base mb-10">
-                Cinq étapes. Deux semaines. Un site professionnel qui travaille pour vous pendant que vous êtes sur vos chantiers.
-              </p>
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 bg-dark text-text-light px-6 py-3.5 rounded-full font-bold text-sm hover:bg-dark/80 transition-colors"
-              >
-                Démarrer maintenant
-              </a>
-            </motion.div>
+              Comment Notre Processus Fonctionne
+            </div>
           </div>
 
-          {/* Right — accordion */}
+          {/* ── RIGHT: Accordion steps ── */}
           <div>
-            <div className="border-t border-border">
-              {STEPS.map((s, i) => {
+            <div className="border-t border-white/10">
+              {STEPS.map((s) => {
                 const isOpen = open === s.id;
                 return (
-                  <motion.div
-                    key={s.id}
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.07 }}
-                    className="border-b border-border"
-                  >
+                  <div key={s.id} className="border-b border-white/10">
                     <button
                       onClick={() => setOpen(isOpen ? null : s.id)}
-                      className="w-full flex items-center justify-between py-6 text-left group"
+                      className="w-full flex items-center gap-6 py-7 text-left group"
                     >
-                      <div className="flex items-center gap-5">
-                        <span className="text-xs font-bold text-muted tracking-widest w-5">{s.id}</span>
-                        <span
-                          className="font-heading font-bold text-dark group-hover:text-body transition-colors"
-                          style={{ fontSize: "clamp(1rem, 1.5vw, 1.2rem)" }}
-                        >
-                          {s.title}
-                        </span>
-                      </div>
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full border border-border flex items-center justify-center text-muted group-hover:border-dark group-hover:text-dark transition-all ml-4">
-                        {isOpen ? <Minus size={14} /> : <Plus size={14} />}
+                      <span className="text-text-light/20 font-bold text-xl w-10 flex-shrink-0 font-heading">
+                        {s.id}
+                      </span>
+                      <span
+                        className="font-heading font-bold text-text-light group-hover:text-beige transition-colors flex-1"
+                        style={{ fontSize: "clamp(1.2rem, 2vw, 1.6rem)" }}
+                      >
+                        {s.title}
+                      </span>
+                      <div className="flex-shrink-0 w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-text-light/50 group-hover:border-beige group-hover:text-beige transition-all">
+                        {isOpen ? <Minus size={16} /> : <Plus size={16} />}
                       </div>
                     </button>
 
@@ -203,37 +131,51 @@ export default function Process() {
                           transition={{ duration: 0.35, ease: "easeInOut" }}
                           className="overflow-hidden"
                         >
-                          <div className="pb-8 pl-10 pr-4 space-y-5">
-                            <p className="text-body text-sm leading-relaxed">{s.desc}</p>
-
-                            {/* Before/After slider — only on step 02 */}
-                            {s.visual === "before-after" && (
-                              <div className="mt-2">
-                                <p className="text-[11px] font-bold uppercase tracking-widest text-muted mb-3">
-                                  Exemple de transformation — faites glisser ↔
-                                </p>
-                                <BeforeAfter />
+                          <div className="pb-10 pl-16 space-y-5">
+                            {/* Screenshot image */}
+                            {s.image && (
+                              <div className="rounded-2xl overflow-hidden border border-white/10">
+                                <img
+                                  src={s.image}
+                                  alt={s.imageAlt ?? ""}
+                                  className="w-full object-cover object-top"
+                                  style={{ maxHeight: "320px" }}
+                                  loading="lazy"
+                                  onError={(e) => {
+                                    (e.target as HTMLImageElement).style.display = "none";
+                                  }}
+                                />
                               </div>
                             )}
-
-                            <div className="flex flex-wrap gap-3">
-                              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-dark bg-white border border-border px-3 py-1.5 rounded-full">
-                                <svg className="w-3.5 h-3.5 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                                </svg>
-                                {s.deliverable}
-                              </span>
-                              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted bg-white border border-border px-3 py-1.5 rounded-full">
-                                🕐 {s.duration}
-                              </span>
-                            </div>
+                            {/* Text paragraphs */}
+                            {s.text.map((p, i) => (
+                              <p key={i} className="text-text-light/55 text-base leading-relaxed">
+                                {p}
+                              </p>
+                            ))}
                           </div>
                         </motion.div>
                       )}
                     </AnimatePresence>
-                  </motion.div>
+                  </div>
                 );
               })}
+            </div>
+
+            {/* Bottom CTAs */}
+            <div className="flex flex-wrap gap-3 mt-10">
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 border border-white/20 text-text-light px-7 py-3.5 rounded-full font-semibold text-sm hover:border-white/60 transition-all"
+              >
+                Démarrer votre projet <ArrowUpRight size={14} />
+              </a>
+              <a
+                href="#portfolio"
+                className="inline-flex items-center gap-2 text-text-light/50 px-7 py-3.5 rounded-full font-semibold text-sm hover:text-text-light transition-colors"
+              >
+                Voir nos réalisations
+              </a>
             </div>
           </div>
 
