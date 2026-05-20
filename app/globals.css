@@ -1,16 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #E8ECF1;
-  --navy: #0F172A;
-  --secondary: #334155;
-  --accent: #16A34A;
-  --accent-hover: #15803D;
-  --success: #16A34A;
+  --background: #FFFFFF;
+  --background-alt: #F7F4EF;
+  --dark: #1C1C1C;
+  --dark-alt: #222222;
+  --beige: #C9BAAC;
+  --beige-light: #EDE8E2;
+  --text-dark: #1C1C1C;
+  --text-body: #3D3D3D;
+  --text-muted: #6B6B6B;
+  --text-light: #F7F4EF;
+  --border: #E5E0D9;
+  --border-dark: #2E2E2E;
 }
 
 * {
@@ -24,31 +30,78 @@ html {
 }
 
 body {
-  background-color: #E8ECF1;
-  color: var(--navy);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--background);
+  color: var(--text-dark);
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
-/* Force uniform gray background on all sections */
-section, footer, header {
-  background-color: transparent !important;
+/* Section rhythm */
+section {
+  position: relative;
 }
 
-/* Remove dividers between sections */
-.section-divider {
-  border-top: none;
+/* Dark sections */
+.section-dark {
+  background-color: var(--dark);
+  color: var(--text-light);
+}
+
+/* Beige / Alt sections */
+.section-alt {
+  background-color: var(--background-alt);
+  color: var(--text-dark);
+}
+
+/* White sections */
+.section-white {
+  background-color: var(--background);
+  color: var(--text-dark);
 }
 
 @layer utilities {
+  /* Gradient text — beige accent */
   .text-gradient {
-    background: linear-gradient(135deg, #16A34A 0%, #22C55E 50%, #16A34A 100%);
+    background: linear-gradient(135deg, #C9BAAC 0%, #E8DDD3 50%, #C9BAAC 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  /* Underline accent */
+  .underline-beige {
+    text-decoration: underline;
+    text-decoration-color: #C9BAAC;
+    text-underline-offset: 4px;
+  }
+
+  /* Smooth hover transitions */
+  .transition-base {
+    transition: all 0.25s ease;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--beige);
+  border-radius: 3px;
+}
+
+/* Selection */
+::selection {
+  background: #C9BAAC;
+  color: #1C1C1C;
 }

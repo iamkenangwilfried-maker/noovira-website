@@ -1,40 +1,36 @@
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus, MessageCircle } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 
-const faqs = [
+const FAQS = [
   {
-    q: "Is the website really free? What's the catch?",
-    a: "Yes, truly free to build and launch. There's no catch — the site is how we start the relationship. You pay $197/month for hosting, SSL, maintenance, and updates. That's it. No surprise fees. You can cancel anytime.",
+    q: "Combien coûte la création de mon site web ?",
+    a: "La création de votre site est totalement gratuite. Vous payez uniquement l'abonnement mensuel pour l'hébergement, la maintenance, les mises à jour et le support technique. Pas de frais cachés, pas de surprise. Vous pouvez annuler à tout moment.",
   },
   {
-    q: "How does the AI call leads? Will it sound robotic?",
-    a: "Our AI uses a custom script built specifically for your business — your name, your services, your area. It sounds natural and professional. We fine-tune it before launch. Most customers don't realize they're not talking to a human until they ask.",
+    q: "En combien de temps mon site sera-t-il en ligne ?",
+    a: "Nous garantissons la mise en ligne en 48 heures ouvrables après votre appel de démarrage. Concrètement : vous partagez vos informations (logo, photos, description des services), nous concevons et développons tout, et votre site est live en 2 jours.",
   },
   {
-    q: "What if I don't have a CRM or lead list?",
-    a: "No problem. We set up a basic CRM for you as part of onboarding. If you do have old leads (even from your phone contacts or a spreadsheet), we can use those for the Database Reactivation campaign. Most contractors find $20k–$80k in that list.",
+    q: "Est-ce que je possède mon site web ?",
+    a: "Oui, le site vous appartient entièrement. Si vous décidez un jour de changer d'agence, nous vous transfèrons tous les fichiers et accès. Pas de rétention de données, pas de verrouillage propriétaire.",
   },
   {
-    q: "How long does setup take?",
-    a: "Website: 48 hours guaranteed. AI systems: 7–10 business days for full configuration, testing, and launch. We do all the technical work — you just need to join one 30-minute onboarding call.",
+    q: "Travaillez-vous uniquement avec des entreprises suisses ?",
+    a: "Nous sommes spécialisés sur le marché suisse romand et francophone. Notre expertise porte sur les PMEs du bâtiment en Suisse — couvreurs, rénovateurs, charpentiers, maçons, peintres. Nous connaissons vos clients et ce qui les convainc de vous appeler.",
   },
   {
-    q: "What markets do you work in?",
-    a: "We currently serve roofing and HVAC contractors in the United States, United Kingdom, Australia, and New Zealand. We work in English only for now.",
+    q: "Est-ce que mon site sera bien positionné sur Google ?",
+    a: "Tous nos sites sont optimisés SEO dès la création : structure technique, mots-clés locaux, fiche Google Business configurée. Pour les clients ayant souscrit au plan SEO & Publicité, nous gérons activement votre référencement chaque mois et vous envoyons un rapport de positionnement mensuel.",
   },
   {
-    q: "Can I cancel anytime?",
-    a: "Yes. No long-term contracts. Month-to-month after the initial setup. We're confident the system will pay for itself many times over, but if you need to pause or cancel, just let us know with 30 days notice.",
+    q: "Je n'ai pas de photos professionnelles. Est-ce un problème ?",
+    a: "Pas du tout. Nous pouvons utiliser des photos libres de droits liées à votre métier pour démarrer, et vous intégrer vos propres photos dès que vous en avez. Beaucoup de nos clients ont commencé avec des photos de téléphone — l'important c'est d'être en ligne et de générer des leads.",
   },
   {
-    q: "What happens if the AI makes a mistake or books the wrong thing?",
-    a: "Every call is recorded and sent to you. The AI follows a strict script and only books appointments for pre-approved services. If there's ever an issue, you'll know within minutes. Our error rate is below 2%.",
-  },
-  {
-    q: "Do I need to be tech-savvy to use this?",
-    a: "Not at all. We handle every technical aspect. You get a simple dashboard to see leads, calls, and reviews. If you can read a text message, you can use our system. We also provide onboarding support and a dedicated contact for any questions.",
+    q: "Que se passe-t-il si je ne suis pas satisfait du résultat ?",
+    a: "Avant de mettre le site en ligne, vous validez le design et les contenus. Si quelque chose ne vous convient pas, nous modifions jusqu'à ce que vous soyez entièrement satisfait. Notre objectif est un site dont vous êtes fier et qui vous génère du chiffre d'affaires.",
   },
 ];
 
@@ -42,83 +38,82 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section className="py-14 bg-background section-divider" id="faq">
-      <div className="max-w-4xl mx-auto px-5">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mb-10"
-        >
-          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
-            {/* Left */}
-            <div className="lg:w-[40%]">
-              <div className="inline-flex items-center bg-accent/10 text-accent text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
-                FAQ
-              </div>
-              <h2 className="font-heading font-bold text-4xl text-navy leading-tight mb-4">
-                Frequently Asked Questions
-              </h2>
-              <div className="w-16 h-1 bg-accent rounded-full mb-6" />
-              <p className="text-secondary text-sm leading-relaxed mb-6">
-                Can't find what you're looking for? We're here to help.
-              </p>
-              <a
-                href="#book"
-                className="inline-flex items-center gap-2 bg-navy text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-navy-light transition-colors"
-              >
-                <MessageCircle size={16} />
-                Talk to us directly
-              </a>
-            </div>
+    <section className="section-white py-24 lg:py-32" id="faq">
+      <div className="max-w-7xl mx-auto px-6">
 
-            {/* Right — accordion */}
-            <div className="lg:w-[57%] space-y-3">
-              {faqs.map((faq, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.05 + i * 0.05 }}
-                  className="border border-card-border rounded-xl overflow-hidden bg-white"
+        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 lg:gap-24">
+
+          {/* Left */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:sticky lg:top-32 lg:self-start"
+          >
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-muted mb-5 block">
+              FAQ
+            </span>
+            <h2
+              className="font-heading font-bold text-dark leading-[1.05] tracking-tight mb-6"
+              style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)" }}
+            >
+              Questions<br />
+              fréquentes.
+            </h2>
+            <p className="text-body leading-relaxed mb-8">
+              Vous ne trouvez pas la réponse à votre question ? Nous sommes disponibles pour en discuter directement.
+            </p>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 bg-dark text-text-light px-6 py-3.5 rounded-full font-bold text-sm hover:bg-dark/80 transition-colors"
+            >
+              Nous contacter
+            </a>
+          </motion.div>
+
+          {/* Right — accordion */}
+          <div className="border-t border-border">
+            {FAQS.map((faq, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+                className="border-b border-border"
+              >
+                <button
+                  onClick={() => setOpen(open === i ? null : i)}
+                  className="w-full text-left py-6 flex items-start justify-between gap-6 group"
                 >
-                  <button
-                    onClick={() => setOpen(open === i ? null : i)}
-                    className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-muted/50 transition-colors"
-                  >
-                    <span className="font-heading font-semibold text-navy text-sm leading-snug">
-                      {faq.q}
-                    </span>
-                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-navy flex items-center justify-center">
-                      {open === i ? (
-                        <Minus size={14} className="text-white" />
-                      ) : (
-                        <Plus size={14} className="text-white" />
-                      )}
-                    </span>
-                  </button>
-                  <AnimatePresence>
-                    {open === i && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="px-6 pb-5">
-                          <p className="text-secondary text-sm leading-relaxed">{faq.a}</p>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              ))}
-            </div>
+                  <span className="font-heading font-semibold text-dark group-hover:text-body transition-colors text-base leading-snug">
+                    {faq.q}
+                  </span>
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full border border-border flex items-center justify-center text-muted group-hover:border-dark group-hover:text-dark transition-all mt-0.5">
+                    {open === i ? <Minus size={14} /> : <Plus size={14} />}
+                  </div>
+                </button>
+                <AnimatePresence initial={false}>
+                  {open === i && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pb-6 pr-14">
+                        <p className="text-body text-sm leading-relaxed">{faq.a}</p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            ))}
           </div>
-        </motion.div>
+
+        </div>
       </div>
     </section>
   );

@@ -1,271 +1,160 @@
 "use client";
-import { useState, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 
-const slides = [
-  {
-    image: "/sites/site1.webp",
-    title: "Eagle Roofing & Sons",
-    location: "Texas, USA",
-    tag: "Website + AI",
-    tagColor: "bg-accent",
-    plan: "Growth Plan",
-    stats: [
-      { val: "3 days", label: "Delivery" },
-      { val: "+42 reviews", label: "in 60 days" },
-      { val: "$31k", label: "recovered" },
-    ],
-  },
-  {
-    image: "/sites/site2.webp",
-    title: "Summit Pro Roofing",
-    location: "Florida, USA",
-    tag: "Full Scale",
-    tagColor: "bg-success",
-    plan: "Scale Plan",
-    stats: [
-      { val: "48h", label: "Delivery" },
-      { val: "+89 reviews", label: "in 90 days" },
-      { val: "$47k", label: "recovered" },
-    ],
-  },
-  {
-    image: "/sites/site3.webp",
-    title: "Apex Roofing Group",
-    location: "California, USA",
-    tag: "Website",
-    tagColor: "bg-secondary",
-    plan: "Starter Plan",
-    stats: [
-      { val: "48h", label: "Delivery" },
-      { val: "Free", label: "Setup" },
-      { val: "$0", label: "Upfront" },
-    ],
-  },
-  {
-    image: "/sites/site4.webp",
-    title: "Roofy Contractors",
-    location: "New York, USA",
-    tag: "Website + AI",
-    tagColor: "bg-accent",
-    plan: "Growth Plan",
-    stats: [
-      { val: "2 days", label: "Delivery" },
-      { val: "+55 reviews", label: "in 60 days" },
-      { val: "$28k", label: "recovered" },
-    ],
-  },
-  {
-    image: "/sites/site5.webp",
-    title: "ClearPath Contractors",
-    location: "Illinois, USA",
-    tag: "Full Scale",
-    tagColor: "bg-success",
-    plan: "Scale Plan",
-    stats: [
-      { val: "48h", label: "Delivery" },
-      { val: "+112 reviews", label: "in 90 days" },
-      { val: "$80k", label: "recovered" },
-    ],
-  },
-  {
-    image: "/sites/site5b.webp",
-    title: "Reliable Expert Roofing",
-    location: "Manchester, UK",
-    tag: "Website + AI",
-    tagColor: "bg-accent",
-    plan: "Growth Plan",
-    stats: [
-      { val: "48h", label: "Delivery" },
-      { val: "+38 reviews", label: "in 45 days" },
-      { val: "$22k", label: "recovered" },
-    ],
-  },
-  {
-    image: "/sites/site6.webp",
-    title: "SkyLine Roofing AU",
-    location: "Sydney, Australia",
-    tag: "Full Scale",
-    tagColor: "bg-success",
-    plan: "Scale Plan",
-    stats: [
-      { val: "48h", label: "Delivery" },
-      { val: "+67 reviews", label: "in 60 days" },
-      { val: "$53k", label: "recovered" },
-    ],
-  },
+const PROJECTS = [
+  { url: "b3constructioncorp.com",         title: "B3 Construction Corp",     category: "Construction Générale",      flag: "🇺🇸" },
+  { url: "tekconstructiongroup.com",        title: "TEK Construction Group",   category: "Construction Générale",      flag: "🇺🇸" },
+  { url: "cr-design-remodel.webflow.io",   title: "CR Design & Remodel",      category: "Rénovation & Design",        flag: "🇺🇸" },
+  { url: "candmhomebuilders.com",          title: "C&M Home Builders",        category: "Construction Résidentielle", flag: "🇺🇸" },
+  { url: "schmittcompany.com",             title: "Schmitt Company",           category: "Construction Commerciale",   flag: "🇺🇸" },
+  { url: "qualmax.co.nz",                  title: "Qualmax",                  category: "Construction & Rénovation",  flag: "🇳🇿" },
+  { url: "42parallelconstruction.com",     title: "42 Parallel Construction", category: "Construction Générale",      flag: "🇺🇸" },
+  { url: "b2builders.com",                 title: "B2 Builders",              category: "Construction Résidentielle", flag: "🇺🇸" },
+  { url: "ironstarconstruction.com",       title: "Iron Star Construction",   category: "Construction Industrielle",  flag: "🇺🇸" },
+  { url: "skender.com",                    title: "Skender",                  category: "Construction Commerciale",   flag: "🇺🇸" },
+  { url: "leopardo.com",                   title: "Leopardo",                 category: "Construction & Design",      flag: "🇺🇸" },
+  { url: "clunegc.com",                    title: "Clune Construction",       category: "Construction Commerciale",   flag: "🇺🇸" },
+  { url: "fhpaschen.com",                  title: "FH Paschen",               category: "Infrastructure & BTP",       flag: "🇺🇸" },
+  { url: "jdgconstructions.com.au",        title: "JDG Constructions",        category: "Construction Résidentielle", flag: "🇦🇺" },
+  { url: "5starroofcare.co.uk",            title: "5 Star Roof Care",         category: "Couverture & Toiture",       flag: "🇬🇧" },
+  { url: "bechtel.com",                    title: "Bechtel",                  category: "Infrastructure Mondiale",    flag: "🇺🇸" },
+  { url: "oasisbuildersinc.com",           title: "Oasis Builders",           category: "Construction Résidentielle", flag: "🇺🇸" },
 ];
 
+// Screenshot via WordPress mshots (free, no signup required)
+function thumb(url: string) {
+  return `https://s.wordpress.com/mshots/v1/https%3A%2F%2F${encodeURIComponent(url)}?w=640&h=400`;
+}
+
 export default function Portfolio() {
-  const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(0);
-  const touchStartX = useRef<number | null>(null);
+  const [activeIdx, setActiveIdx] = useState(0);
+  const active = PROJECTS[activeIdx];
 
-  const go = useCallback(
-    (idx: number) => {
-      setDirection(idx > current ? 1 : -1);
-      setCurrent((idx + slides.length) % slides.length);
-    },
-    [current]
-  );
-
-  const prev = () => go(current - 1);
-  const next = () => go(current + 1);
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const diff = touchStartX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
-    touchStartX.current = null;
-  };
-
-  const variants = {
-    enter: (d: number) => ({ x: d > 0 ? "100%" : "-100%", opacity: 0 }),
-    center: { x: 0, opacity: 1 },
-    exit: (d: number) => ({ x: d > 0 ? "-100%" : "100%", opacity: 0 }),
-  };
-
-  const slide = slides[current];
+  const prev = () => setActiveIdx((i) => (i - 1 + PROJECTS.length) % PROJECTS.length);
+  const next = () => setActiveIdx((i) => (i + 1) % PROJECTS.length);
 
   return (
-    <section className="py-14 bg-background section-divider" id="portfolio">
-      <div className="max-w-6xl mx-auto px-5">
+    <section className="section-dark py-24 lg:py-32" id="portfolio">
+      <div className="max-w-7xl mx-auto px-6">
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-7"
+          transition={{ duration: 0.6 }}
+          className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-14"
         >
-          <div className="inline-flex items-center bg-accent/10 text-accent text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
-            Our Work
+          <div>
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-beige/60 mb-4 block">
+              Nos réalisations
+            </span>
+            <h2
+              className="font-heading font-bold text-text-light leading-tight tracking-tight"
+              style={{ fontSize: "clamp(2rem, 4vw, 3.25rem)" }}
+            >
+              17 sites.<br />
+              <span className="text-beige">Des résultats concrets.</span>
+            </h2>
           </div>
-          <h2 className="font-heading font-bold text-4xl md:text-5xl text-navy">
-            Sites We've Built
-          </h2>
-          <p className="text-secondary mt-3 text-base">
-            Real websites for real contractors — delivered in 48 hours.
-          </p>
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 bg-beige text-dark px-6 py-3.5 rounded-full font-bold text-sm hover:bg-beige-light transition-colors self-start lg:self-auto"
+          >
+            Démarrer votre projet
+            <ArrowUpRight size={16} />
+          </a>
         </motion.div>
 
-        {/* Slider */}
-        <div
-          className="relative rounded-2xl overflow-hidden bg-white border border-card-border shadow-lg"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
-          {/* Main slide */}
-          <div className="relative aspect-[16/9] md:aspect-[16/7] overflow-hidden">
-            <AnimatePresence initial={false} custom={direction} mode="wait">
-              <motion.div
-                key={current}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="absolute inset-0"
-              >
-                <img
-                  src={slide.image}
-                  alt={slide.title}
-                  className="w-full h-full object-cover object-top"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-navy/40 to-transparent" />
+        {/* Featured project card */}
+        <div className="bg-dark-alt rounded-3xl overflow-hidden border border-border-dark mb-8">
+          <div className="grid md:grid-cols-[320px_1fr]">
+            {/* Info panel */}
+            <div className="p-8 lg:p-10 flex flex-col justify-between border-b md:border-b-0 md:border-r border-border-dark">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-widest text-beige/60 mb-2 block">
+                  {active.category}
+                </span>
+                <h3 className="font-heading font-bold text-text-light text-2xl mb-1">
+                  {active.flag} {active.title}
+                </h3>
+                <span className="text-sm text-text-light/30">{active.url}</span>
+              </div>
 
-                {/* Slide info */}
-                <div className="absolute bottom-6 left-6 right-6">
-                  <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-                    <div>
-                      <span className={`inline-block text-xs font-bold text-white px-3 py-1 rounded-full mb-3 ${slide.tagColor}`}>
-                        {slide.tag}
-                      </span>
-                      <h3 className="font-heading font-bold text-white text-2xl md:text-3xl leading-tight">
-                        {slide.title}
-                      </h3>
-                      <p className="text-white/60 text-sm mt-1">{slide.location} · {slide.plan}</p>
-                    </div>
-                    <div className="flex gap-5 sm:gap-8">
-                      {slide.stats.map((s) => (
-                        <div key={s.label} className="text-center">
-                          <div className="font-heading font-bold text-white text-lg md:text-xl">{s.val}</div>
-                          <div className="text-white/50 text-xs mt-0.5">{s.label}</div>
-                        </div>
-                      ))}
-                    </div>
+              <div className="mt-8">
+                <a
+                  href={`https://${active.url}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-beige hover:text-beige-light transition-colors"
+                >
+                  Voir le site live <ArrowUpRight size={14} />
+                </a>
+                <div className="flex items-center justify-between mt-8 pt-6 border-t border-border-dark">
+                  <span className="text-sm text-text-light/40 font-medium">
+                    {String(activeIdx + 1).padStart(2, "0")} / {String(PROJECTS.length).padStart(2, "0")}
+                  </span>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={prev}
+                      className="w-10 h-10 rounded-full border border-border-dark flex items-center justify-center text-text-light/50 hover:border-beige hover:text-beige transition-all"
+                    >
+                      <ChevronLeft size={18} />
+                    </button>
+                    <button
+                      onClick={next}
+                      className="w-10 h-10 rounded-full border border-border-dark flex items-center justify-center text-text-light/50 hover:border-beige hover:text-beige transition-all"
+                    >
+                      <ChevronRight size={18} />
+                    </button>
                   </div>
                 </div>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Arrows */}
-            <button
-              onClick={prev}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/20 hover:bg-white/40 backdrop-blur-sm border border-white/30 rounded-full flex items-center justify-center transition-all hover:scale-110"
-              aria-label="Previous"
-            >
-              <ChevronLeft size={20} className="text-white" />
-            </button>
-            <button
-              onClick={next}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/20 hover:bg-white/40 backdrop-blur-sm border border-white/30 rounded-full flex items-center justify-center transition-all hover:scale-110"
-              aria-label="Next"
-            >
-              <ChevronRight size={20} className="text-white" />
-            </button>
-          </div>
-
-          {/* Thumbnail strip + dots */}
-          <div className="bg-white border-t border-card-border px-6 py-4">
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex gap-2 overflow-x-auto">
-                {slides.map((s, i) => (
-                  <button
-                    key={i}
-                    onClick={() => go(i)}
-                    className={`flex-shrink-0 w-14 h-10 rounded-lg overflow-hidden border-2 transition-all ${
-                      i === current
-                        ? "border-accent opacity-100 scale-105"
-                        : "border-transparent opacity-40 hover:opacity-70"
-                    }`}
-                  >
-                    <img src={s.image} alt={s.title} className="w-full h-full object-cover object-top" />
-                  </button>
-                ))}
               </div>
+            </div>
 
-              {/* Dot bullets */}
-              <div className="flex items-center gap-2 flex-shrink-0">
-                {slides.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => go(i)}
-                    aria-label={`Slide ${i + 1}`}
-                    className={`rounded-full transition-all duration-300 ${
-                      i === current
-                        ? "w-6 h-2 bg-accent"
-                        : "w-2 h-2 bg-navy/20 hover:bg-navy/40"
-                    }`}
-                  />
-                ))}
-              </div>
+            {/* Screenshot preview */}
+            <div className="relative aspect-video md:aspect-auto min-h-[280px] bg-dark overflow-hidden">
+              <img
+                key={active.url}
+                src={thumb(active.url)}
+                alt={active.title}
+                className="w-full h-full object-cover object-top"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark/30 to-transparent pointer-events-none" />
             </div>
           </div>
         </div>
 
-        {/* Counter */}
-        <div className="text-center mt-5">
-          <span className="text-secondary/40 text-sm font-medium">
-            {String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
-          </span>
+        {/* Thumbnail grid */}
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-2">
+          {PROJECTS.map((p, i) => (
+            <button
+              key={p.url}
+              onClick={() => setActiveIdx(i)}
+              className={`group relative rounded-xl overflow-hidden aspect-video bg-dark-alt border transition-all duration-200 ${
+                activeIdx === i
+                  ? "border-beige shadow-lg shadow-beige/10 scale-[1.03]"
+                  : "border-border-dark hover:border-beige/40"
+              }`}
+              title={p.title}
+            >
+              <img
+                src={thumb(p.url)}
+                alt={p.title}
+                className="w-full h-full object-cover object-top opacity-60 group-hover:opacity-80 transition-opacity"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark/70 to-transparent" />
+              {activeIdx === i && (
+                <div className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-beige" />
+              )}
+            </button>
+          ))}
         </div>
+
       </div>
     </section>
   );
