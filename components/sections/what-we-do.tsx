@@ -1,149 +1,116 @@
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+
+/**
+ * What We Do — exact Sher Agency layout:
+ * • Dark background
+ * • LEFT: "What we do" title + CTA button
+ * • RIGHT: Three rows with horizontal dividers + arrow icons
+ * • Click row to expand description below (accordion)
+ */
 
 const SERVICES = [
   {
     id: "01",
-    label: "Web Design",
-    title: "Créer votre site professionnel",
-    description:
-      "Un site web conçu spécifiquement pour les PMEs suisses de la construction. Design moderne, mobile-first, optimisé pour convertir les visiteurs en prospects. Livré en 2 semaines, clé en main.",
-    bullets: [
-      "Design sur-mesure — aucun template générique",
-      "Mobile-first & Google-optimisé dès le départ",
-      "Formulaires de contact + suivi des leads intégré",
-      "Livraison garantie en 2 semaines ouvrables",
-    ],
-    tag: "Le plus populaire",
+    label: "Création de Site Web",
+    desc: "Un site web conçu spécifiquement pour les PMEs suisses de la construction. Design moderne, mobile-first, optimisé pour convertir les visiteurs en prospects. Livré en 2 semaines, clé en main.",
   },
   {
     id: "02",
     label: "Gestion de Site",
-    title: "Gérer votre présence en ligne",
-    description:
-      "Vous vous concentrez sur vos chantiers, nous gérons votre site. Mises à jour régulières, sécurité renforcée, performances optimisées et support technique disponible 7j/7.",
-    bullets: [
-      "Mises à jour de contenu illimitées",
-      "Sauvegardes automatiques & sécurité SSL",
-      "Rapport mensuel de performances",
-      "Support technique prioritaire 7j/7",
-    ],
-    tag: "Gestion complète",
+    desc: "Vous vous concentrez sur vos chantiers, nous gérons votre site. Mises à jour régulières, sécurité, hébergement et support disponible 7j/7. Votre présence en ligne toujours optimale.",
   },
   {
     id: "03",
     label: "SEO & Publicité",
-    title: "Générer des leads qualifiés",
-    description:
-      "Apparaître en tête des recherches Google quand un client cherche votre métier dans votre région. SEO local, Google Ads ciblés et optimisation continue pour un flux constant de nouveaux chantiers.",
-    bullets: [
-      "SEO local ciblé sur votre zone géographique",
-      "Campagnes Google Ads ROI-positives",
-      "Fiche Google Business optimisée",
-      "Rapport mensuel des positions & conversions",
-    ],
-    tag: "Croissance",
+    desc: "Apparaître en tête des recherches Google quand un client cherche votre métier dans votre région. SEO local, Google Ads ciblés et fiche Google Business pour un flux constant de nouveaux chantiers.",
   },
 ];
 
 export default function WhatWeDo() {
-  const [open, setOpen] = useState<string | null>("01");
+  const [open, setOpen] = useState<string | null>(null);
 
   return (
-    <section className="section-dark py-24 lg:py-32" id="gestion">
+    <section className="section-dark py-20 lg:py-28" id="gestion">
       <div className="max-w-7xl mx-auto px-6">
 
-        {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-beige/70 mb-4 block">
-              Ce que nous faisons
-            </span>
+        <div className="grid lg:grid-cols-[380px_1fr] gap-12 lg:gap-20">
+
+          {/* ── LEFT: Title + CTA ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:sticky lg:top-32 lg:self-start"
+          >
             <h2
-              className="font-heading font-bold text-text-light leading-[1.05] tracking-tight"
+              className="font-heading font-bold text-text-light leading-tight tracking-tight mb-8"
               style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
             >
-              Trois services.<br />
-              Un seul objectif : <span className="text-beige">votre croissance.</span>
+              Ce que<br />nous faisons
             </h2>
-          </div>
-          <p className="text-text-light/50 max-w-sm text-base leading-relaxed lg:text-right">
-            Chaque service est conçu pour fonctionner seul ou ensemble, selon vos besoins et votre budget.
-          </p>
-        </div>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 border border-white/20 text-text-light px-6 py-3.5 rounded-full font-semibold text-sm hover:border-white/50 hover:text-white transition-all"
+            >
+              Démarrer votre projet <ArrowUpRight size={14} />
+            </a>
+          </motion.div>
 
-        {/* Accordion */}
-        <div className="border-t border-border-dark">
-          {SERVICES.map((s) => {
-            const isOpen = open === s.id;
-            return (
-              <div key={s.id} className="border-b border-border-dark">
-                <button
-                  onClick={() => setOpen(isOpen ? null : s.id)}
-                  className="w-full flex items-center justify-between py-7 text-left group"
+          {/* ── RIGHT: Service rows ── */}
+          <div>
+            {SERVICES.map((s, i) => {
+              const isOpen = open === s.id;
+              return (
+                <motion.div
+                  key={s.id}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="border-t border-white/10"
                 >
-                  <div className="flex items-center gap-6">
-                    <span className="text-xs font-bold text-beige/50 tracking-widest w-6">{s.id}</span>
-                    <div>
-                      <span className="text-xs font-bold uppercase tracking-[0.15em] text-beige/60 block mb-0.5">
-                        {s.label}
-                      </span>
-                      <span
-                        className="font-heading font-bold text-text-light group-hover:text-beige transition-colors"
-                        style={{ fontSize: "clamp(1.1rem, 2vw, 1.5rem)" }}
-                      >
-                        {s.title}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex-shrink-0 w-9 h-9 rounded-full border border-border-dark flex items-center justify-center text-text-light/50 group-hover:border-beige group-hover:text-beige transition-all">
-                    {isOpen ? <Minus size={16} /> : <Plus size={16} />}
-                  </div>
-                </button>
-
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.35, ease: "easeInOut" }}
-                      className="overflow-hidden"
+                  <button
+                    onClick={() => setOpen(isOpen ? null : s.id)}
+                    className="w-full flex items-center justify-between py-7 group text-left"
+                  >
+                    <span
+                      className="font-heading font-bold text-text-light group-hover:text-beige transition-colors"
+                      style={{ fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)" }}
                     >
-                      <div className="pb-8 pl-12 pr-4 grid md:grid-cols-2 gap-8">
-                        <div>
-                          <span className="inline-block text-xs font-bold bg-beige/15 text-beige px-3 py-1 rounded-full mb-4">
-                            {s.tag}
-                          </span>
-                          <p className="text-text-light/55 leading-relaxed text-base">{s.description}</p>
-                        </div>
-                        <ul className="space-y-3">
-                          {s.bullets.map((b) => (
-                            <li key={b} className="flex items-start gap-3 text-sm text-text-light/70">
-                              <svg
-                                className="w-4 h-4 text-beige flex-shrink-0 mt-0.5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth={2.5}
-                              >
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                              </svg>
-                              {b}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
-        </div>
+                      {s.label}
+                    </span>
+                    <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0 group-hover:border-beige group-hover:text-beige text-text-light/60 transition-all">
+                      <ArrowUpRight size={18} className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
+                    </div>
+                  </button>
 
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <p className="text-text-light/55 text-base leading-relaxed pb-7 max-w-xl">
+                          {s.desc}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
+            {/* Final border */}
+            <div className="border-t border-white/10" />
+          </div>
+
+        </div>
       </div>
     </section>
   );

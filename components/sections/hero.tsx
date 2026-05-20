@@ -1,242 +1,127 @@
 "use client";
 import { motion } from "framer-motion";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
-// All 17 portfolio sites split across 3 columns
-const COL1 = [
-  "b3constructioncorp.com",
-  "cr-design-remodel.webflow.io",
-  "schmittcompany.com",
-  "42parallelconstruction.com",
-  "ironstarconstruction.com",
-  "leopardo.com",
-];
-const COL2 = [
-  "tekconstructiongroup.com",
-  "candmhomebuilders.com",
-  "qualmax.co.nz",
-  "b2builders.com",
-  "skender.com",
-  "clunegc.com",
-];
-const COL3 = [
-  "fhpaschen.com",
-  "jdgconstructions.com.au",
-  "5starroofcare.co.uk",
-  "bechtel.com",
-  "oasisbuildersinc.com",
-];
+/**
+ * Hero — exact clone of Sher Agency:
+ * • Dark background, full-screen, centered text
+ * • Stars + rating centered
+ * • H1 centered, large
+ * • Two centered CTA buttons
+ * • Floating scattered company name tags (the tag-canvas effect)
+ */
 
-function thumb(url: string) {
-  return `https://s.wordpress.com/mshots/v1/https%3A%2F%2F${encodeURIComponent(url)}?w=640&h=400`;
-}
-
-function ScrollCol({
-  sites,
-  direction,
-  duration,
-  delay = "0s",
-}: {
-  sites: string[];
-  direction: "up" | "down";
-  duration: string;
-  delay?: string;
-}) {
-  // Double the list so the seamless loop works (translateY -50% brings it back to start)
-  const doubled = [...sites, ...sites];
-  return (
-    <div className="flex-1 overflow-hidden">
-      <div
-        style={{
-          animation: `scroll-col-${direction} ${duration} linear infinite`,
-          animationDelay: delay,
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          willChange: "transform",
-        }}
-      >
-        {doubled.map((url, i) => (
-          <div
-            key={`${url}-${i}`}
-            className="rounded-xl overflow-hidden flex-shrink-0 bg-dark-alt border border-white/[0.06]"
-            style={{ height: "160px" }}
-          >
-            <img
-              src={thumb(url)}
-              alt=""
-              className="w-full h-full object-cover object-top"
-              loading="lazy"
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.opacity = "0";
-              }}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-const STATS = [
-  { value: "17+", label: "Sites livrés" },
-  { value: "5.0 ★", label: "Note Google" },
-  { value: "2 semaines", label: "Délai garanti" },
+const TAGS = [
+  { label: "B3 Construction Corp",     rotate: -4,   x: "8%",   y: "58%" },
+  { label: "TEK Construction Group",   rotate: 12,   x: "24%",  y: "72%" },
+  { label: "CR Design & Remodel",      rotate: -18,  x: "43%",  y: "82%" },
+  { label: "C&M Home Builders",        rotate: 6,    x: "62%",  y: "68%" },
+  { label: "Schmitt Company",          rotate: -8,   x: "76%",  y: "78%" },
+  { label: "Qualmax",                  rotate: 22,   x: "88%",  y: "60%" },
+  { label: "42 Parallel Construction", rotate: -14,  x: "14%",  y: "88%" },
+  { label: "B2 Builders",              rotate: 8,    x: "55%",  y: "90%" },
+  { label: "Iron Star Construction",   rotate: -6,   x: "70%",  y: "86%" },
+  { label: "Skender",                  rotate: 16,   x: "3%",   y: "74%" },
+  { label: "Leopardo",                 rotate: -20,  x: "36%",  y: "66%" },
+  { label: "Clune Construction",       rotate: 4,    x: "82%",  y: "72%" },
+  { label: "FH Paschen",              rotate: -10,  x: "20%",  y: "62%" },
+  { label: "JDG Constructions",        rotate: 14,   x: "48%",  y: "74%" },
+  { label: "5 Star Roof Care",         rotate: -24,  x: "91%",  y: "84%" },
+  { label: "Bechtel",                  rotate: 6,    x: "30%",  y: "80%" },
+  { label: "Oasis Builders",           rotate: -12,  x: "66%",  y: "58%" },
+  // Extras to fill the canvas
+  { label: "Roulin Couverture",        rotate: 10,   x: "5%",   y: "64%" },
+  { label: "Favre Rénovation",         rotate: -16,  x: "78%",  y: "90%" },
+  { label: "Müller Charpente",         rotate: 8,    x: "40%",  y: "94%" },
 ];
 
 export default function Hero() {
   return (
-    <section className="section-dark relative min-h-screen overflow-hidden" style={{ paddingTop: "72px" }}>
-
-      {/* Subtle grid */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(to right, #C9BAAC 1px, transparent 1px), linear-gradient(to bottom, #C9BAAC 1px, transparent 1px)`,
-          backgroundSize: "80px 80px",
-        }}
-      />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full h-full">
-        <div className="grid lg:grid-cols-2 gap-0" style={{ minHeight: "calc(100vh - 72px)" }}>
-
-          {/* ── LEFT: Text content ── */}
-          <div className="flex flex-col justify-center py-16 lg:py-20 lg:pr-14">
-
-            {/* Stars + badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="flex items-center gap-3 mb-7"
+    <section
+      className="section-dark relative overflow-hidden"
+      style={{ minHeight: "100vh", paddingTop: "72px" }}
+    >
+      {/* ── Tag cloud — scattered company name pills ── */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
+        {TAGS.map((tag, i) => (
+          <motion.div
+            key={tag.label}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.8 + i * 0.06 }}
+            style={{
+              position: "absolute",
+              left: tag.x,
+              top: tag.y,
+              transform: `rotate(${tag.rotate}deg)`,
+            }}
+          >
+            <span
+              className="inline-block bg-text-light text-dark text-xs font-semibold px-4 py-2 rounded-full whitespace-nowrap shadow-sm"
+              style={{ fontSize: "12px" }}
             >
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={15} className="text-beige fill-beige" />
-                ))}
-              </div>
-              <span className="text-sm font-semibold text-text-light/50">
-                5.0 · 175+ avis clients
-              </span>
-            </motion.div>
-
-            {/* H1 */}
-            <motion.h1
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="font-heading font-bold text-text-light leading-[1.05] tracking-[-0.03em] mb-6"
-              style={{ fontSize: "clamp(2.8rem, 5vw, 5rem)" }}
-            >
-              Nous créons des sites
-              <br />
-              qui{" "}
-              <span className="text-beige">remplissent</span>
-              <br />
-              votre carnet.
-            </motion.h1>
-
-            {/* Sub */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-text-light/50 text-lg leading-relaxed mb-10 max-w-md"
-            >
-              Agence web spécialisée artisans & PMEs du bâtiment. Design sur-mesure livré en 2 semaines, géré pour vous, optimisé pour générer des leads qualifiés.
-            </motion.p>
-
-            {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-3 mb-14"
-            >
-              <a
-                href="#contact"
-                className="group inline-flex items-center justify-center gap-2.5 bg-beige text-dark px-7 py-4 rounded-full font-bold text-base hover:bg-beige-light transition-all duration-200"
-              >
-                Réserver un appel gratuit
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a
-                href="#portfolio"
-                className="inline-flex items-center justify-center gap-2 border border-white/15 text-text-light/70 px-7 py-4 rounded-full font-semibold text-base hover:border-beige/40 hover:text-text-light transition-all duration-200"
-              >
-                Voir nos réalisations
-              </a>
-            </motion.div>
-
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex items-center gap-8"
-            >
-              {STATS.map((s, i) => (
-                <div key={i} className="flex flex-col">
-                  <span className="font-heading font-bold text-2xl text-beige leading-none">
-                    {s.value}
-                  </span>
-                  <span className="text-[11px] text-text-light/30 uppercase tracking-widest mt-1">
-                    {s.label}
-                  </span>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* ── RIGHT: Scrolling website columns ── */}
-          <div className="relative hidden lg:flex items-stretch overflow-hidden py-0">
-
-            {/* Top gradient mask */}
-            <div
-              className="absolute top-0 left-0 right-0 z-10 pointer-events-none"
-              style={{
-                height: "180px",
-                background: "linear-gradient(to bottom, #1C1C1C 0%, transparent 100%)",
-              }}
-            />
-
-            {/* Bottom gradient mask */}
-            <div
-              className="absolute bottom-0 left-0 right-0 z-10 pointer-events-none"
-              style={{
-                height: "180px",
-                background: "linear-gradient(to top, #1C1C1C 0%, transparent 100%)",
-              }}
-            />
-
-            {/* Left edge fade */}
-            <div
-              className="absolute top-0 left-0 bottom-0 z-10 pointer-events-none"
-              style={{
-                width: "40px",
-                background: "linear-gradient(to right, #1C1C1C 0%, transparent 100%)",
-              }}
-            />
-
-            {/* 3 scrolling columns */}
-            <div className="flex gap-3 w-full px-4">
-              <ScrollCol sites={COL1} direction="up"   duration="34s" />
-              <ScrollCol sites={COL2} direction="down" duration="28s" delay="-5s" />
-              <ScrollCol sites={COL3} direction="up"   duration="42s" delay="-12s" />
-            </div>
-          </div>
-
-        </div>
+              {tag.label}
+            </span>
+          </motion.div>
+        ))}
       </div>
 
-      {/* Bottom fade into next section */}
-      <div
-        className="absolute bottom-0 left-0 right-0 pointer-events-none"
-        style={{
-          height: "80px",
-          background: "linear-gradient(to top, #1C1C1C 0%, transparent 100%)",
-        }}
-      />
+      {/* ── Centered content ── */}
+      <div className="relative z-10 flex flex-col items-center justify-center text-center px-6"
+        style={{ minHeight: "calc(100vh - 72px)", paddingBottom: "200px" }}
+      >
+
+        {/* Stars */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col items-center gap-2 mb-8"
+        >
+          <div className="flex gap-1">
+            {[...Array(5)].map((_, i) => (
+              <svg key={i} viewBox="0 0 20 20" className="w-5 h-5 fill-yellow-400">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+            ))}
+          </div>
+          <span className="text-sm text-text-light/50 font-medium">5.0 · Plus de 175+ avis clients</span>
+        </motion.div>
+
+        {/* H1 */}
+        <motion.h1
+          initial={{ opacity: 0, y: 32 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="font-heading font-bold text-text-light tracking-tight leading-[1.05] mb-8 max-w-3xl"
+          style={{ fontSize: "clamp(3rem, 7vw, 6rem)" }}
+        >
+          Nous créons des sites qui{" "}
+          <span className="font-black">Remplissent votre Carnet.</span>
+        </motion.h1>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+          className="flex flex-col sm:flex-row gap-3"
+        >
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 border border-white/25 text-text-light px-7 py-3.5 rounded-full font-semibold text-base hover:border-white/60 hover:text-white transition-all"
+          >
+            Réserver un appel <ArrowUpRight size={16} />
+          </a>
+          <a
+            href="#portfolio"
+            className="inline-flex items-center gap-2 text-text-light/60 px-7 py-3.5 rounded-full font-semibold text-base hover:text-text-light transition-colors"
+          >
+            Voir nos réalisations
+          </a>
+        </motion.div>
+
+      </div>
     </section>
   );
 }
