@@ -60,7 +60,7 @@ export default function HowWeMake() {
             {
               step: "02",
               title: "Design & développement",
-              desc: "Votre site est conçu de A à Z — aucun template, aucun compromis. Livré en 48h, prêt à générer des leads.",
+              desc: "Votre site est conçu de A à Z — aucun template, aucun compromis. Livré en 2 semaines, prêt à générer des leads.",
             },
             {
               step: "03",

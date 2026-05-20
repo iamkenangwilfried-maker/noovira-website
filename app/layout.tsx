@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import CustomCursor from "@/components/cursor";
 
 export const metadata: Metadata = {
   title: "Noovira AI — Sites Web qui Remplissent votre Carnet de Chantiers",
   description:
-    "Agence web spécialisée PME suisses de la construction. Nous créons des sites professionnels, gérons votre présence en ligne et générons des leads qualifiés via SEO & publicité. Couvreurs, rénovation, charpente.",
-  keywords: "agence web suisse, site internet construction, couvreur, rénovation, charpente, SEO suisse, site vitrine PME, génération de leads construction",
+    "Agence web spécialisée artisans & PMEs du bâtiment. Sites professionnels sur-mesure livrés en 2 semaines, optimisés SEO pour générer des leads qualifiés. Couvreurs, rénovation, charpente.",
+  keywords: "agence web bâtiment, site internet couvreur, site rénovation, charpente web, SEO construction, leads artisans, agence web PME",
   authors: [{ name: "Noovira AI" }],
   creator: "Noovira AI",
   openGraph: {
@@ -15,12 +16,12 @@ export const metadata: Metadata = {
     siteName: "Noovira AI",
     title: "Noovira AI — Sites Web qui Remplissent votre Carnet de Chantiers",
     description:
-      "Agence web spécialisée PME suisses de la construction. Sites professionnels + SEO + gestion de présence en ligne.",
+      "Agence web spécialisée artisans & PMEs du bâtiment. Sites professionnels + SEO + gestion de présence en ligne.",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Noovira AI" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Noovira AI — Agence Web Construction Suisse",
+    title: "Noovira AI — Agence Web pour Artisans & PMEs du Bâtiment",
     description: "Sites web qui remplissent votre carnet de chantiers.",
   },
   icons: {
@@ -45,6 +46,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-background text-dark antialiased">
+        <CustomCursor />
         {children}
       </body>
     </html>

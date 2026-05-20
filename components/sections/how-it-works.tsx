@@ -8,12 +8,12 @@ const steps = [
     step: "01",
     icon: Globe,
     glowColor: "green" as const,
-    title: "Your Free Website — Live in 48 Hours",
+    title: "Your Free Website — Live in 2 weeks Hours",
     desc: "We build a professional, mobile-optimized website for your roofing business at zero cost. Custom design, your branding, contact forms, Google My Business integration. You own it. We host it.",
     bullets: [
       "Custom design — no templates",
       "Mobile-first & Google-optimized",
-      "Live in 48 hours, guaranteed",
+      "Live in 2 weeks, guaranteed",
       "Hosting, SSL, domain setup included",
     ],
     tag: "FREE Setup",
@@ -43,7 +43,7 @@ const steps = [
     bullets: [
       "Automated review requests post-job",
       "Multi-channel: SMS + email sequences",
-      "48-hour follow-up if no response",
+      "24-hour follow-up if no response",
       "Google, Facebook & Houzz targeting",
     ],
     tag: "Reputation",

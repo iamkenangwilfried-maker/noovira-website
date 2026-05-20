@@ -10,7 +10,7 @@ const REVIEWS = [
     location: "Lausanne, VD",
     rating: 5,
     date: "il y a 2 semaines",
-    text: "Résultat bluffant. Site livré en exactement 48h comme promis, design super pro, et depuis on reçoit 3-4 demandes de devis par semaine sans rien faire. Je recommande à tous les artisans.",
+    text: "Résultat bluffant. Site livré en exactement 2 semaines comme promis, design super pro, et depuis on reçoit 3-4 demandes de devis par semaine sans rien faire. Je recommande à tous les artisans.",
     initials: "MR",
   },
   {

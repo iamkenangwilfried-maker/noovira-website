@@ -34,7 +34,7 @@ export default function TermsOfService() {
                 Noovira AI provides the following services to roofing contractors:
               </p>
               <ul className="text-sm space-y-2 list-disc list-inside">
-                <li><strong>Free Website Build</strong> — A professional website delivered within 48 hours at no upfront cost.</li>
+                <li><strong>Free Website Build</strong> — A professional website delivered within 2 weeks at no upfront cost.</li>
                 <li><strong>Speed to Lead AI</strong> — Automated AI follow-up system to convert missed calls and leads.</li>
                 <li><strong>Google Reviews Automation</strong> — Systems to generate and manage Google reviews.</li>
                 <li><strong>Database Reactivation</strong> — Campaigns to re-engage dormant leads and past customers.</li>

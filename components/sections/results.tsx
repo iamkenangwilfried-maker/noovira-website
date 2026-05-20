@@ -9,7 +9,7 @@ const videoTestimonials = [
     role: "Eagle Roofing, Texas",
     result: "$31k recovered in 30 days",
     resultColor: "text-success",
-    quote: "Noovira built our website in 48 hours and the AI follows up every missed call. We booked 3 jobs the first week.",
+    quote: "Noovira built our website in 2 weeks and the AI follows up every missed call. We booked 3 jobs the first week.",
   },
   {
     youtubeId: "n2y_YvYNfv4",

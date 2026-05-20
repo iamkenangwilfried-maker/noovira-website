@@ -88,6 +88,13 @@ section {
   }
 }
 
+/* ─── Custom cursor: hide default on desktop ─────────────── */
+@media (hover: hover) and (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+
 /* ─── Hero scrolling columns ─────────────────────────────── */
 @keyframes scroll-col-up {
   0%   { transform: translateY(0); }
@@ -96,6 +103,30 @@ section {
 @keyframes scroll-col-down {
   0%   { transform: translateY(-50%); }
   100% { transform: translateY(0); }
+}
+
+/* ─── Portfolio full-page scroll-on-hover effect ─────────── */
+/* Matches Sher Agency: image slowly scrolls down on hover    */
+.portfolio-scroll-img {
+  width: 100%;
+  display: block;
+  transform: translateY(0%);
+  transition: transform 5s ease-in-out;
+  will-change: transform;
+}
+.group:hover .portfolio-scroll-img {
+  transform: translateY(calc(-100% + 450px));
+}
+
+/* ─── Marquee animation (logo strip) ────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+  display: flex;
+  width: max-content;
 }
 
 /* Custom scrollbar */

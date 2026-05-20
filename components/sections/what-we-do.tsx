@@ -9,12 +9,12 @@ const SERVICES = [
     label: "Web Design",
     title: "Créer votre site professionnel",
     description:
-      "Un site web conçu spécifiquement pour les PMEs suisses de la construction. Design moderne, mobile-first, optimisé pour convertir les visiteurs en prospects. Livré en 48 heures, clé en main.",
+      "Un site web conçu spécifiquement pour les PMEs suisses de la construction. Design moderne, mobile-first, optimisé pour convertir les visiteurs en prospects. Livré en 2 semaines, clé en main.",
     bullets: [
       "Design sur-mesure — aucun template générique",
       "Mobile-first & Google-optimisé dès le départ",
       "Formulaires de contact + suivi des leads intégré",
-      "Livraison garantie en 48 heures ouvrables",
+      "Livraison garantie en 2 semaines ouvrables",
     ],
     tag: "Le plus populaire",
   },

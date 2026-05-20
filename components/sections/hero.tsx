@@ -81,7 +81,7 @@ function ScrollCol({
 const STATS = [
   { value: "17+", label: "Sites livrés" },
   { value: "5.0 ★", label: "Note Google" },
-  { value: "48h", label: "Délai garanti" },
+  { value: "2 semaines", label: "Délai garanti" },
 ];
 
 export default function Hero() {
@@ -143,7 +143,7 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-text-light/50 text-lg leading-relaxed mb-10 max-w-md"
             >
-              Agence web spécialisée artisans & PMEs du bâtiment. Design sur-mesure livré en 48h, géré pour vous, optimisé pour générer des leads qualifiés.
+              Agence web spécialisée artisans & PMEs du bâtiment. Design sur-mesure livré en 2 semaines, géré pour vous, optimisé pour générer des leads qualifiés.
             </motion.p>
 
             {/* CTAs */}

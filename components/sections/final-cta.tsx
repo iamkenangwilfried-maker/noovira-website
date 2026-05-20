@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 
 const GUARANTEES = [
-  "Site professionnel livré en 48 heures",
+  "Site professionnel livré en 2 semaines",
   "Design sur-mesure — aucun template",
   "Hébergement, domaine & SSL inclus",
   "Sans engagement — annulable à tout moment",
@@ -62,7 +62,7 @@ export default function FinalCTA() {
               </div>
               <div className="w-px h-10 bg-border-dark" />
               <div className="flex flex-col">
-                <span className="font-heading font-bold text-2xl text-beige">48h</span>
+                <span className="font-heading font-bold text-2xl text-beige">2 semaines</span>
                 <span className="text-xs text-text-light/40 uppercase tracking-widest mt-0.5">Délai garanti</span>
               </div>
             </div>

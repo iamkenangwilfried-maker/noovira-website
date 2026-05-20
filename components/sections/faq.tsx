@@ -10,7 +10,7 @@ const FAQS = [
   },
   {
     q: "En combien de temps mon site sera-t-il en ligne ?",
-    a: "Nous garantissons la mise en ligne en 48 heures ouvrables après votre appel de démarrage. Concrètement : vous partagez vos informations (logo, photos, description des services), nous concevons et développons tout, et votre site est live en 2 jours.",
+    a: "Nous garantissons la mise en ligne en 2 semaines ouvrables après votre appel de démarrage. Concrètement : vous partagez vos informations (logo, photos, description des services), nous concevons et développons tout, et votre site est live dans ce délai garanti contractuellement.",
   },
   {
     q: "Est-ce que je possède mon site web ?",

@@ -4,7 +4,7 @@ import { TestimonialsColumn, type Testimonial } from "@/components/ui/testimonia
 
 const testimonials: Testimonial[] = [
   {
-    text: "We were missing 8-10 calls a day. Noovira built our website in 48 hours and set up the AI. Now every missed call gets a text and follow-up call within a minute. We booked 3 jobs the first week.",
+    text: "We were missing 8-10 calls a day. Noovira built our website in 2 weeks and set up the AI. Now every missed call gets a text and follow-up call within a minute. We booked 3 jobs the first week.",
     image: "https://randomuser.me/api/portraits/men/32.jpg",
     name: "Mike R.",
     role: "Eagle Roofing, Texas",
