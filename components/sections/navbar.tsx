@@ -12,10 +12,10 @@ import { X, Menu, ArrowUpRight } from "lucide-react";
  */
 
 const LINKS = [
-  { label: "Notre Processus",  href: "#processus" },
-  { label: "Gestion de Site",  href: "#gestion"   },
-  { label: "SEO & Publicité",  href: "#seo"        },
-  { label: "Portfolio",        href: "#portfolio"  },
+  { label: "Notre Processus",  href: "/creation-de-site" },
+  { label: "Gestion de Site",  href: "/gestion-de-site"  },
+  { label: "SEO & Publicité",  href: "/seo-publicite"    },
+  { label: "Portfolio",        href: "/nos-realisations"  },
 ];
 
 const NAV_H = 80; // px — header height
@@ -65,6 +65,7 @@ export default function Navbar() {
             className="inline-flex items-center gap-1.5 bg-white text-dark px-5 py-2.5 rounded-full font-bold text-sm hover:bg-beige transition-colors duration-200 whitespace-nowrap ml-2 flex-shrink-0"
           >
             Démarrer votre projet <ArrowUpRight size={13} />
+
           </a>
         </div>
 
