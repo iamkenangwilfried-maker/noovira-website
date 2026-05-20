@@ -4,108 +4,113 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
 /**
- * Hero — Sher Agency exact clone:
- * • Dark background, full viewport
- * • Stars + rating + H1 + 2 CTA buttons — centered
- * • BOTTOM: client name TAGS (beige/cream rounded pills) scattered & rotated
- *   → On hover: website screenshot PREVIEW CARD floats above the tag
- * • NO video in the hero (video is HowWeMake section, placed after Portfolio)
+ * Hero — Sher Agency pixel-perfect clone:
+ * • Dark bg, full viewport
+ * • Stars + H1 + 2 CTAs centered
+ * • Bottom: client name TAGS in beige/cream, full-width rows that bleed off-screen
+ *   - Rows are NOT centered — they start from left and overflow right
+ *   - Some tags have extreme rotations (-160°, -75°, etc.) exactly like Sher
+ *   - On hover: website screenshot preview card appears above the tag
  */
 
-function shot(url: string) {
-  return `https://s.wordpress.com/mshots/v1/https%3A%2F%2F${encodeURIComponent(url)}?w=480&h=320`;
-}
+const shot = (url: string) =>
+  `https://s.wordpress.com/mshots/v1/https%3A%2F%2F${encodeURIComponent(url)}?w=480&h=320`;
 
-// Client tags — exactly like Sher's layout: names at bottom, scattered, rotated
-// rotate values from Sher screenshots: various angles -25 to +25
-const TAGS = [
-  { name: "Roulin Couverture",    url: "b3constructioncorp.com",       rotate: -15, size: 1.0 },
-  { name: "Favre Rénovation",     url: "tekconstructiongroup.com",      rotate: 6,   size: 0.9 },
-  { name: "Müller Charpente",     url: "qualmax.co.nz",                 rotate: -22, size: 1.1 },
-  { name: "Martinez Plâtrerie",   url: "schmittcompany.com",            rotate: 10,  size: 1.0 },
-  { name: "Dupont Électricité",   url: "candmhomebuilders.com",         rotate: -8,  size: 0.9 },
-  { name: "Rochat Peinture",      url: "cr-design-remodel.webflow.io",  rotate: 18,  size: 1.0 },
-  { name: "B3 Construction",      url: "b3constructioncorp.com",        rotate: -5,  size: 1.1 },
-  { name: "TEK Group",            url: "tekconstructiongroup.com",      rotate: 14,  size: 0.9 },
-  { name: "Schmitt Company",      url: "schmittcompany.com",            rotate: -18, size: 1.0 },
-  { name: "Berset Toitures",      url: "5starroofcare.co.uk",           rotate: 7,   size: 1.0 },
-  { name: "Girardin BTP",         url: "ironstarconstruction.com",      rotate: -12, size: 0.95},
-  { name: "Clune Construction",   url: "clunegc.com",                   rotate: 20,  size: 1.0 },
-  { name: "Qualmax",              url: "qualmax.co.nz",                 rotate: -6,  size: 0.9 },
-  { name: "Leopardo",             url: "leopardo.com",                  rotate: 11,  size: 1.0 },
-  { name: "JDG Constructions",    url: "jdgconstructions.com.au",       rotate: -20, size: 1.0 },
-  { name: "5 Star Roof Care",     url: "5starroofcare.co.uk",           rotate: 4,   size: 0.9 },
-  { name: "Oasis Builders",       url: "oasisbuildersinc.com",          rotate: -14, size: 1.0 },
-  { name: "Skender",              url: "skender.com",                   rotate: 16,  size: 1.1 },
-  { name: "Iron Star",            url: "ironstarconstruction.com",      rotate: -9,  size: 0.9 },
-  { name: "FH Paschen",           url: "fhpaschen.com",                 rotate: 22,  size: 1.0 },
-  { name: "Bechtel",              url: "bechtel.com",                   rotate: -3,  size: 1.0 },
-  { name: "B2 Builders",          url: "b2builders.com",                rotate: 13,  size: 0.9 },
+// Exact rotation values visible in Sher's hero screenshots
+// including extreme rotations like -160°, -75°, -70° etc.
+const ROW1 = [
+  { name: "Roulin Couverture",    url: "b3constructioncorp.com",      rotate: -15 },
+  { name: "Favre Rénovation",     url: "tekconstructiongroup.com",     rotate: 6   },
+  { name: "Müller Charpente",     url: "qualmax.co.nz",               rotate: -22 },
+  { name: "Martinez Plâtrerie",   url: "schmittcompany.com",          rotate: 10  },
+  { name: "Dupont Électricité",   url: "candmhomebuilders.com",       rotate: -8  },
+  { name: "Rochat Peinture",      url: "cr-design-remodel.webflow.io",rotate: 18  },
+  { name: "Berset Toitures",      url: "5starroofcare.co.uk",         rotate: -75 },  // extreme — nearly vertical
+  { name: "Girardin BTP",         url: "ironstarconstruction.com",    rotate: -5  },
+  { name: "Schmitt Company",      url: "schmittcompany.com",          rotate: 12  },
+  { name: "Clune Construction",   url: "clunegc.com",                 rotate: -18 },
+  { name: "Trion Living",         url: "oasisbuildersinc.com",        rotate: -3  },
 ];
 
-type Tag = typeof TAGS[0];
+const ROW2 = [
+  { name: "B3 Construction",      url: "b3constructioncorp.com",      rotate: -160 }, // nearly upside-down
+  { name: "TEK Group",            url: "tekconstructiongroup.com",    rotate: -4   },
+  { name: "Qualmax",              url: "qualmax.co.nz",               rotate: 14   },
+  { name: "Leopardo",             url: "leopardo.com",                rotate: -70  }, // extreme rotation
+  { name: "JDG Constructions",    url: "jdgconstructions.com.au",     rotate: -10  },
+  { name: "5 Star Roof Care",     url: "5starroofcare.co.uk",         rotate: 20   },
+  { name: "Oasis Builders",       url: "oasisbuildersinc.com",        rotate: -14  },
+  { name: "Skender",              url: "skender.com",                 rotate: 8    },
+  { name: "Iron Star",            url: "ironstarconstruction.com",    rotate: -20  },
+  { name: "FH Paschen",           url: "fhpaschen.com",               rotate: 15   },
+  { name: "Bechtel",              url: "bechtel.com",                 rotate: -6   },
+  { name: "B2 Builders",          url: "b2builders.com",              rotate: 11   },
+];
 
-function ClientTag({ tag, delay }: { tag: Tag; delay: number }) {
+type TagItem = { name: string; url: string; rotate: number };
+
+function Tag({ tag, delay }: { tag: TagItem; delay: number }) {
   const [hovered, setHovered] = useState(false);
 
   return (
     <div
-      className="relative inline-block flex-shrink-0"
+      className="relative flex-shrink-0"
       style={{ transform: `rotate(${tag.rotate}deg)` }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Preview card — appears above on hover */}
+      {/* Preview popup on hover */}
       <AnimatePresence>
         {hovered && (
           <motion.div
-            initial={{ opacity: 0, y: 8, scale: 0.95 }}
+            initial={{ opacity: 0, y: 10, scale: 0.94 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.95 }}
-            transition={{ duration: 0.18 }}
-            className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
-            style={{ width: "220px" }}
+            exit={{ opacity: 0, y: 10, scale: 0.94 }}
+            transition={{ duration: 0.15 }}
+            // counter-rotate so the popup is always upright
+            style={{
+              position: "absolute",
+              bottom: "calc(100% + 12px)",
+              left: "50%",
+              width: "220px",
+              zIndex: 60,
+              transform: `translateX(-50%) rotate(${-tag.rotate}deg)`,
+              pointerEvents: "none",
+            }}
           >
-            <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-[#1A1A1A]">
-              {/* Screenshot */}
-              <div className="relative" style={{ height: "130px" }}>
+            <div
+              className="rounded-2xl overflow-hidden border border-white/15 shadow-2xl"
+              style={{ background: "#1A1A1A" }}
+            >
+              <div style={{ height: "130px" }}>
                 <img
                   src={shot(tag.url)}
                   alt={tag.name}
                   className="w-full h-full object-cover object-top"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).style.opacity = "0.1";
-                  }}
+                  onError={(e) => { (e.target as HTMLImageElement).style.opacity = "0.08"; }}
                 />
               </div>
-              {/* Name + link */}
-              <div className="px-4 py-3 flex items-center justify-between">
+              <div className="px-4 py-3 flex items-center justify-between gap-2">
                 <span className="text-text-light text-sm font-bold truncate">{tag.name}</span>
-                <ArrowUpRight size={14} className="text-text-light/50 flex-shrink-0 ml-2" />
+                <ArrowUpRight size={13} className="text-text-light/40 flex-shrink-0" />
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* The tag pill itself — beige/cream, rounded rectangle */}
+      {/* Beige tag — Sher exact style */}
       <motion.div
-        initial={{ opacity: 0, y: 60 }}
+        initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 0.7,
-          delay,
-          type: "spring",
-          stiffness: 80,
-          damping: 16,
-        }}
+        transition={{ duration: 0.65, delay, type: "spring", stiffness: 75, damping: 15 }}
         className="cursor-default select-none"
         style={{
           background: "#E8E1D5",
-          color: "#1A1A1A",
+          color: "#1C1C1C",
           borderRadius: "10px",
-          padding: `${8 * tag.size}px ${16 * tag.size}px`,
-          fontSize: `${12 * tag.size}px`,
+          padding: "9px 18px",
+          fontSize: "13px",
           fontWeight: 600,
           whiteSpace: "nowrap",
           lineHeight: 1.3,
@@ -123,8 +128,8 @@ export default function Hero() {
       className="section-dark relative overflow-hidden"
       style={{ minHeight: "100vh", paddingTop: "80px" }}
     >
-      {/* ── Centered content: stars + H1 + CTAs ── */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-16 lg:pt-24 pb-12">
+      {/* ── Stars + H1 + CTAs — centered ── */}
+      <div className="relative z-10 flex flex-col items-center text-center px-6 pt-16 lg:pt-24 pb-10">
 
         {/* Stars */}
         <motion.div
@@ -177,27 +182,38 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* ── CLIENT NAME TAGS — bottom of hero, scattered, rotated ── */}
-      {/* Outer wrapper clips overflow; inner wrapper is wider than viewport */}
-      <div className="relative z-20 w-full overflow-hidden pb-16" style={{ minHeight: "260px" }}>
-        {/* Row 1 */}
-        <div className="flex flex-wrap gap-3 justify-center px-6 mb-3">
-          {TAGS.slice(0, 8).map((tag, i) => (
-            <ClientTag key={tag.name + i} tag={tag} delay={0.4 + i * 0.06} />
+      {/* ── TAG CANVAS — full-width rows bleeding off-screen, like Sher ── */}
+      <div className="relative z-20 w-full overflow-hidden" style={{ paddingBottom: "80px" }}>
+
+        {/* Row 1 — offset slightly left so tags bleed off both edges */}
+        <div
+          className="flex gap-3 items-center"
+          style={{
+            width: "max-content",
+            transform: "translateX(-40px)",
+            marginBottom: "14px",
+            paddingLeft: "20px",
+          }}
+        >
+          {ROW1.map((tag, i) => (
+            <Tag key={tag.name} tag={tag} delay={0.35 + i * 0.055} />
           ))}
         </div>
-        {/* Row 2 */}
-        <div className="flex flex-wrap gap-3 justify-center px-10 mb-3">
-          {TAGS.slice(8, 16).map((tag, i) => (
-            <ClientTag key={tag.name + i} tag={tag} delay={0.6 + i * 0.06} />
+
+        {/* Row 2 — offset differently so rows don't align */}
+        <div
+          className="flex gap-3 items-center"
+          style={{
+            width: "max-content",
+            transform: "translateX(-120px)",
+            paddingLeft: "20px",
+          }}
+        >
+          {ROW2.map((tag, i) => (
+            <Tag key={tag.name} tag={tag} delay={0.5 + i * 0.055} />
           ))}
         </div>
-        {/* Row 3 */}
-        <div className="flex flex-wrap gap-3 justify-center px-6">
-          {TAGS.slice(16).map((tag, i) => (
-            <ClientTag key={tag.name + i} tag={tag} delay={0.8 + i * 0.06} />
-          ))}
-        </div>
+
       </div>
     </section>
   );
