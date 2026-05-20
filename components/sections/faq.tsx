@@ -3,6 +3,15 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 
+/**
+ * FAQ — exact Sher Agency layout:
+ * • Dark background (section-dark)
+ * • Content sits inside a rounded dark card (#242424) — Sher exact
+ * • "Questions **Fréquentes**" heading centered at top of card
+ * • Full-width accordion below with white/10 dividers
+ * • Bottom: "Vous avez d'autres questions ?" + CTA button
+ */
+
 const FAQS = [
   {
     q: "Combien coûte la création de mon site web ?",
@@ -35,65 +44,50 @@ const FAQS = [
 ];
 
 export default function FAQ() {
-  const [open, setOpen] = useState<number | null>(null);
+  const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="section-white py-24 lg:py-32" id="faq">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="section-dark py-20 lg:py-28" id="faq">
+      <div className="max-w-4xl mx-auto px-6">
 
-        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 lg:gap-24">
-
-          {/* Left */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="lg:sticky lg:top-32 lg:self-start"
-          >
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-muted mb-5 block">
-              FAQ
-            </span>
+        {/* Dark card wrapper — Sher exact */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="rounded-3xl overflow-hidden"
+          style={{ background: "#242424" }}
+        >
+          {/* Card header */}
+          <div className="px-8 lg:px-12 pt-10 pb-8 border-b border-white/10">
             <h2
-              className="font-heading font-bold text-dark leading-[1.05] tracking-tight mb-6"
-              style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)" }}
+              className="font-heading text-text-light leading-[1.05] tracking-tight text-center"
+              style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
             >
-              Questions<br />
-              fréquentes.
+              Questions <span className="font-black">Fréquentes</span>
             </h2>
-            <p className="text-body leading-relaxed mb-8">
-              Vous ne trouvez pas la réponse à votre question ? Nous sommes disponibles pour en discuter directement.
-            </p>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 bg-dark text-text-light px-6 py-3.5 rounded-full font-bold text-sm hover:bg-dark/80 transition-colors"
-            >
-              Nous contacter
-            </a>
-          </motion.div>
+          </div>
 
-          {/* Right — accordion */}
-          <div className="border-t border-border">
+          {/* Accordion */}
+          <div className="px-8 lg:px-12">
             {FAQS.map((faq, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="border-b border-border"
-              >
+              <div key={i} className="border-b border-white/10 last:border-b-0">
                 <button
                   onClick={() => setOpen(open === i ? null : i)}
-                  className="w-full text-left py-6 flex items-start justify-between gap-6 group"
+                  className="w-full text-left py-7 flex items-start justify-between gap-6 group"
                 >
-                  <span className="font-heading font-semibold text-dark group-hover:text-body transition-colors text-base leading-snug">
+                  <span
+                    className="font-heading font-semibold text-text-light group-hover:text-beige transition-colors leading-snug"
+                    style={{ fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)" }}
+                  >
                     {faq.q}
                   </span>
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full border border-border flex items-center justify-center text-muted group-hover:border-dark group-hover:text-dark transition-all mt-0.5">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-text-light/50 group-hover:border-beige group-hover:text-beige transition-all mt-0.5">
                     {open === i ? <Minus size={14} /> : <Plus size={14} />}
                   </div>
                 </button>
+
                 <AnimatePresence initial={false}>
                   {open === i && (
                     <motion.div
@@ -103,17 +97,32 @@ export default function FAQ() {
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <div className="pb-6 pr-14">
-                        <p className="text-body text-sm leading-relaxed">{faq.a}</p>
+                      <div className="pb-8 pr-14">
+                        <p className="text-text-light/55 text-sm leading-relaxed">
+                          {faq.a}
+                        </p>
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </div>
             ))}
           </div>
 
-        </div>
+          {/* Card footer CTA */}
+          <div className="px-8 lg:px-12 py-10 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <p className="text-text-light/40 text-sm">
+              Vous avez d'autres questions ?
+            </p>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 bg-beige text-dark px-7 py-3.5 rounded-full font-bold text-sm hover:bg-beige/90 transition-colors"
+            >
+              Réserver un appel
+            </a>
+          </div>
+        </motion.div>
+
       </div>
     </section>
   );

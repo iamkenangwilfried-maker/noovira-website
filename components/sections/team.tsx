@@ -1,165 +1,171 @@
 "use client";
-import { useState } from "react";
+import { useRef } from "react";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Linkedin } from "lucide-react";
+
+/**
+ * Team — exact Sher Agency layout:
+ * • Dark background
+ * • "Notre Équipe" centered heading (mixed weight)
+ * • Horizontally scrollable row of tall portrait cards
+ * • Each card: tall colored portrait area + initials + name + role below
+ */
 
 const TEAM = [
   {
     name: "Lucas Moreau",
     role: "Fondateur & Directeur",
-    origin: "🇨🇭 Suisse",
-    bio: "Entrepreneur suisse passionné par le numérique et le secteur de la construction. Il a lancé Noovira après avoir vu trop de bons artisans perdre des chantiers faute de présence en ligne.",
-    avatar: "/team/lucas.jpg",
     initials: "LM",
-    color: "bg-beige/20",
+    bg: "bg-[#2A2A2A]",
+    accent: "#C9BAAC",
+    origin: "🇨🇭 Suisse",
   },
   {
     name: "Priya Sharma",
     role: "Lead Designer",
-    origin: "🇮🇳 Inde",
-    bio: "Designer UX/UI avec 6 ans d'expérience. Spécialisée dans les sites de service et d'artisanat, elle crée des interfaces qui inspirent confiance immédiatement.",
-    avatar: "/team/priya.jpg",
     initials: "PS",
-    color: "bg-blue-400/20",
+    bg: "bg-[#1A2A35]",
+    accent: "#6B9EA8",
+    origin: "🇮🇳 Inde",
   },
   {
     name: "Miguel Santos",
     role: "Développeur Full-Stack",
-    origin: "🇵🇭 Philippines",
-    bio: "Développeur Next.js & Webflow avec un oeil pour la performance. Il s'assure que chaque site charge en moins de 2 secondes et passe les tests PageSpeed avec les honneurs.",
-    avatar: "/team/miguel.jpg",
     initials: "MS",
-    color: "bg-green-400/20",
+    bg: "bg-[#1A2A1E]",
+    accent: "#6BAA7C",
+    origin: "🇵🇭 Philippines",
   },
   {
     name: "Aisha Fernandez",
     role: "Responsable SEO",
-    origin: "🇵🇭 Philippines",
-    bio: "Experte en référencement local avec un track record de +80 positions Google pour des artisans en Suisse romande et en région genevoise.",
-    avatar: "/team/aisha.jpg",
     initials: "AF",
-    color: "bg-purple-400/20",
+    bg: "bg-[#271A35]",
+    accent: "#9B7ABF",
+    origin: "🇵🇭 Philippines",
   },
   {
     name: "Tyler Brooks",
-    role: "Stratège Contenu & Copy",
-    origin: "🇺🇸 États-Unis",
-    bio: "Copywriter spécialisé dans les métiers du bâtiment. Il rédige des textes qui parlent directement aux propriétaires et les convainquent d'appeler plutôt que de continuer à scroller.",
-    avatar: "/team/tyler.jpg",
+    role: "Stratège & Copywriter",
     initials: "TB",
-    color: "bg-orange-400/20",
+    bg: "bg-[#2E1E10]",
+    accent: "#D4874E",
+    origin: "🇺🇸 États-Unis",
   },
   {
     name: "Ravi Kapoor",
-    role: "Responsable Google Ads",
-    origin: "🇮🇳 Inde",
-    bio: "Gestionnaire de campagnes publicitaires avec une spécialisation dans les secteurs du bâtiment et de la rénovation. Il optimise chaque centime de budget pub pour maximiser le retour.",
-    avatar: "/team/ravi.jpg",
+    role: "Google Ads Manager",
     initials: "RK",
-    color: "bg-teal-400/20",
+    bg: "bg-[#102A2A]",
+    accent: "#4EAAA8",
+    origin: "🇮🇳 Inde",
   },
 ];
 
-export default function Team() {
-  const [activeIdx, setActiveIdx] = useState(0);
-  const VISIBLE = 3;
+function TeamCard({ m, delay = 0 }: { m: typeof TEAM[0]; delay?: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay }}
+      className="flex-shrink-0 rounded-2xl overflow-hidden border border-border-dark"
+      style={{ width: "260px" }}
+    >
+      {/* Portrait area — tall colored bg with large initials */}
+      <div
+        className={`${m.bg} relative flex items-center justify-center`}
+        style={{ height: "340px" }}
+      >
+        {/* Subtle gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
 
-  const shownIdxs = TEAM.map((_, i) => i).slice(
-    activeIdx,
-    activeIdx + VISIBLE
+        {/* Large initials */}
+        <div
+          className="relative z-10 text-6xl font-black font-heading select-none"
+          style={{ color: m.accent, opacity: 0.9 }}
+        >
+          {m.initials}
+        </div>
+
+        {/* Origin flag top-right */}
+        <div className="absolute top-4 right-4 text-lg">
+          {m.origin.split(" ")[0]}
+        </div>
+      </div>
+
+      {/* Name + role */}
+      <div className="bg-[#1A1A1A] p-5 border-t border-border-dark">
+        <div className="font-heading font-bold text-text-light text-base mb-1">
+          {m.name}
+        </div>
+        <div className="text-xs font-semibold uppercase tracking-widest" style={{ color: m.accent }}>
+          {m.role}
+        </div>
+        <div className="text-text-light/30 text-[11px] mt-1">{m.origin}</div>
+      </div>
+    </motion.div>
   );
+}
 
-  const prev = () => setActiveIdx((i) => Math.max(0, i - 1));
-  const next = () => setActiveIdx((i) => Math.min(TEAM.length - VISIBLE, i + 1));
+export default function Team() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const dragging = useRef(false);
+  const startX   = useRef(0);
+  const scrollL  = useRef(0);
+
+  const onMouseDown = (e: React.MouseEvent) => {
+    dragging.current = true;
+    startX.current = e.pageX;
+    scrollL.current = trackRef.current?.scrollLeft ?? 0;
+  };
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!dragging.current || !trackRef.current) return;
+    e.preventDefault();
+    trackRef.current.scrollLeft = scrollL.current - (e.pageX - startX.current);
+  };
+  const onMouseUp = () => { dragging.current = false; };
 
   return (
-    <section className="section-alt py-24 lg:py-32" id="equipe">
-      <div className="max-w-7xl mx-auto px-6">
-
-        {/* Header */}
+    <section className="section-dark py-20 lg:py-28 overflow-hidden" id="equipe">
+      {/* Heading */}
+      <div className="max-w-7xl mx-auto px-6 mb-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-14"
+          className="text-center"
         >
-          <div>
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-muted mb-4 block">
-              Notre équipe
-            </span>
-            <h2
-              className="font-heading font-bold text-dark leading-tight tracking-tight"
-              style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)" }}
-            >
-              Des experts dédiés<br />
-              <span className="text-muted">à votre réussite.</span>
-            </h2>
-          </div>
-          <div className="flex gap-3">
-            <button
-              onClick={prev}
-              disabled={activeIdx === 0}
-              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted hover:border-dark hover:text-dark transition-all disabled:opacity-30"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <button
-              onClick={next}
-              disabled={activeIdx >= TEAM.length - VISIBLE}
-              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted hover:border-dark hover:text-dark transition-all disabled:opacity-30"
-            >
-              <ChevronRight size={18} />
-            </button>
-          </div>
+          <h2
+            className="font-heading text-text-light leading-[1.05] tracking-tight mb-4"
+            style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
+          >
+            Notre <span className="font-black">Équipe</span>
+          </h2>
+          <p className="text-text-light/40 text-sm max-w-md mx-auto leading-relaxed">
+            Des experts passionnés dédiés à faire grandir les artisans suisses en ligne.
+          </p>
         </motion.div>
+      </div>
 
-        {/* Team cards */}
-        <div className="grid md:grid-cols-3 gap-6">
-          {TEAM.slice(activeIdx, activeIdx + VISIBLE).map((member, i) => (
-            <motion.div
-              key={member.name}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="bg-white rounded-3xl overflow-hidden border border-border group"
-            >
-              {/* Avatar area */}
-              <div className={`${member.color} h-48 flex items-center justify-center relative`}>
-                <div className="w-24 h-24 rounded-full bg-white/50 flex items-center justify-center text-3xl font-bold text-dark border-4 border-white shadow-lg">
-                  {member.initials}
-                </div>
-                <span className="absolute top-4 right-4 text-lg">{member.origin.split(" ")[0]}</span>
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <div className="mb-1">
-                  <h3 className="font-heading font-bold text-dark text-lg">{member.name}</h3>
-                  <div className="text-xs font-bold uppercase tracking-widest text-beige">{member.role}</div>
-                </div>
-                <div className="text-xs text-muted mb-4">{member.origin}</div>
-                <p className="text-body text-sm leading-relaxed">{member.bio}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* All team dots */}
-        <div className="flex justify-center gap-2 mt-8">
-          {TEAM.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveIdx(Math.min(i, TEAM.length - VISIBLE))}
-              className={`rounded-full transition-all ${
-                i >= activeIdx && i < activeIdx + VISIBLE
-                  ? "w-6 h-2 bg-dark"
-                  : "w-2 h-2 bg-border hover:bg-muted"
-              }`}
-            />
-          ))}
-        </div>
-
+      {/* Draggable horizontal scroll */}
+      <div
+        ref={trackRef}
+        className="flex gap-4 overflow-x-auto pb-4 select-none"
+        style={{
+          paddingLeft: "max(24px, calc((100vw - 1280px) / 2 + 24px))",
+          paddingRight: "max(24px, calc((100vw - 1280px) / 2 + 24px))",
+          scrollbarWidth: "none",
+          cursor: "grab",
+        }}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onMouseLeave={onMouseUp}
+      >
+        {TEAM.map((m, i) => (
+          <TeamCard key={m.name} m={m} delay={i * 0.07} />
+        ))}
       </div>
     </section>
   );
