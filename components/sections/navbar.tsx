@@ -1,110 +1,137 @@
 "use client";
-import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { useState } from "react";
+import { X, Menu, ArrowUpRight } from "lucide-react";
 
-const links = [
-  { label: "Notre Processus", href: "#processus" },
+/**
+ * Navbar — exact Sher Agency structure:
+ * • 3 flush sections spanning full viewport width
+ * • LEFT:   White square box with logo
+ * • CENTER: Dark bar (page-bg color) with nav links + white pill CTA
+ * • RIGHT:  Slightly lighter dark square with hamburger icon
+ * • Mobile: full-width slide-down menu
+ */
+
+const LINKS = [
+  { label: "Notre Processus",  href: "#processus" },
   { label: "Gestion de Site",  href: "#gestion"   },
   { label: "SEO & Publicité",  href: "#seo"        },
   { label: "Portfolio",        href: "#portfolio"  },
 ];
 
-export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen]         = useState(false);
-  const [lang, setLang]         = useState<"fr" | "en">("fr");
+const NAV_H = 80; // px — header height
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-dark/95 backdrop-blur-md border-b border-border-dark shadow-lg"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 h-[70px] flex items-center justify-between">
-
-        {/* Logo */}
-        <a href="/" className="flex items-center flex-shrink-0">
-          <img src="/logo.png" alt="Noovira AI" className="h-10 w-auto brightness-0 invert" />
+    <>
+      <header
+        className="fixed top-0 left-0 right-0 z-50 flex items-stretch"
+        style={{ height: `${NAV_H}px` }}
+      >
+        {/* ── LEFT: White logo box ── */}
+        <a
+          href="/"
+          className="flex-shrink-0 bg-white flex items-center justify-center"
+          style={{ width: `${NAV_H}px`, minWidth: `${NAV_H}px` }}
+          aria-label="Noovira AI — Accueil"
+        >
+          <img
+            src="/logo.png"
+            alt="Noovira AI"
+            className="h-9 w-auto"
+            style={{ maxWidth: "56px" }}
+          />
         </a>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {links.map((l) => (
+        {/* ── CENTER: Nav links + CTA pill ── */}
+        <div
+          className="flex-1 hidden md:flex items-center justify-center gap-8 px-6"
+          style={{ background: "#1C1C1C" }}
+        >
+          {LINKS.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="text-sm font-medium text-text-light/70 hover:text-text-light transition-colors duration-200"
+              className="text-sm font-medium text-text-light/60 hover:text-text-light transition-colors duration-200 whitespace-nowrap"
             >
               {l.label}
             </a>
           ))}
-        </nav>
 
-        {/* Right side */}
-        <div className="hidden md:flex items-center gap-4">
-          {/* Language toggle */}
-          <button
-            onClick={() => setLang(lang === "fr" ? "en" : "fr")}
-            className="text-xs font-semibold text-text-light/50 hover:text-text-light transition-colors tracking-widest uppercase"
-          >
-            {lang === "fr" ? "EN" : "FR"}
-          </button>
-
-          {/* CTA */}
+          {/* White pill CTA */}
           <a
             href="#contact"
-            className="inline-flex items-center px-5 py-2.5 rounded-full bg-beige text-dark text-sm font-bold hover:bg-beige-light transition-colors duration-200"
+            className="inline-flex items-center gap-1.5 bg-white text-dark px-5 py-2.5 rounded-full font-bold text-sm hover:bg-beige transition-colors duration-200 whitespace-nowrap ml-2 flex-shrink-0"
           >
-            Démarrer votre projet
+            Démarrer votre projet <ArrowUpRight size={13} />
           </a>
         </div>
 
-        {/* Mobile toggle */}
+        {/* Mobile: dark fill between logo and hamburger */}
+        <div
+          className="flex-1 md:hidden"
+          style={{ background: "#1C1C1C" }}
+        />
+
+        {/* ── RIGHT: Hamburger dark square ── */}
         <button
-          className="md:hidden p-2 text-text-light"
           onClick={() => setOpen(!open)}
+          className="flex-shrink-0 flex items-center justify-center transition-colors"
+          style={{
+            width: `${NAV_H}px`,
+            minWidth: `${NAV_H}px`,
+            background: "#2A2A2A",
+          }}
           aria-label="Toggle menu"
         >
-          {open ? <X size={22} /> : <Menu size={22} />}
+          {open
+            ? <X size={20} className="text-text-light" />
+            : (
+              <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+                <rect width="22" height="2" fill="#F7F4EF" />
+                <rect y="7" width="22" height="2" fill="#F7F4EF" />
+                <rect y="14" width="22" height="2" fill="#F7F4EF" />
+              </svg>
+            )
+          }
         </button>
-      </div>
+      </header>
 
-      {/* Mobile menu */}
+      {/* ── Full-screen mobile / hamburger menu ── */}
       {open && (
-        <div className="md:hidden bg-dark border-t border-border-dark px-6 py-5 flex flex-col gap-5">
-          {links.map((l) => (
+        <div
+          className="fixed inset-0 z-40 flex flex-col"
+          style={{ background: "#1C1C1C", paddingTop: `${NAV_H}px` }}
+        >
+          <nav className="flex flex-col px-8 py-12 gap-8">
+            {LINKS.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="font-heading font-bold text-text-light text-3xl hover:text-beige transition-colors"
+                style={{ fontSize: "clamp(1.8rem, 5vw, 3rem)" }}
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="mt-auto px-8 pb-12">
             <a
-              key={l.href}
-              href={l.href}
+              href="#contact"
               onClick={() => setOpen(false)}
-              className="text-sm font-medium text-text-light/70 hover:text-text-light transition-colors"
+              className="inline-flex items-center gap-2 bg-white text-dark px-7 py-4 rounded-full font-bold text-base hover:bg-beige transition-colors"
             >
-              {l.label}
+              Démarrer votre projet <ArrowUpRight size={16} />
             </a>
-          ))}
-          <a
-            href="#contact"
-            onClick={() => setOpen(false)}
-            className="inline-flex items-center justify-center px-5 py-3 rounded-full bg-beige text-dark text-sm font-bold mt-1"
-          >
-            Démarrer votre projet
-          </a>
-          <button
-            onClick={() => { setLang(lang === "fr" ? "en" : "fr"); setOpen(false); }}
-            className="text-xs font-semibold text-text-light/40 hover:text-text-light transition-colors tracking-widest uppercase text-left"
-          >
-            {lang === "fr" ? "EN" : "FR"}
-          </button>
+          </div>
         </div>
       )}
-    </header>
+
+      {/* Spacer so content doesn't hide under fixed nav */}
+      <div style={{ height: `${NAV_H}px` }} />
+    </>
   );
 }
