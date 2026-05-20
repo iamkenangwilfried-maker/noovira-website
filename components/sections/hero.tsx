@@ -1,44 +1,49 @@
 "use client";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Play } from "lucide-react";
 
 /**
- * Hero — exact clone of Sher Agency:
- * • Dark background, full-screen, centered text
+ * Hero — Sher Agency homepage structure:
+ * • Dark background, full-screen
  * • Stars + rating centered
  * • H1 centered, large
- * • Two centered CTA buttons
- * • Floating scattered company name tags (the tag-canvas effect)
+ * • Two CTA buttons
+ * • Floating scattered company name tags
+ * • Video thumbnail embedded at bottom of hero (clickable, plays inline)
  */
 
+const VIDEO_ID = "hn1SIFFnDBY";
+
 const TAGS = [
-  { label: "B3 Construction Corp",     rotate: -4,   x: "8%",   y: "58%" },
-  { label: "TEK Construction Group",   rotate: 12,   x: "24%",  y: "72%" },
-  { label: "CR Design & Remodel",      rotate: -18,  x: "43%",  y: "82%" },
-  { label: "C&M Home Builders",        rotate: 6,    x: "62%",  y: "68%" },
-  { label: "Schmitt Company",          rotate: -8,   x: "76%",  y: "78%" },
-  { label: "Qualmax",                  rotate: 22,   x: "88%",  y: "60%" },
-  { label: "42 Parallel Construction", rotate: -14,  x: "14%",  y: "88%" },
-  { label: "B2 Builders",              rotate: 8,    x: "55%",  y: "90%" },
-  { label: "Iron Star Construction",   rotate: -6,   x: "70%",  y: "86%" },
-  { label: "Skender",                  rotate: 16,   x: "3%",   y: "74%" },
-  { label: "Leopardo",                 rotate: -20,  x: "36%",  y: "66%" },
-  { label: "Clune Construction",       rotate: 4,    x: "82%",  y: "72%" },
-  { label: "FH Paschen",              rotate: -10,  x: "20%",  y: "62%" },
-  { label: "JDG Constructions",        rotate: 14,   x: "48%",  y: "74%" },
-  { label: "5 Star Roof Care",         rotate: -24,  x: "91%",  y: "84%" },
-  { label: "Bechtel",                  rotate: 6,    x: "30%",  y: "80%" },
-  { label: "Oasis Builders",           rotate: -12,  x: "66%",  y: "58%" },
-  // Extras to fill the canvas
-  { label: "Roulin Couverture",        rotate: 10,   x: "5%",   y: "64%" },
-  { label: "Favre Rénovation",         rotate: -16,  x: "78%",  y: "90%" },
-  { label: "Müller Charpente",         rotate: 8,    x: "40%",  y: "94%" },
+  { label: "B3 Construction Corp",     rotate: -4,   x: "8%",   y: "42%" },
+  { label: "TEK Construction Group",   rotate: 12,   x: "24%",  y: "54%" },
+  { label: "CR Design & Remodel",      rotate: -18,  x: "2%",   y: "62%" },
+  { label: "C&M Home Builders",        rotate: 6,    x: "76%",  y: "50%" },
+  { label: "Schmitt Company",          rotate: -8,   x: "86%",  y: "42%" },
+  { label: "Qualmax",                  rotate: 22,   x: "90%",  y: "58%" },
+  { label: "42 Parallel Construction", rotate: -14,  x: "4%",   y: "72%" },
+  { label: "B2 Builders",              rotate: 8,    x: "80%",  y: "68%" },
+  { label: "Iron Star Construction",   rotate: -6,   x: "68%",  y: "76%" },
+  { label: "Skender",                  rotate: 16,   x: "3%",   y: "82%" },
+  { label: "Leopardo",                 rotate: -20,  x: "22%",  y: "66%" },
+  { label: "Clune Construction",       rotate: 4,    x: "84%",  y: "80%" },
+  { label: "FH Paschen",               rotate: -10,  x: "16%",  y: "76%" },
+  { label: "JDG Constructions",        rotate: 14,   x: "46%",  y: "46%" },
+  { label: "5 Star Roof Care",         rotate: -24,  x: "91%",  y: "70%" },
+  { label: "Bechtel",                  rotate: 6,    x: "30%",  y: "82%" },
+  { label: "Oasis Builders",           rotate: -12,  x: "64%",  y: "44%" },
+  { label: "Roulin Couverture",        rotate: 10,   x: "5%",   y: "52%" },
+  { label: "Favre Rénovation",         rotate: -16,  x: "78%",  y: "86%" },
+  { label: "Müller Charpente",         rotate: 8,    x: "40%",  y: "88%" },
 ];
 
 export default function Hero() {
+  const [playing, setPlaying] = useState(false);
+
   return (
     <section
-      className="section-dark relative overflow-hidden"
+      className="section-dark relative overflow-hidden pb-16 lg:pb-24"
       style={{ minHeight: "100vh", paddingTop: "72px" }}
     >
       {/* ── Tag cloud — scattered company name pills ── */}
@@ -67,9 +72,7 @@ export default function Hero() {
       </div>
 
       {/* ── Centered content ── */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center px-6"
-        style={{ minHeight: "calc(100vh - 72px)", paddingBottom: "200px" }}
-      >
+      <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-12 lg:pt-20">
 
         {/* Stars */}
         <motion.div
@@ -105,7 +108,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.25 }}
-          className="flex flex-col sm:flex-row gap-3"
+          className="flex flex-col sm:flex-row gap-3 mb-14 lg:mb-20"
         >
           <a
             href="#contact"
@@ -119,6 +122,57 @@ export default function Hero() {
           >
             Voir nos réalisations
           </a>
+        </motion.div>
+
+        {/* ── VIDEO THUMBNAIL — Sher homepage embedded video ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.45 }}
+          className="relative w-full max-w-5xl rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl"
+          style={{ aspectRatio: "16/9" }}
+        >
+          {playing ? (
+            <iframe
+              src={`https://www.youtube.com/embed/${VIDEO_ID}?rel=0&modestbranding=1&autoplay=1`}
+              title="Comment Noovira crée vos sites"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute inset-0 w-full h-full"
+              style={{ border: "none" }}
+            />
+          ) : (
+            <button
+              onClick={() => setPlaying(true)}
+              className="absolute inset-0 w-full h-full group"
+              aria-label="Voir comment nous travaillons"
+            >
+              {/* YouTube thumbnail */}
+              <img
+                src={`https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`}
+                alt="Comment Noovira crée des sites web pour artisans"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${VIDEO_ID}/hqdefault.jpg`;
+                }}
+              />
+
+              {/* Dark gradient overlay */}
+              <div className="absolute inset-0 bg-dark/50 group-hover:bg-dark/35 transition-colors" />
+
+              {/* Caption bottom-left */}
+              <div className="absolute bottom-6 left-6 right-6 text-left">
+                <p className="text-text-light/80 text-sm font-bold uppercase tracking-widest">
+                  Comment nous créons des sites qui génèrent des leads.
+                </p>
+              </div>
+
+              {/* Play button — center */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-white flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
+                <Play size={24} className="text-dark fill-dark ml-1" />
+              </div>
+            </button>
+          )}
         </motion.div>
 
       </div>
