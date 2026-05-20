@@ -77,7 +77,7 @@ export default function GestionContent() {
 
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 border border-white/30 text-text-light px-7 py-4 rounded-full font-bold text-base hover:border-white hover:bg-white hover:text-dark transition-all"
+              className="inline-flex items-center gap-2 bg-beige text-white px-7 py-4 rounded-full font-bold text-base hover:bg-white hover:text-dark transition-all"
             >
               Réserver un appel <ArrowUpRight size={16} />
             </a>

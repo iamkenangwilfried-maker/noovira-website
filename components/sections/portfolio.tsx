@@ -77,7 +77,7 @@ function ProjectCard({ project, delay = 0 }: { project: typeof PROJECTS[0]; dela
           href={`https://${project.url}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 border border-white/30 text-text-light text-xs font-bold px-4 py-2 rounded-full hover:bg-white hover:text-dark transition-all"
+          className="inline-flex items-center gap-1.5 bg-beige text-white text-xs font-bold px-4 py-2 rounded-full hover:bg-white hover:text-dark transition-all"
           onClick={(e) => e.stopPropagation()}
         >
           Voir le projet <ArrowUpRight size={12} />
@@ -110,7 +110,7 @@ export default function Portfolio() {
               </h2>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 border border-dark/25 text-dark px-6 py-3 rounded-full font-semibold text-sm hover:border-dark transition-colors"
+                className="inline-flex items-center gap-2 bg-beige text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-dark transition-colors"
               >
                 Plus de réalisations
               </a>

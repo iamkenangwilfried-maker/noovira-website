@@ -59,13 +59,12 @@ export default function Navbar() {
             </a>
           ))}
 
-          {/* White pill CTA */}
+          {/* Beige pill CTA */}
           <a
             href="#contact"
-            className="inline-flex items-center gap-1.5 bg-white text-dark px-5 py-2.5 rounded-full font-bold text-sm hover:bg-beige transition-colors duration-200 whitespace-nowrap ml-2 flex-shrink-0"
+            className="inline-flex items-center gap-1.5 bg-beige text-white px-5 py-2.5 rounded-full font-bold text-sm hover:bg-white hover:text-dark transition-colors duration-200 whitespace-nowrap ml-2 flex-shrink-0"
           >
             Démarrer votre projet <ArrowUpRight size={13} />
-
           </a>
         </div>
 
@@ -123,7 +122,7 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="inline-flex items-center gap-2 bg-white text-dark px-7 py-4 rounded-full font-bold text-base hover:bg-beige transition-colors"
+              className="inline-flex items-center gap-2 bg-beige text-white px-7 py-4 rounded-full font-bold text-base hover:bg-white hover:text-dark transition-colors"
             >
               Démarrer votre projet <ArrowUpRight size={16} />
             </a>
