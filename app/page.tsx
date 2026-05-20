@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <main>
       <Navbar />
-      <Hero />               {/* DARK  — Titre + tag cloud + vidéo miniature intégrée */}
+      <Hero />               {/* DARK  — Titre + étiquettes noms clients (beige, survol = preview) */}
       <LogoStrip />          {/* WHITE — Logos clients défilants */}
       <WhatWeDo />           {/* DARK  — Accordéon 3 services */}
       <SingleReview />       {/* WHITE — Témoignage mis en avant */}

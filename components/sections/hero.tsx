@@ -1,107 +1,137 @@
 "use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Play } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
 /**
  * Hero — Sher Agency exact clone:
- * • Dark background, full-screen
- * • Floating WEBSITE SCREENSHOT CARDS that FALL from above on page load
- *   → on hover, the card scales up = preview of the website
- * • Centered: stars, H1, two CTAs
- * • Large 16:9 video thumbnail at bottom (click to play)
+ * • Dark background, full viewport
+ * • Stars + rating + H1 + 2 CTA buttons — centered
+ * • BOTTOM: client name TAGS (beige/cream rounded pills) scattered & rotated
+ *   → On hover: website screenshot PREVIEW CARD floats above the tag
+ * • NO video in the hero (video is HowWeMake section, placed after Portfolio)
  */
 
-const VIDEO_ID = "hn1SIFFnDBY";
+function shot(url: string) {
+  return `https://s.wordpress.com/mshots/v1/https%3A%2F%2F${encodeURIComponent(url)}?w=480&h=320`;
+}
 
-// mshots thumbnail helper (same as Portfolio)
-const shot = (url: string) =>
-  `https://s.wordpress.com/mshots/v1/https%3A%2F%2F${encodeURIComponent(url)}?w=400&h=266`;
-
-// Website screenshot cards scattered across the hero background
-const CARDS = [
-  { url: "b3constructioncorp.com",       rotate: -5,   x: "3%",   y: "18%" },
-  { url: "tekconstructiongroup.com",      rotate: 10,   x: "20%",  y: "10%" },
-  { url: "cr-design-remodel.webflow.io", rotate: -14,  x: "38%",  y: "6%"  },
-  { url: "candmhomebuilders.com",         rotate: 7,    x: "57%",  y: "12%" },
-  { url: "schmittcompany.com",            rotate: -9,   x: "74%",  y: "7%"  },
-  { url: "qualmax.co.nz",                 rotate: 18,   x: "88%",  y: "18%" },
-  { url: "42parallelconstruction.com",    rotate: -16,  x: "8%",   y: "60%" },
-  { url: "b2builders.com",               rotate: 6,    x: "83%",  y: "58%" },
-  { url: "ironstarconstruction.com",      rotate: -8,   x: "92%",  y: "38%" },
-  { url: "skender.com",                   rotate: 14,   x: "1%",   y: "40%" },
-  { url: "leopardo.com",                  rotate: -20,  x: "27%",  y: "70%" },
-  { url: "clunegc.com",                   rotate: 5,    x: "68%",  y: "72%" },
-  { url: "fhpaschen.com",                 rotate: -11,  x: "13%",  y: "78%" },
-  { url: "jdgconstructions.com.au",       rotate: 15,   x: "50%",  y: "76%" },
-  { url: "5starroofcare.co.uk",           rotate: -22,  x: "88%",  y: "80%" },
-  { url: "bechtel.com",                   rotate: 8,    x: "32%",  y: "82%" },
-  { url: "oasisbuildersinc.com",          rotate: -6,   x: "63%",  y: "56%" },
+// Client tags — exactly like Sher's layout: names at bottom, scattered, rotated
+// rotate values from Sher screenshots: various angles -25 to +25
+const TAGS = [
+  { name: "Roulin Couverture",    url: "b3constructioncorp.com",       rotate: -15, size: 1.0 },
+  { name: "Favre Rénovation",     url: "tekconstructiongroup.com",      rotate: 6,   size: 0.9 },
+  { name: "Müller Charpente",     url: "qualmax.co.nz",                 rotate: -22, size: 1.1 },
+  { name: "Martinez Plâtrerie",   url: "schmittcompany.com",            rotate: 10,  size: 1.0 },
+  { name: "Dupont Électricité",   url: "candmhomebuilders.com",         rotate: -8,  size: 0.9 },
+  { name: "Rochat Peinture",      url: "cr-design-remodel.webflow.io",  rotate: 18,  size: 1.0 },
+  { name: "B3 Construction",      url: "b3constructioncorp.com",        rotate: -5,  size: 1.1 },
+  { name: "TEK Group",            url: "tekconstructiongroup.com",      rotate: 14,  size: 0.9 },
+  { name: "Schmitt Company",      url: "schmittcompany.com",            rotate: -18, size: 1.0 },
+  { name: "Berset Toitures",      url: "5starroofcare.co.uk",           rotate: 7,   size: 1.0 },
+  { name: "Girardin BTP",         url: "ironstarconstruction.com",      rotate: -12, size: 0.95},
+  { name: "Clune Construction",   url: "clunegc.com",                   rotate: 20,  size: 1.0 },
+  { name: "Qualmax",              url: "qualmax.co.nz",                 rotate: -6,  size: 0.9 },
+  { name: "Leopardo",             url: "leopardo.com",                  rotate: 11,  size: 1.0 },
+  { name: "JDG Constructions",    url: "jdgconstructions.com.au",       rotate: -20, size: 1.0 },
+  { name: "5 Star Roof Care",     url: "5starroofcare.co.uk",           rotate: 4,   size: 0.9 },
+  { name: "Oasis Builders",       url: "oasisbuildersinc.com",          rotate: -14, size: 1.0 },
+  { name: "Skender",              url: "skender.com",                   rotate: 16,  size: 1.1 },
+  { name: "Iron Star",            url: "ironstarconstruction.com",      rotate: -9,  size: 0.9 },
+  { name: "FH Paschen",           url: "fhpaschen.com",                 rotate: 22,  size: 1.0 },
+  { name: "Bechtel",              url: "bechtel.com",                   rotate: -3,  size: 1.0 },
+  { name: "B2 Builders",          url: "b2builders.com",                rotate: 13,  size: 0.9 },
 ];
 
-export default function Hero() {
-  const [playing, setPlaying] = useState(false);
+type Tag = typeof TAGS[0];
+
+function ClientTag({ tag, delay }: { tag: Tag; delay: number }) {
+  const [hovered, setHovered] = useState(false);
 
   return (
-    <section
-      className="section-dark relative overflow-hidden pb-16 lg:pb-24"
-      style={{ minHeight: "100vh", paddingTop: "72px" }}
+    <div
+      className="relative inline-block flex-shrink-0"
+      style={{ transform: `rotate(${tag.rotate}deg)` }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      {/* ── WEBSITE SCREENSHOT CARDS — fall from above on load, scale on hover ── */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-10" aria-hidden>
-        {CARDS.map((card, i) => (
+      {/* Preview card — appears above on hover */}
+      <AnimatePresence>
+        {hovered && (
           <motion.div
-            key={card.url}
-            initial={{ opacity: 0, y: -160 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 1.1,
-              delay: 0.4 + i * 0.07,
-              type: "spring",
-              stiffness: 55,
-              damping: 14,
-            }}
-            whileHover={{ scale: 2.2, zIndex: 60 }}
-            style={{
-              position: "absolute",
-              left: card.x,
-              top: card.y,
-              rotate: `${card.rotate}deg`,
-              pointerEvents: "auto",
-              cursor: "pointer",
-              transformOrigin: "center center",
-            }}
+            initial={{ opacity: 0, y: 8, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 8, scale: 0.95 }}
+            transition={{ duration: 0.18 }}
+            className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
+            style={{ width: "220px" }}
           >
-            {/* Mini screenshot card */}
-            <div
-              className="rounded-xl overflow-hidden shadow-2xl border border-white/20 bg-[#222]"
-              style={{ width: "112px", height: "76px" }}
-            >
-              <img
-                src={shot(card.url)}
-                alt=""
-                className="w-full h-full object-cover object-top"
-                loading="lazy"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.opacity = "0.12";
-                }}
-              />
+            <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-[#1A1A1A]">
+              {/* Screenshot */}
+              <div className="relative" style={{ height: "130px" }}>
+                <img
+                  src={shot(tag.url)}
+                  alt={tag.name}
+                  className="w-full h-full object-cover object-top"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.opacity = "0.1";
+                  }}
+                />
+              </div>
+              {/* Name + link */}
+              <div className="px-4 py-3 flex items-center justify-between">
+                <span className="text-text-light text-sm font-bold truncate">{tag.name}</span>
+                <ArrowUpRight size={14} className="text-text-light/50 flex-shrink-0 ml-2" />
+              </div>
             </div>
           </motion.div>
-        ))}
-      </div>
+        )}
+      </AnimatePresence>
 
-      {/* ── Centered content ── */}
-      <div
-        className="relative z-20 flex flex-col items-center justify-center text-center px-6 pt-12 lg:pt-20"
+      {/* The tag pill itself — beige/cream, rounded rectangle */}
+      <motion.div
+        initial={{ opacity: 0, y: 60 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.7,
+          delay,
+          type: "spring",
+          stiffness: 80,
+          damping: 16,
+        }}
+        className="cursor-default select-none"
+        style={{
+          background: "#E8E1D5",
+          color: "#1A1A1A",
+          borderRadius: "10px",
+          padding: `${8 * tag.size}px ${16 * tag.size}px`,
+          fontSize: `${12 * tag.size}px`,
+          fontWeight: 600,
+          whiteSpace: "nowrap",
+          lineHeight: 1.3,
+        }}
       >
+        {tag.name}
+      </motion.div>
+    </div>
+  );
+}
+
+export default function Hero() {
+  return (
+    <section
+      className="section-dark relative overflow-hidden"
+      style={{ minHeight: "100vh", paddingTop: "80px" }}
+    >
+      {/* ── Centered content: stars + H1 + CTAs ── */}
+      <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-16 lg:pt-24 pb-12">
 
         {/* Stars */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col items-center gap-2 mb-8"
+          className="flex flex-col items-center gap-1.5 mb-8"
         >
           <div className="flex gap-1">
             {[...Array(5)].map((_, i) => (
@@ -118,7 +148,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="font-heading font-bold text-text-light tracking-tight leading-[1.05] mb-8 max-w-3xl"
+          className="font-heading font-bold text-text-light tracking-tight leading-[1.05] mb-8 max-w-4xl"
           style={{ fontSize: "clamp(3rem, 7vw, 6rem)" }}
         >
           Nous créons des sites qui{" "}
@@ -130,7 +160,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.25 }}
-          className="flex flex-col sm:flex-row gap-3 mb-14 lg:mb-20"
+          className="flex flex-col sm:flex-row gap-3"
         >
           <a
             href="#contact"
@@ -140,59 +170,34 @@ export default function Hero() {
           </a>
           <a
             href="#portfolio"
-            className="inline-flex items-center gap-2 text-text-light/60 px-7 py-3.5 rounded-full font-semibold text-base hover:text-text-light transition-colors"
+            className="inline-flex items-center gap-2 text-text-light/50 px-7 py-3.5 rounded-full font-semibold text-base hover:text-text-light transition-colors"
           >
             Voir nos réalisations
           </a>
         </motion.div>
+      </div>
 
-        {/* ── VIDEO THUMBNAIL — full-width at bottom of hero ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="relative w-full max-w-5xl rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl"
-          style={{ aspectRatio: "16/9" }}
-        >
-          {playing ? (
-            <iframe
-              src={`https://www.youtube.com/embed/${VIDEO_ID}?rel=0&modestbranding=1&autoplay=1`}
-              title="Comment Noovira crée vos sites"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="absolute inset-0 w-full h-full"
-              style={{ border: "none" }}
-            />
-          ) : (
-            <button
-              onClick={() => setPlaying(true)}
-              className="absolute inset-0 w-full h-full group"
-              aria-label="Voir comment nous travaillons"
-            >
-              <img
-                src={`https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`}
-                alt="Comment Noovira crée des sites web pour artisans"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${VIDEO_ID}/hqdefault.jpg`;
-                }}
-              />
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-dark/50 group-hover:bg-dark/35 transition-colors" />
-              {/* Caption */}
-              <div className="absolute bottom-6 left-6 right-6 text-left">
-                <p className="text-text-light/80 text-sm font-bold uppercase tracking-widest">
-                  Comment nous créons des sites qui génèrent des leads.
-                </p>
-              </div>
-              {/* Play button */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-white flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
-                <Play size={24} className="text-dark fill-dark ml-1" />
-              </div>
-            </button>
-          )}
-        </motion.div>
-
+      {/* ── CLIENT NAME TAGS — bottom of hero, scattered, rotated ── */}
+      {/* Outer wrapper clips overflow; inner wrapper is wider than viewport */}
+      <div className="relative z-20 w-full overflow-hidden pb-16" style={{ minHeight: "260px" }}>
+        {/* Row 1 */}
+        <div className="flex flex-wrap gap-3 justify-center px-6 mb-3">
+          {TAGS.slice(0, 8).map((tag, i) => (
+            <ClientTag key={tag.name + i} tag={tag} delay={0.4 + i * 0.06} />
+          ))}
+        </div>
+        {/* Row 2 */}
+        <div className="flex flex-wrap gap-3 justify-center px-10 mb-3">
+          {TAGS.slice(8, 16).map((tag, i) => (
+            <ClientTag key={tag.name + i} tag={tag} delay={0.6 + i * 0.06} />
+          ))}
+        </div>
+        {/* Row 3 */}
+        <div className="flex flex-wrap gap-3 justify-center px-6">
+          {TAGS.slice(16).map((tag, i) => (
+            <ClientTag key={tag.name + i} tag={tag} delay={0.8 + i * 0.06} />
+          ))}
+        </div>
       </div>
     </section>
   );
