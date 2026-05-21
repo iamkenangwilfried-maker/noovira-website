@@ -52,10 +52,11 @@ function makeSprite(text: string, bg: string, fg: string, w: number, h: number):
   ctx.fill();
 
   ctx.fillStyle = fg;
-  ctx.font = `700 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+  const fontSize = Math.max(11, Math.round(h * 0.22)); // police proportionnelle (pas trop grande)
+  ctx.font = `700 ${fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  const maxW = w - 32;
+  const maxW = w - Math.round(h * 0.55);
   let t = text;
   while (ctx.measureText(t).width > maxW && t.length > 4) t = t.slice(0, -2) + "…";
   ctx.fillText(t, w / 2, h / 2);
@@ -103,12 +104,14 @@ export default function Hero() {
         options: { width: W, height: H, wireframes: false, background: "transparent" },
       });
 
-      // ── DIMENSIONS ──
-      const tagW = 220;
-      const tagH = 58;
+      // ── DIMENSIONS RESPONSIVES ──
+      // Taille calculée depuis la vraie largeur → fonctionne sur tous écrans
       const GAP  = 12;
-      const cols  = 6;
-      const wall  = 60;
+      const wall = 60;
+      // 5 cols desktop → 4 rangées pour 17 tags → pile ~360px (gap réduit comme Sher)
+      const cols = W > 900 ? 5 : W > 500 ? 4 : 3;
+      const tagW = Math.max(100, Math.floor((W - (cols + 1) * GAP) / cols));
+      const tagH = Math.max(44,  Math.round(tagW * 0.30)); // ratio largeur/hauteur harmonieux
 
       // Floor: la BASE du rang inférieur est à y=H (canvas edge)
       // → tag center à y=H-tagH/2 → tag entier visible dans le canvas
