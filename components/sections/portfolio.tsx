@@ -1,4 +1,5 @@
 "use client";
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { PROJECTS } from "@/lib/projects";
@@ -7,7 +8,8 @@ import { PROJECTS } from "@/lib/projects";
  * Portfolio — Sher Agency "Websites We Created":
  * • White background
  * • LEFT sticky: heading + stats
- * • RIGHT: 2-column staggered grid of screenshot cards
+ * • RIGHT: 2-column staggered grid of cards
+ * • Cards: show screenshot at rest, play scroll video on hover
  * • Each card links to /realisations/[slug] (case study page)
  */
 
@@ -19,6 +21,8 @@ const COL_A = PROJECTS.slice(0, 9);
 const COL_B = PROJECTS.slice(9);
 
 function ProjectCard({ project, delay = 0 }: { project: typeof PROJECTS[0]; delay?: number }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   return (
     <motion.a
       href={`/realisations/${project.slug}`}
@@ -26,19 +30,32 @@ function ProjectCard({ project, delay = 0 }: { project: typeof PROJECTS[0]; dela
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.6, delay }}
-      className="group relative rounded-2xl overflow-hidden bg-dark block"
+      className="group relative rounded-2xl overflow-hidden bg-dark block cursor-pointer"
       style={{ height: "480px" }}
+      onMouseEnter={() => { videoRef.current?.play(); }}
+      onMouseLeave={() => {
+        const v = videoRef.current;
+        if (v) { v.pause(); v.currentTime = 0; }
+      }}
     >
-      {/* Background screenshot — scrolls on hover */}
+      {/* Static screenshot — visible at rest, fades out on hover */}
       <img
         src={shot(project.url)}
         alt={project.title}
-        className="portfolio-scroll-img absolute inset-0 w-full object-cover object-top"
+        className="absolute inset-0 w-full object-cover object-top transition-opacity duration-500 group-hover:opacity-0"
         style={{ height: "130%" }}
         loading="lazy"
-        onError={(e) => {
-          (e.target as HTMLImageElement).style.opacity = "0.15";
-        }}
+      />
+
+      {/* Video scroll recording — invisible at rest, fades in on hover */}
+      <video
+        ref={videoRef}
+        src={`/videos/${project.slug}/scroll.mp4`}
+        muted
+        playsInline
+        loop
+        preload="none"
+        className="absolute inset-0 w-full h-full object-cover object-top opacity-0 transition-opacity duration-500 group-hover:opacity-100"
       />
 
       {/* Dark overlay gradient */}
@@ -55,7 +72,7 @@ function ProjectCard({ project, delay = 0 }: { project: typeof PROJECTS[0]; dela
         >
           {project.title}
         </h3>
-        <span className="inline-flex items-center gap-1.5 bg-beige text-white text-xs font-bold px-4 py-2 rounded-full hover:bg-white hover:text-dark transition-all">
+        <span className="inline-flex items-center gap-1.5 bg-beige text-white text-xs font-bold px-4 py-2 rounded-full group-hover:bg-white group-hover:text-dark transition-all">
           Voir le projet <ArrowUpRight size={12} />
         </span>
       </div>
