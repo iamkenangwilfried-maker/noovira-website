@@ -76,9 +76,22 @@ export default function Process() {
     <section className="section-dark py-20 lg:py-28 overflow-hidden" id="processus">
       <div className="max-w-7xl mx-auto px-6">
 
+        {/* ── Titre section ── */}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="font-heading text-text-light tracking-tight leading-[1.05] mb-14"
+          style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)", fontWeight: 300 }}
+        >
+          Découvrez<br />
+          <span style={{ fontWeight: 800 }}>notre process</span>
+        </motion.h2>
+
         <div className="grid lg:grid-cols-[220px_1fr] gap-10 lg:gap-0 items-start">
 
-          {/* ── LEFT: Rotated vertical text (Sher exact) ── */}
+          {/* ── LEFT: Rotated vertical text (watermark) ── */}
           <div className="hidden lg:flex items-center justify-center" style={{ minHeight: "700px" }}>
             <div
               style={{
@@ -86,14 +99,14 @@ export default function Process() {
                 transform: "rotate(180deg)",
                 fontSize: "clamp(2.5rem, 5vw, 5rem)",
                 fontWeight: 800,
-                color: "rgba(247,244,239,0.08)",
+                color: "rgba(247,244,239,0.06)",
                 letterSpacing: "-0.03em",
                 lineHeight: 1,
                 userSelect: "none",
                 whiteSpace: "nowrap",
               }}
             >
-              Comment Notre Processus Fonctionne
+              Découvrez notre process
             </div>
           </div>
 
