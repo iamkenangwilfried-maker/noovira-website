@@ -1,17 +1,15 @@
 "use client";
 import { useRef } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ArrowLeft, ArrowRight } from "lucide-react";
 import { Project } from "@/lib/projects";
 
 /**
- * Case Study — Structure 100% identique à Sher Agency
- * Source vérifiée sur sheragency.com/case-study/majestic-painting
+ * Case Study — structure identique à Sher Agency
  *
  * §1  HERO           Titre fin + "Website Design" gras + <hr> full-width
- * §2  THE WEBSITE    Heading + "See It Live" | 5 vidéos empilées full-width
- * §3  THE PROCESS    "The Process" | 4 lignes : texte GAUCHE / vidéo DROITE (fixe)
- * §4  MORE PROJECTS  Sticky gauche + grille 2 colonnes
- * §5  FinalCTA + Footer (dans page.tsx)
+ * §2  THE WEBSITE    "The Website" + "See It Live" | carousel horizontal 3 colonnes + ← →
+ * §3  THE PROCESS    "The Process" | 4 lignes texte GAUCHE / vidéo DROITE
+ * §4  WEBSITES WE CREATED  sticky gauche + grille 2 colonnes de cartes sombres
  */
 
 function shot(url: string, w = 1200, h = 750) {
@@ -20,31 +18,16 @@ function shot(url: string, w = 1200, h = 750) {
 
 interface Props { project: Project; otherProjects: Project[] }
 
-/* ─── Vidéo empilée §2 — autoplay, pleine largeur ─── */
-function StackedVideo({ src, poster, label }: { src: string; poster: string; label: string }) {
-  return (
-    <div className="rounded-2xl overflow-hidden border border-white/10 w-full" style={{ background: "#0a0a0a" }}>
-      <video
-        src={src}
-        poster={poster}
-        autoPlay muted loop playsInline preload="auto"
-        className="w-full block object-cover object-top"
-        style={{ aspectRatio: "16/10" }}
-        aria-label={label}
-      />
-    </div>
-  );
-}
-
-/* ─── Ligne process §3 — texte GAUCHE / vidéo DROITE (fixe, pas alterné) ─── */
-function ProcessRow({ num, text, label, videoSrc, poster }: {
+/* ─── §3 ProcessRow — texte GAUCHE / vidéo DROITE (jamais inversé) ─── */
+function ProcessRow({
+  num, text, label, videoSrc, poster,
+}: {
   num: string; text: string; label: string; videoSrc: string; poster: string;
 }) {
-  const ref = useRef<HTMLVideoElement>(null);
   return (
     <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
 
-      {/* Texte — TOUJOURS à gauche */}
+      {/* Texte — toujours à gauche */}
       <div className="pt-2">
         <div
           className="font-heading text-text-light/20 font-extrabold mb-6 leading-none select-none"
@@ -53,7 +36,7 @@ function ProcessRow({ num, text, label, videoSrc, poster }: {
           {num}
         </div>
         <p
-          className="text-text-light/70 leading-relaxed mb-4"
+          className="text-text-light/70 leading-relaxed"
           style={{ fontSize: "clamp(1rem, 1.4vw, 1.15rem)" }}
         >
           {text}
@@ -61,13 +44,12 @@ function ProcessRow({ num, text, label, videoSrc, poster }: {
         <div className="text-text-light font-heading font-extrabold text-lg mt-6">{label}</div>
       </div>
 
-      {/* Vidéo — TOUJOURS à droite, autoplay */}
+      {/* Vidéo — toujours à droite, autoPlay */}
       <div
         className="rounded-2xl overflow-hidden border border-white/10"
         style={{ background: "#0a0a0a", aspectRatio: "16/10" }}
       >
         <video
-          ref={ref}
           src={videoSrc}
           poster={poster}
           autoPlay muted loop playsInline preload="auto"
@@ -78,62 +60,82 @@ function ProcessRow({ num, text, label, videoSrc, poster }: {
   );
 }
 
-/* ─── Carte §4 grille "More Projects" ─── */
+/* ─── §4 OtherCard — screenshot au repos, vidéo au survol ─── */
 function OtherCard({ project }: { project: Project }) {
   const ref = useRef<HTMLVideoElement>(null);
   return (
     <a
       href={`/realisations/${project.slug}`}
-      className="group relative rounded-2xl overflow-hidden bg-dark block"
-      style={{ height: "320px" }}
+      className="group relative rounded-2xl overflow-hidden block"
+      style={{ height: "380px", background: "#111" }}
       onMouseEnter={() => ref.current?.play()}
-      onMouseLeave={() => { const v = ref.current; if (v) { v.pause(); v.currentTime = 0; } }}
+      onMouseLeave={() => {
+        const v = ref.current;
+        if (v) { v.pause(); v.currentTime = 0; }
+      }}
     >
-      {/* Screenshot au repos, vidéo au survol */}
+      {/* Screenshot au repos */}
       <img
         src={shot(project.url, 600, 400)}
         alt={project.title}
         className="absolute inset-0 w-full h-full object-cover object-top group-hover:opacity-0 transition-opacity duration-300"
       />
+      {/* Vidéo au survol */}
       <video
         ref={ref}
         src={`/videos/${project.slug}/01.mp4`}
         muted playsInline loop preload="none"
         className="absolute inset-0 w-full h-full object-cover object-top"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-dark/5 z-10" />
-      <div className="absolute bottom-0 left-0 right-0 p-5 z-20">
-        <div className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-1.5">
-          {project.category}
-        </div>
-        <div className="flex items-end justify-between gap-3">
-          <h3 className="font-heading font-bold text-white leading-tight"
-            style={{ fontSize: "clamp(1.1rem, 2vw, 1.5rem)" }}>
-            {project.title}
-          </h3>
-          <span className="flex-shrink-0 inline-flex items-center gap-1.5 bg-beige text-white text-xs font-bold px-3 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">
-            Voir <ArrowUpRight size={11} />
-          </span>
-        </div>
+      {/* Gradient sombre vers le bas */}
+      <div
+        className="absolute inset-0 z-10"
+        style={{ background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.05) 100%)" }}
+      />
+      {/* Contenu */}
+      <div className="absolute bottom-0 left-0 right-0 p-6 z-20 flex flex-col gap-4">
+        <h3
+          className="font-heading font-bold text-white leading-tight"
+          style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)" }}
+        >
+          {project.title}
+        </h3>
+        <span className="inline-flex items-center gap-2 bg-white text-dark text-sm font-bold px-5 py-2.5 rounded-full w-fit opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">
+          View Project <ArrowUpRight size={13} />
+        </span>
       </div>
     </a>
   );
 }
 
-/* ═══════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════
    PAGE PRINCIPALE
-═══════════════════════════════════════════════════ */
+═══════════════════════════════════════════════════════════ */
 export default function CaseStudyClient({ project, otherProjects }: Props) {
 
   const poster = shot(project.url);
 
-  /* 5 vidéos pour §2 — une par page du site */
-  const websiteVideos = [1, 2, 3, 4, 5].map(n => ({
-    src: `/videos/${project.slug}/${String(n).padStart(2, "0")}.mp4`,
-    label: `${project.title} — vue ${n}`,
-  }));
+  // §2 — 5 vidéos pour le carousel
+  const videos = Array.from({ length: 5 }, (_, i) =>
+    `/videos/${project.slug}/${String(i + 1).padStart(2, "0")}.mp4`
+  );
 
-  /* 4 étapes du process pour §3 */
+  // §2 — ref pour scrollBy
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  function slidePrev() {
+    if (!sliderRef.current) return;
+    // largeur d'un item = (container - 2 gaps de 16px) / 3
+    const itemW = (sliderRef.current.clientWidth - 32) / 3;
+    sliderRef.current.scrollBy({ left: -(itemW + 16), behavior: "smooth" });
+  }
+  function slideNext() {
+    if (!sliderRef.current) return;
+    const itemW = (sliderRef.current.clientWidth - 32) / 3;
+    sliderRef.current.scrollBy({ left: itemW + 16, behavior: "smooth" });
+  }
+
+  // §3 — 4 étapes du process
   const processSteps = [
     {
       num: "01",
@@ -182,7 +184,7 @@ export default function CaseStudyClient({ project, otherProjects }: Props) {
             {project.title}
           </h1>
 
-          {/* "Website Design" en gras */}
+          {/* "Website Design" gras */}
           <p
             className="font-heading text-text-light tracking-tight"
             style={{
@@ -202,13 +204,13 @@ export default function CaseStudyClient({ project, otherProjects }: Props) {
 
       {/* ════════════════════════════════
           §2  THE WEBSITE
-          5 vidéos empilées verticalement
+          Carousel horizontal — 3 items visibles + flèches ← →
       ════════════════════════════════ */}
       <section className="section-dark pt-16 lg:pt-24 pb-20 lg:pb-28">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
 
           {/* Ligne en-tête */}
-          <div className="flex items-end justify-between gap-6 mb-12 lg:mb-16">
+          <div className="flex items-end justify-between gap-6 mb-8 lg:mb-10">
             <h2
               className="font-heading font-extrabold text-text-light leading-none"
               style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}
@@ -225,12 +227,50 @@ export default function CaseStudyClient({ project, otherProjects }: Props) {
             </a>
           </div>
 
-          {/* 5 vidéos empilées, chacune pleine largeur — identique à Sher */}
-          <div className="flex flex-col gap-5">
-            {websiteVideos.map((v, i) => (
-              <StackedVideo key={i} src={v.src} poster={poster} label={v.label} />
+          {/* Flèches de navigation */}
+          <div className="flex gap-2 mb-6">
+            <button
+              onClick={slidePrev}
+              aria-label="Précédent"
+              className="w-10 h-10 rounded-full border border-text-light/20 flex items-center justify-center text-text-light hover:bg-white hover:text-dark hover:border-white transition-all"
+            >
+              <ArrowLeft size={16} />
+            </button>
+            <button
+              onClick={slideNext}
+              aria-label="Suivant"
+              className="w-10 h-10 rounded-full border border-text-light/20 flex items-center justify-center text-text-light hover:bg-white hover:text-dark hover:border-white transition-all"
+            >
+              <ArrowRight size={16} />
+            </button>
+          </div>
+
+          {/* Carousel — overflow-x scroll, scrollbar cachée */}
+          <div
+            ref={sliderRef}
+            className="flex gap-4 hide-scrollbar"
+            style={{ overflowX: "scroll" }}
+          >
+            {videos.map((src, i) => (
+              <div
+                key={i}
+                className="flex-none rounded-2xl overflow-hidden border border-white/10"
+                style={{
+                  width: "calc((100% - 32px) / 3)",
+                  background: "#0a0a0a",
+                }}
+              >
+                <video
+                  src={src}
+                  poster={poster}
+                  autoPlay muted loop playsInline preload="auto"
+                  className="w-full block object-cover object-top"
+                  style={{ aspectRatio: "4/3" }}
+                />
+              </div>
             ))}
           </div>
+
         </div>
       </section>
 
@@ -239,7 +279,7 @@ export default function CaseStudyClient({ project, otherProjects }: Props) {
 
       {/* ════════════════════════════════
           §3  THE PROCESS
-          Texte GAUCHE / Vidéo DROITE — fixe (pas alterné)
+          Texte GAUCHE / Vidéo DROITE — toujours
       ════════════════════════════════ */}
       <section className="section-dark pt-20 lg:pt-28 pb-24 lg:pb-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -268,22 +308,23 @@ export default function CaseStudyClient({ project, otherProjects }: Props) {
 
       {/* ════════════════════════════════
           §4  WEBSITES WE CREATED
+          Sticky gauche + grille 2 colonnes sombres
       ════════════════════════════════ */}
-      <section className="section-white py-20 lg:py-28">
+      <section className="py-20 lg:py-28" style={{ background: "#111111" }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-[300px_1fr] gap-10 lg:gap-16 items-start">
 
             {/* Sticky gauche */}
             <div className="lg:sticky lg:top-32 lg:self-start">
               <h2
-                className="font-heading text-dark leading-tight tracking-tight mb-8"
+                className="font-heading text-text-light leading-tight tracking-tight mb-8"
                 style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)" }}
               >
                 Websites<br />We <span className="font-extrabold">Created</span>
               </h2>
               <a
                 href="/realisations"
-                className="inline-flex items-center gap-2 border border-dark/20 text-dark px-6 py-3 rounded-full font-semibold text-sm hover:bg-dark hover:text-white hover:border-dark transition-all"
+                className="inline-flex items-center gap-2 border border-text-light/20 text-text-light px-6 py-3 rounded-full font-semibold text-sm hover:bg-white hover:text-dark hover:border-white transition-all"
               >
                 More Case Studies <ArrowUpRight size={14} />
               </a>

@@ -66,6 +66,15 @@ section {
   color: var(--text-dark);
 }
 
+/* Hide scrollbar utility — used for horizontal carousels */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @layer utilities {
   /* Gradient text — beige accent */
   .text-gradient {
