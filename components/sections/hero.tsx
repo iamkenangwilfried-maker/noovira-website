@@ -321,7 +321,8 @@ export default function Hero() {
             Nous créons des sites qui vous apportent des{" "}
             <span style={{ fontWeight: 800, color: "#FFD6D8" }}>Devis.</span>
             <br />
-            <span style={{ fontWeight: 800, color: "#FFD6D8" }}>Pas juste des visites.</span>
+            Pas juste des{" "}
+            <span style={{ fontWeight: 800, color: "#FFD6D8" }}>visites.</span>
           </motion.h1>
 
           <motion.div
