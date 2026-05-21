@@ -40,7 +40,7 @@ export default function PageHero({
 
           <a
             href={ctaHref}
-            className="inline-flex items-center gap-2 bg-rose text-dark px-7 py-4 rounded-full font-bold text-base hover:bg-white hover:text-dark transition-all"
+            className="inline-flex items-center gap-2 bg-rose text-dark px-7 py-4 rounded-full font-bold text-base hover:bg-[#F0F0F0] hover:text-dark transition-all"
           >
             {cta} <ArrowUpRight size={16} />
           </a>

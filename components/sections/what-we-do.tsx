@@ -55,7 +55,7 @@ export default function WhatWeDo() {
 
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 bg-rose text-dark px-6 py-3.5 rounded-full font-bold text-sm hover:bg-white hover:text-dark transition-all"
+                className="inline-flex items-center gap-2 bg-rose text-dark px-6 py-3.5 rounded-full font-bold text-sm hover:bg-[#F0F0F0] hover:text-dark transition-all"
               >
                 Démarrer votre projet <ArrowUpRight size={14} />
               </a>

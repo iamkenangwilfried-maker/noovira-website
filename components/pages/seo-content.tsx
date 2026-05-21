@@ -52,7 +52,7 @@ export default function SeoContent() {
 
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 bg-rose text-dark px-7 py-4 rounded-full font-bold text-base hover:bg-white hover:text-dark transition-all"
+              className="inline-flex items-center gap-2 bg-rose text-dark px-7 py-4 rounded-full font-bold text-base hover:bg-[#F0F0F0] hover:text-dark transition-all"
             >
               Réserver un appel <ArrowUpRight size={16} />
             </a>
@@ -92,7 +92,7 @@ export default function SeoContent() {
                   </li>
                 ))}
               </ul>
-              <a href="#contact" className="inline-flex items-center gap-2 mt-8 bg-rose text-dark px-5 py-3 rounded-full text-sm font-bold hover:bg-white hover:text-dark transition-colors">
+              <a href="#contact" className="inline-flex items-center gap-2 mt-8 bg-rose text-dark px-5 py-3 rounded-full text-sm font-bold hover:bg-[#F0F0F0] hover:text-dark transition-colors">
                 En savoir plus <ArrowUpRight size={14} />
               </a>
             </motion.div>
@@ -124,7 +124,7 @@ export default function SeoContent() {
                   </li>
                 ))}
               </ul>
-              <a href="#contact" className="inline-flex items-center gap-2 mt-8 bg-rose text-dark px-5 py-3 rounded-full text-sm font-bold hover:bg-white hover:text-dark transition-colors">
+              <a href="#contact" className="inline-flex items-center gap-2 mt-8 bg-rose text-dark px-5 py-3 rounded-full text-sm font-bold hover:bg-[#F0F0F0] hover:text-dark transition-colors">
                 En savoir plus <ArrowUpRight size={14} />
               </a>
             </motion.div>

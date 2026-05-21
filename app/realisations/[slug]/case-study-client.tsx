@@ -221,7 +221,7 @@ export default function CaseStudyClient({ project, otherProjects }: Props) {
               href={`https://${project.url}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 inline-flex items-center gap-2 border border-text-light/30 text-text-light px-6 py-3 rounded-full text-sm font-semibold hover:bg-white hover:text-dark hover:border-white transition-all"
+              className="flex-shrink-0 inline-flex items-center gap-2 border border-text-light/30 text-text-light px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#F0F0F0] hover:text-dark hover:border-white transition-all"
             >
               See It Live <ArrowUpRight size={14} />
             </a>
@@ -232,14 +232,14 @@ export default function CaseStudyClient({ project, otherProjects }: Props) {
             <button
               onClick={slidePrev}
               aria-label="Précédent"
-              className="w-10 h-10 rounded-full border border-text-light/20 flex items-center justify-center text-text-light hover:bg-white hover:text-dark hover:border-white transition-all"
+              className="w-10 h-10 rounded-full border border-text-light/20 flex items-center justify-center text-text-light hover:bg-[#F0F0F0] hover:text-dark hover:border-white transition-all"
             >
               <ArrowLeft size={16} />
             </button>
             <button
               onClick={slideNext}
               aria-label="Suivant"
-              className="w-10 h-10 rounded-full border border-text-light/20 flex items-center justify-center text-text-light hover:bg-white hover:text-dark hover:border-white transition-all"
+              className="w-10 h-10 rounded-full border border-text-light/20 flex items-center justify-center text-text-light hover:bg-[#F0F0F0] hover:text-dark hover:border-white transition-all"
             >
               <ArrowRight size={16} />
             </button>
@@ -324,7 +324,7 @@ export default function CaseStudyClient({ project, otherProjects }: Props) {
               </h2>
               <a
                 href="/realisations"
-                className="inline-flex items-center gap-2 border border-text-light/20 text-text-light px-6 py-3 rounded-full font-semibold text-sm hover:bg-white hover:text-dark hover:border-white transition-all"
+                className="inline-flex items-center gap-2 border border-text-light/20 text-text-light px-6 py-3 rounded-full font-semibold text-sm hover:bg-[#F0F0F0] hover:text-dark hover:border-white transition-all"
               >
                 More Case Studies <ArrowUpRight size={14} />
               </a>

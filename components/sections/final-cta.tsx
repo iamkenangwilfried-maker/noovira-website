@@ -33,7 +33,7 @@ export default function FinalCTA() {
             href="https://link.nooviraai.com/widget/bookings/45min-nooviraai-call"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-rose text-dark px-8 py-4 rounded-full font-bold text-base hover:bg-white hover:text-dark transition-all"
+            className="inline-flex items-center gap-2 bg-rose text-dark px-8 py-4 rounded-full font-bold text-base hover:bg-[#F0F0F0] hover:text-dark transition-all"
           >
             Réserver un appel gratuit <ArrowUpRight size={16} />
           </a>

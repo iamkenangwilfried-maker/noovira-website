@@ -29,19 +29,19 @@ export default function Navbar() {
         className="fixed top-0 left-0 right-0 z-50 flex items-stretch"
         style={{ height: `${NAV_H}px` }}
       >
-        {/* ── LEFT: Logo box — carré dark comme Sher, fond noir = logo intégré ── */}
+        {/* ── LEFT: Logo box — 120px large, dark, logo bien centré et visible ── */}
         <a
           href="/"
           className="flex-shrink-0 flex items-center justify-center"
-          style={{ width: `${NAV_H}px`, minWidth: `${NAV_H}px`, background: "#0A0A0A" }}
+          style={{ width: "120px", minWidth: "120px", background: "#0A0A0A" }}
           aria-label="Noovira AI — Agence web pour le bâtiment en Suisse"
         >
           <img
             src="/logo-novira.svg"
             alt="Noovira AI"
-            width={54}
-            height={54}
-            style={{ width: 54, height: 54 }}
+            width={72}
+            height={72}
+            style={{ width: 72, height: 72 }}
             loading="eager"
           />
         </a>
@@ -64,7 +64,7 @@ export default function Navbar() {
           {/* Beige pill CTA */}
           <a
             href="#contact"
-            className="inline-flex items-center gap-1.5 bg-rose text-dark px-5 py-2.5 rounded-full font-bold text-sm hover:bg-white hover:text-dark transition-colors duration-200 whitespace-nowrap ml-2 flex-shrink-0"
+            className="inline-flex items-center gap-1.5 bg-rose text-dark px-5 py-2.5 rounded-full font-bold text-sm hover:bg-[#F0F0F0] hover:text-dark transition-colors duration-200 whitespace-nowrap ml-2 flex-shrink-0"
           >
             Démarrer votre projet <ArrowUpRight size={13} />
           </a>
@@ -124,7 +124,7 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="inline-flex items-center gap-2 bg-rose text-dark px-7 py-4 rounded-full font-bold text-base hover:bg-white hover:text-dark transition-colors"
+              className="inline-flex items-center gap-2 bg-rose text-dark px-7 py-4 rounded-full font-bold text-base hover:bg-[#F0F0F0] hover:text-dark transition-colors"
             >
               Démarrer votre projet <ArrowUpRight size={16} />
             </a>

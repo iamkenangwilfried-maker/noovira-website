@@ -319,9 +319,9 @@ export default function Hero() {
             style={{ fontSize: "clamp(2.8rem, 6.5vw, 5.5rem)", fontWeight: 300 }}
           >
             Nous créons des sites qui vous apportent des{" "}
-            <span style={{ fontWeight: 800, color: "#FFD6D8" }}>Devis.</span>{" "}
-            Pas juste des{" "}
-            <span style={{ fontWeight: 800, color: "#FFD6D8" }}>visites.</span>
+            <span style={{ fontWeight: 800, color: "#FFD6D8" }}>Devis.</span>
+            <br />
+            <span style={{ fontWeight: 800, color: "#FFD6D8" }}>Pas juste des visites.</span>
           </motion.h1>
 
           <motion.div
