@@ -271,7 +271,7 @@ export default function Hero() {
       <section
         ref={sectionRef}
         className="section-dark relative overflow-hidden"
-        style={{ height: "100vh", minHeight: "640px" }}
+        style={{ height: "90vh", minHeight: "580px" }}
       >
         {/* Canvas : top:0, couvre tout le 100vh */}
         <canvas
