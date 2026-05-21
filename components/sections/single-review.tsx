@@ -12,7 +12,7 @@ import { motion } from "framer-motion";
 
 export default function SingleReview() {
   return (
-    <section className="section-white py-20 lg:py-28">
+    <section className="section-white pt-20 pb-8 lg:pt-28 lg:pb-10">
       <div className="max-w-4xl mx-auto px-6 text-center">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

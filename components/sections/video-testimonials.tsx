@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 
@@ -26,30 +26,6 @@ const TESTIMONIALS = [
     company: "Duc Charpente & Couverture",
     quote: "Mon site est non seulement fonctionnel, il est magnifique… J'ai l'impression qu'ils font des heures sup pour moi.",
     highlight: "J'ai l'impression qu'ils font des heures sup pour moi.",
-    stars: 5,
-  },
-  {
-    youtubeId: "hn1SIFFnDBY",
-    name: "Marc-Antoine Roulin",
-    company: "Roulin Couverture Sàrl",
-    quote: "Résultat bluffant. Site livré en 2 semaines comme promis, et depuis on reçoit 3-4 demandes de devis par semaine.",
-    highlight: "3-4 demandes de devis par semaine.",
-    stars: 5,
-  },
-  {
-    youtubeId: "n2y_YvYNfv4",
-    name: "Patrick Müller",
-    company: "Müller Charpente AG",
-    quote: "Mon site génère des demandes réelles de gens dans ma région. Très content du résultat.",
-    highlight: "génère des demandes réelles de gens dans ma région.",
-    stars: 5,
-  },
-  {
-    youtubeId: "hn1SIFFnDBY",
-    name: "Christophe Terrier",
-    company: "Terrier Isolation & Façade",
-    quote: "Service impeccable. Délai respecté, communication parfaite. Mon carnet s'est rempli beaucoup plus vite depuis le lancement.",
-    highlight: "Mon carnet s'est rempli beaucoup plus vite depuis le lancement.",
     stars: 5,
   },
 ];
@@ -132,27 +108,9 @@ function VideoCard({ t }: { t: typeof TESTIMONIALS[0] }) {
 }
 
 export default function VideoTestimonials() {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const dragging = useRef(false);
-  const startX   = useRef(0);
-  const scrollL  = useRef(0);
-
-  const onMouseDown = (e: React.MouseEvent) => {
-    dragging.current = true;
-    startX.current = e.pageX - (trackRef.current?.offsetLeft ?? 0);
-    scrollL.current = trackRef.current?.scrollLeft ?? 0;
-  };
-  const onMouseMove = (e: React.MouseEvent) => {
-    if (!dragging.current || !trackRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - (trackRef.current.offsetLeft ?? 0);
-    trackRef.current.scrollLeft = scrollL.current - (x - startX.current);
-  };
-  const onMouseUp = () => { dragging.current = false; };
-
   return (
-    <section className="section-white py-20 lg:py-28 overflow-hidden" id="results">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="section-white pt-8 pb-20 lg:pt-10 lg:pb-28" id="results">
+      <div className="max-w-5xl mx-auto px-6">
 
         {/* Header */}
         <motion.div
@@ -175,39 +133,22 @@ export default function VideoTestimonials() {
           </p>
         </motion.div>
 
-      </div>
+        {/* 2-column grid — centré, adapté aux 2 vraies vidéos */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {TESTIMONIALS.map((t, i) => (
+            <motion.div
+              key={t.name}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+            >
+              <VideoCard t={t} />
+            </motion.div>
+          ))}
+        </div>
 
-      {/* Draggable horizontal carousel — full bleed */}
-      <div
-        ref={trackRef}
-        className="flex gap-4 overflow-x-auto pb-4 select-none"
-        style={{
-          paddingLeft: "max(24px, calc((100vw - 1280px) / 2 + 24px))",
-          paddingRight: "max(24px, calc((100vw - 1280px) / 2 + 24px))",
-          scrollbarWidth: "none",
-          cursor: "grab",
-        }}
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={onMouseUp}
-        onMouseLeave={onMouseUp}
-      >
-        {TESTIMONIALS.map((t, i) => (
-          <motion.div
-            key={`${t.name}-${i}`}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.08 }}
-          >
-            <VideoCard t={t} />
-          </motion.div>
-        ))}
       </div>
-
-      <style>{`
-        section[id="results"] div[style*="overflow-x"]::-webkit-scrollbar { display: none; }
-      `}</style>
     </section>
   );
 }
