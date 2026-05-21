@@ -7,28 +7,24 @@ import { PROJECTS } from "@/lib/projects";
 /**
  * Hero — Matter.js physics, clone exact de Sher Agency
  *
- * v4 — 3 corrections majeures :
- * ① TAILLE ×2 : tags 480×124px — police 26px bold
- *   → Avec 17 tags de 480px sur 1440px écran = 3 tags/rangée
- *   → Pile finale ~700px de hauteur (couvre 78% du 900px viewport)
+ * v5 — 2 corrections :
+ * ① SCROLL FIX DÉFINITIF : override canvas.addEventListener AVANT Mouse.create
+ *   → Matter.js ne peut plus enregistrer de wheel listener non-passif
  *
- * ② GRAVITÉ RÉDUITE : 3.2 → 1.2
- *   → Tags visibles pendant la chute (0.5-1.5s), pas que le fond
- *
- * ③ SCROLL FIX : wheel passif sans preventDefault
+ * ② TAGS SHER-LIKE : 220×58px, 6 colonnes, 3 rangées pour 17 projets
+ *   → pile ~200px, tous les projets visibles, comme Sher
  */
 
 const SHOT = (url: string) =>
   `https://s.wordpress.com/mshots/v1/https%3A%2F%2F${encodeURIComponent(url)}?w=480&h=320`;
 
-// Palette identique à Sher Agency
 const TAG_COLORS = [
-  { bg: "#C9BAAC", fg: "#1A1A1A" }, // beige brand
-  { bg: "#1A1A1A", fg: "#F7F4EF" }, // dark
-  { bg: "#FFFFFF", fg: "#1A1A1A" }, // blanc
-  { bg: "#EDE8E2", fg: "#1A1A1A" }, // beige clair
-  { bg: "#8B7F75", fg: "#F7F4EF" }, // beige foncé
-  { bg: "#F7F4EF", fg: "#1A1A1A" }, // off-white
+  { bg: "#C9BAAC", fg: "#1A1A1A" },
+  { bg: "#1A1A1A", fg: "#F7F4EF" },
+  { bg: "#FFFFFF", fg: "#1A1A1A" },
+  { bg: "#EDE8E2", fg: "#1A1A1A" },
+  { bg: "#8B7F75", fg: "#F7F4EF" },
+  { bg: "#F7F4EF", fg: "#1A1A1A" },
 ];
 
 function makeSprite(text: string, bg: string, fg: string, w: number, h: number): string {
@@ -38,7 +34,6 @@ function makeSprite(text: string, bg: string, fg: string, w: number, h: number):
   const ctx = c.getContext("2d")!;
   ctx.scale(2, 2);
 
-  // Pill shape
   const r = h / 2;
   ctx.beginPath();
   ctx.moveTo(r, 0);
@@ -55,10 +50,10 @@ function makeSprite(text: string, bg: string, fg: string, w: number, h: number):
   ctx.fill();
 
   ctx.fillStyle = fg;
-  ctx.font = `700 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+  ctx.font = `700 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  const maxW = w - 40;
+  const maxW = w - 32;
   let t = text;
   while (ctx.measureText(t).width > maxW && t.length > 4) t = t.slice(0, -2) + "…";
   ctx.fillText(t, w / 2, h / 2);
@@ -106,12 +101,16 @@ export default function Hero() {
         options: { width: W, height: H, wireframes: false, background: "transparent" },
       });
 
-      // Boundaries
-      // Le plancher est à H + tagH/2 sous la section :
-      // → le rang inférieur des tags a son CENTRE à y=H (base de section)
-      // → overflow:hidden coupe au milieu du rang du bas = tranche nette comme Sher
-      const wall = 60;
-      const FLOOR_Y = H + 39 + wall / 2; // tagH/2 = 39 pour des tags de 78px
+      // ── DIMENSIONS ──
+      const tagW = 220;
+      const tagH = 58;
+      const GAP  = 12;
+      const cols  = 6;
+      const wall  = 60;
+
+      // Floor: le centre du rang inférieur est à y=H → overflow:hidden coupe au milieu
+      const FLOOR_Y = H + tagH / 2 + wall / 2;
+
       const floor = Bodies.rectangle(W / 2, FLOOR_Y, W * 4, wall, {
         isStatic: true, label: "__floor",
         render: { fillStyle: "transparent", strokeStyle: "transparent", lineWidth: 0 },
@@ -127,32 +126,26 @@ export default function Hero() {
       Composite.add(engine.world, [floor, wallL, wallR]);
 
       // ── TAGS ──
-      // 320×78 px — 5 colonnes — spawne AU-DESSUS du viewport (cascade)
-      // Physique : pile ~340px dans le tiers inférieur, zone texte propre
-      // ×1.33 vs l'original 240×62, largement plus gros et visible
-      const tagW = 320;
-      const tagH = 78;
-      const GAP  = 14;
+      // 220×58px, 6 colonnes → 3 rangées pour 17 projets
+      // Pile finale ~200px, tous visibles dans le tiers inférieur
       const tagBodies: any[] = [];
 
       PROJECTS.forEach((project, i) => {
         const color  = TAG_COLORS[i % TAG_COLORS.length];
         const sprite = makeSprite(project.title, color.bg, color.fg, tagW, tagH);
 
-        const cols = 5;
-        const col  = i % cols;
-        const row  = Math.floor(i / cols);
+        const col = i % cols;
+        const row = Math.floor(i / cols);
 
-        // X : réparti sur 5 colonnes + aléatoire ±25%
-        const x = (col + 0.5) * (W / cols) + (Math.random() - 0.5) * (W / cols * 0.5);
+        // X : centré par colonne, offset ±30% (réduit vs avant pour garder tags visibles)
+        const x = (col + 0.5) * (W / cols) + (Math.random() - 0.5) * (W / cols * 0.3);
 
-        // Y : AU-DESSUS du viewport, décalage par rangée (cascade)
-        // row 0 → y≈-92, row 3 → y≈-368 → tous arrivés en <1s
-        const y = -(row + 1) * (tagH + GAP) - Math.random() * 30;
+        // Y : spawn AU-DESSUS du viewport, cascade rangée par rangée
+        const y = -(row + 1) * (tagH + GAP) - Math.random() * 20;
 
         const body = Bodies.rectangle(x, y, tagW, tagH, {
-          restitution: 0.15,
-          friction: 0.8,
+          restitution: 0.12,
+          friction: 0.9,
           frictionAir: 0.03,
           chamfer: { radius: tagH / 2 },
           render: {
@@ -162,7 +155,7 @@ export default function Hero() {
         });
 
         (body as any)._project = project;
-        Body.setAngle(body, (Math.random() - 0.5) * 0.3);
+        Body.setAngle(body, (Math.random() - 0.5) * 0.4);
         Body.setVelocity(body, {
           x: (Math.random() - 0.5) * 2,
           y: Math.random() * 2 + 1,
@@ -172,34 +165,31 @@ export default function Hero() {
 
       Composite.add(engine.world, tagBodies);
 
-      // ── MOUSE DRAG ──
+      // ── SCROLL FIX DÉFINITIF ──
+      // On overrides canvas.addEventListener AVANT Mouse.create
+      // → Matter.js enregistre ses wheel listeners en mode { passive: true }
+      // → le scroll de la page n'est plus jamais bloqué
+      const origAdd = canvas.addEventListener.bind(canvas);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (canvas as any).addEventListener = (type: string, listener: EventListenerOrEventListenerObject, options?: AddEventListenerOptions | boolean) => {
+        if (type === "wheel" || type === "mousewheel" || type === "DOMMouseScroll") {
+          origAdd(type as keyof HTMLElementEventMap, listener, { passive: true });
+        } else {
+          origAdd(type as keyof HTMLElementEventMap, listener, options);
+        }
+      };
+
       const mouse = Mouse.create(canvas);
-      const mc    = MouseConstraint.create(engine, {
+
+      // Restaurer l'addEventListener original
+      (canvas as any).addEventListener = origAdd;
+
+      const mc = MouseConstraint.create(engine, {
         mouse,
         constraint: { stiffness: 0.18, render: { visible: false } },
       });
       Composite.add(engine.world, mc);
       (render as any).mouse = mouse;
-
-      // ── FIX SCROLL ──
-      // Matter.js ajoute wheel/mousewheel/DOMMouseScroll qui appellent
-      // event.preventDefault() → bloque le scroll de la page.
-      // On remplace mouse.mousewheel par un handler passif (no preventDefault).
-      const noopWheel = (event: Event) => {
-        const we = event as WheelEvent;
-        (mouse as any).wheelDelta = Math.max(-1, Math.min(1, we.deltaY || -(we as any).wheelDelta || (we as any).detail));
-        // PAS de event.preventDefault() ici → scroll page autorisé
-      };
-
-      // Retirer tous les listeners wheel de Matter.js (noms anciens + nouveau)
-      const m = mouse as any;
-      canvas.removeEventListener("wheel",          m.mousewheel);
-      canvas.removeEventListener("mousewheel",     m.mousewheel);
-      canvas.removeEventListener("DOMMouseScroll", m.mousewheel);
-
-      // Remplacer par notre version passive
-      m.mousewheel = noopWheel;
-      canvas.addEventListener("wheel", noopWheel, { passive: true });
 
       // ── HOVER + CLICK ──
       let lastBody: any = null;
@@ -247,7 +237,7 @@ export default function Hero() {
         render.canvas.height = nH;
         (render.options as any).width  = nW;
         (render.options as any).height = nH;
-        Body.setPosition(floor,  { x: nW / 2, y: nH + 39 + wall / 2 });
+        Body.setPosition(floor,  { x: nW / 2, y: nH + tagH / 2 + wall / 2 });
         Body.setPosition(wallR,  { x: nW + wall / 2, y: nH / 2 });
       };
       window.addEventListener("resize", onResize);
@@ -258,7 +248,6 @@ export default function Hero() {
 
       cleanupRef.current = () => {
         window.removeEventListener("resize", onResize);
-        canvas.removeEventListener("wheel", noopWheel);
         Render.stop(render);
         Runner.stop(runner);
         Engine.clear(engine);
@@ -287,7 +276,7 @@ export default function Hero() {
           }}
         />
 
-        {/* Texte — paddingTop 100px pour laisser la place à la navbar fixe */}
+        {/* Texte */}
         <div
           className="relative flex flex-col items-center text-center px-6"
           style={{ zIndex: 10, pointerEvents: "none", paddingTop: "100px" }}
