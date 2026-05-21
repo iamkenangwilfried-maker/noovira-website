@@ -7,17 +7,15 @@ import { PROJECTS } from "@/lib/projects";
 /**
  * Hero — Matter.js physics, clone exact de Sher Agency
  *
- * FIXES v3:
- * ① SCROLL : Matter.js ajoute un listener "wheel" (+ "mousewheel" + "DOMMouseScroll")
- *   qui appelle event.preventDefault() → bloque le scroll page.
- *   → On remplace mouse.mousewheel par un handler passif (sans preventDefault).
+ * v4 — 3 corrections majeures :
+ * ① TAILLE ×2 : tags 480×124px — police 26px bold
+ *   → Avec 17 tags de 480px sur 1440px écran = 3 tags/rangée
+ *   → Pile finale ~700px de hauteur (couvre 78% du 900px viewport)
  *
- * ② SPAWN : les tags spawne directement DANS le viewport (y = 10%–70% H)
- *   → Visibles immédiatement dès le chargement, pas besoin d'attendre la chute.
+ * ② GRAVITÉ RÉDUITE : 3.2 → 1.2
+ *   → Tags visibles pendant la chute (0.5-1.5s), pas que le fond
  *
- * ③ TAILLE : tags 240×62px (vs 200×54 avant) — texte 16px bold
- *
- * ④ COULEURS : palette identique à Sher (beige brand + dark + blanc + off-white)
+ * ③ SCROLL FIX : wheel passif sans preventDefault
  */
 
 const SHOT = (url: string) =>
@@ -57,10 +55,10 @@ function makeSprite(text: string, bg: string, fg: string, w: number, h: number):
   ctx.fill();
 
   ctx.fillStyle = fg;
-  ctx.font = `700 16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+  ctx.font = `700 26px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  const maxW = w - 32;
+  const maxW = w - 56;
   let t = text;
   while (ctx.measureText(t).width > maxW && t.length > 4) t = t.slice(0, -2) + "…";
   ctx.fillText(t, w / 2, h / 2);
@@ -99,7 +97,7 @@ export default function Hero() {
       canvas.width  = W;
       canvas.height = H;
 
-      const engine = Engine.create({ gravity: { y: 3.2 } });
+      const engine = Engine.create({ gravity: { y: 1.2 } });
 
       const render = Render.create({
         element: section,
@@ -125,28 +123,32 @@ export default function Hero() {
       Composite.add(engine.world, [floor, wallL, wallR]);
 
       // ── TAGS ──
-      const tagW = 240;
-      const tagH = 62;
+      // 480×124 px (2× bigger) — 3 colonnes — pile finale ~700px de hauteur
+      const tagW = 480;
+      const tagH = 124;
       const tagBodies: any[] = [];
 
       PROJECTS.forEach((project, i) => {
         const color  = TAG_COLORS[i % TAG_COLORS.length];
         const sprite = makeSprite(project.title, color.bg, color.fg, tagW, tagH);
 
-        // Spawn DANS le viewport — distribués en 5 colonnes sur toute la largeur
-        const cols = 5;
+        // 3 colonnes pour les tags de 480px
+        const cols = 3;
         const col  = i % cols;
         const row  = Math.floor(i / cols);
 
-        const x = (col + 0.5) * (W / cols) + (Math.random() - 0.5) * (W / cols * 0.6);
-        // Spawn dans la zone visible : entre 15% et 75% de H
-        // → Visibles immédiatement, tombent vers le bas avec gravity
-        const y = H * 0.15 + row * (tagH + 40) + Math.random() * 30;
+        // Distribués sur toute la largeur, ±25% aléatoire par colonne
+        const x = (col + 0.5) * (W / cols) + (Math.random() - 0.5) * (W / cols * 0.5);
+
+        // Spawn réparti sur toute la hauteur visible :
+        // 6 rangées × (124+24px) ≈ 888px → couvre tout le 100vh
+        // Visibles immédiatement dès le chargement, tombent lentement
+        const y = H * 0.08 + row * (tagH + 24) + Math.random() * 18;
 
         const body = Bodies.rectangle(x, y, tagW, tagH, {
-          restitution: 0.2,
-          friction: 0.6,
-          frictionAir: 0.025,
+          restitution: 0.18,
+          friction: 0.7,
+          frictionAir: 0.04,
           chamfer: { radius: tagH / 2 },
           render: {
             sprite: { texture: sprite, xScale: 0.5, yScale: 0.5 },
@@ -155,11 +157,10 @@ export default function Hero() {
         });
 
         (body as any)._project = project;
-        Body.setAngle(body, (Math.random() - 0.5) * 0.4);
-        // Légère vélocité initiale vers le bas pour déclencher la chute
+        Body.setAngle(body, (Math.random() - 0.5) * 0.35);
         Body.setVelocity(body, {
-          x: (Math.random() - 0.5) * 2,
-          y: Math.random() * 2 + 1,
+          x: (Math.random() - 0.5) * 3,
+          y: Math.random() * 1.5 + 0.5,
         });
         tagBodies.push(body);
       });
