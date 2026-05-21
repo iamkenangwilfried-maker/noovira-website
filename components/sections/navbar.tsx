@@ -15,7 +15,7 @@ const LINKS = [
   { label: "Notre Processus",  href: "/creation-de-site" },
   { label: "Gestion de Site",  href: "/gestion-de-site"  },
   { label: "SEO & Publicité",  href: "/seo-publicite"    },
-  { label: "Portfolio",        href: "/nos-realisations"  },
+  { label: "Portfolio",        href: "/realisations"       },
 ];
 
 const NAV_H = 80; // px — header height

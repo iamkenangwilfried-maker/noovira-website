@@ -1,149 +1,255 @@
 "use client";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { PROJECTS } from "@/lib/projects";
 
 /**
- * Hero — Sher Agency pixel-perfect clone:
- * • Dark bg, full viewport
- * • Stars (50+ reviews) + H1 + 2 beige CTA buttons
- * • Below CTAs: 2 rows of client name TAGS that SCROLL horizontally (marquee)
- *   Row 1 → left,  Row 2 → right (opposite direction)
- *   Tags are beige/cream (#E8E1D5), rounded rectangle, various rotations
- *   Hover on any tag → PAUSES the row + shows website preview popup
+ * Hero — Sher Agency exact clone using Matter.js physics:
+ * • Tags fall from top with gravity, bounce, stack at bottom
+ * • Users can drag tags with mouse
+ * • Hover over tag → preview popup with website screenshot
+ * • Click tag → navigate to /realisations/[slug]
  */
 
-const shot = (url: string) =>
+const SHOT = (url: string) =>
   `https://s.wordpress.com/mshots/v1/https%3A%2F%2F${encodeURIComponent(url)}?w=480&h=320`;
 
-const ROW1 = [
-  { name: "Roulin Couverture",    url: "b3constructioncorp.com",       rotate: -12 },
-  { name: "Favre Rénovation",     url: "tekconstructiongroup.com",      rotate: 5   },
-  { name: "Müller Charpente",     url: "qualmax.co.nz",                rotate: -20 },
-  { name: "Martinez Plâtrerie",   url: "schmittcompany.com",           rotate: 8   },
-  { name: "Dupont Électricité",   url: "candmhomebuilders.com",        rotate: -6  },
-  { name: "Rochat Peinture",      url: "cr-design-remodel.webflow.io", rotate: 16  },
-  { name: "Berset Toitures",      url: "5starroofcare.co.uk",          rotate: -75 },
-  { name: "Girardin BTP",         url: "ironstarconstruction.com",     rotate: -4  },
-  { name: "Schmitt Company",      url: "schmittcompany.com",           rotate: 11  },
-  { name: "Clune Construction",   url: "clunegc.com",                  rotate: -17 },
-  { name: "Trion Living",         url: "oasisbuildersinc.com",         rotate: -2  },
-  { name: "FH Paschen",           url: "fhpaschen.com",                rotate: 14  },
-];
-
-const ROW2 = [
-  { name: "B3 Construction",      url: "b3constructioncorp.com",       rotate: -155 },
-  { name: "TEK Group",            url: "tekconstructiongroup.com",     rotate: -4   },
-  { name: "Qualmax",              url: "qualmax.co.nz",                rotate: 13   },
-  { name: "Leopardo",             url: "leopardo.com",                 rotate: -70  },
-  { name: "JDG Constructions",    url: "jdgconstructions.com.au",      rotate: -9   },
-  { name: "5 Star Roof Care",     url: "5starroofcare.co.uk",          rotate: 19   },
-  { name: "Oasis Builders",       url: "oasisbuildersinc.com",         rotate: -13  },
-  { name: "Skender",              url: "skender.com",                  rotate: 7    },
-  { name: "Iron Star",            url: "ironstarconstruction.com",     rotate: -19  },
-  { name: "Bechtel",              url: "bechtel.com",                  rotate: -5   },
-  { name: "B2 Builders",          url: "b2builders.com",               rotate: 10   },
-  { name: "CR Design",            url: "cr-design-remodel.webflow.io", rotate: -22  },
-];
-
-type TagItem = { name: string; url: string; rotate: number };
-
-function Tag({ tag }: { tag: TagItem }) {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <div
-      className="relative flex-shrink-0"
-      style={{ transform: `rotate(${tag.rotate}deg)`, transformOrigin: "center center" }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {/* Preview popup — counter-rotated to stay upright */}
-      <AnimatePresence>
-        {hovered && (
-          <motion.div
-            initial={{ opacity: 0, y: 8, scale: 0.94 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.94 }}
-            transition={{ duration: 0.15 }}
-            style={{
-              position: "absolute",
-              bottom: "calc(100% + 14px)",
-              left: "50%",
-              width: "230px",
-              zIndex: 100,
-              transform: `translateX(-50%) rotate(${-tag.rotate}deg)`,
-              pointerEvents: "none",
-            }}
-          >
-            <div
-              className="rounded-2xl overflow-hidden shadow-2xl"
-              style={{ background: "#1A1A1A", border: "1px solid rgba(255,255,255,0.12)" }}
-            >
-              <div style={{ height: "140px", overflow: "hidden" }}>
-                <img
-                  src={shot(tag.url)}
-                  alt={tag.name}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }}
-                  onError={(e) => { (e.target as HTMLImageElement).style.opacity = "0.05"; }}
-                />
-              </div>
-              <div style={{ padding: "10px 14px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
-                <span style={{ color: "#F7F4EF", fontSize: "13px", fontWeight: 700, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                  {tag.name}
-                </span>
-                <ArrowUpRight size={13} style={{ color: "rgba(247,244,239,0.4)", flexShrink: 0 }} />
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Beige tag */}
-      <div
-        style={{
-          background: "#E8E1D5",
-          color: "#1C1C1C",
-          borderRadius: "10px",
-          padding: "9px 18px",
-          fontSize: "13px",
-          fontWeight: 600,
-          whiteSpace: "nowrap",
-          lineHeight: "1.3",
-          userSelect: "none",
-        }}
-      >
-        {tag.name}
-      </div>
-    </div>
-  );
-}
-
-function TagRow({ tags, direction, speed }: { tags: TagItem[]; direction: "left" | "right"; speed: string }) {
-  const animClass =
-    direction === "left" ? speed : "animate-marquee-right";
-
-  return (
-    // tag-row class triggers CSS pause on hover
-    <div className="tag-row w-full overflow-hidden" style={{ padding: "10px 0" }}>
-      <div className={animClass} style={{ gap: "16px" }}>
-        {/* Duplicate tags for seamless loop */}
-        {[...tags, ...tags].map((tag, i) => (
-          <Tag key={`${tag.name}-${i}`} tag={tag} />
-        ))}
-      </div>
-    </div>
-  );
+interface PreviewState {
+  visible: boolean;
+  x: number;
+  y: number;
+  title: string;
+  url: string;
+  imgUrl: string;
+  slug: string;
 }
 
 export default function Hero() {
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const engineRef = useRef<any>(null);
+  const renderRef = useRef<any>(null);
+  const runnerRef = useRef<any>(null);
+  const mouseConstraintRef = useRef<any>(null);
+  const bodiesRef = useRef<any[]>([]);
+  const animFrameRef = useRef<number>(0);
+
+  const [preview, setPreview] = useState<PreviewState>({
+    visible: false, x: 0, y: 0, title: "", url: "", imgUrl: "", slug: "",
+  });
+
+  const setupPhysics = useCallback(async () => {
+    if (!canvasRef.current || !sceneRef.current) return;
+
+    // Dynamic import to avoid SSR issues
+    const Matter = await import("matter-js");
+    const { Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint, Events, Body } = Matter;
+
+    const container = sceneRef.current;
+    const W = container.offsetWidth;
+    const H = container.offsetHeight;
+
+    // Create engine with gravity
+    const engine = Engine.create({ gravity: { y: 2.5 } });
+    engineRef.current = engine;
+
+    // Create renderer
+    const render = Render.create({
+      element: container,
+      engine,
+      canvas: canvasRef.current,
+      options: {
+        width: W,
+        height: H,
+        wireframes: false,
+        background: "transparent",
+        pixelRatio: window.devicePixelRatio || 1,
+      },
+    });
+    renderRef.current = render;
+
+    // Floor and walls (invisible)
+    const thickness = 60;
+    const floor  = Bodies.rectangle(W / 2, H + thickness / 2, W * 3, thickness, { isStatic: true, render: { fillStyle: "transparent" }, label: "floor" });
+    const wallL  = Bodies.rectangle(-thickness / 2, H / 2, thickness, H * 2, { isStatic: true, render: { fillStyle: "transparent" } });
+    const wallR  = Bodies.rectangle(W + thickness / 2, H / 2, thickness, H * 2, { isStatic: true, render: { fillStyle: "transparent" } });
+    Composite.add(engine.world, [floor, wallL, wallR]);
+
+    // Create tag bodies
+    const tagBodies: any[] = [];
+    const tagW = 160;
+    const tagH = 44;
+
+    PROJECTS.forEach((project, i) => {
+      const x = 80 + Math.random() * (W - 160);
+      const y = -80 - i * 60 - Math.random() * 200; // staggered drop from above
+
+      const body = Bodies.rectangle(x, y, tagW, tagH, {
+        restitution: 0.5,
+        friction: 0.3,
+        frictionAir: 0.02,
+        chamfer: { radius: 10 },
+        render: { fillStyle: "#E8E1D5" },
+        label: project.slug,
+      });
+
+      // Attach project data to body
+      (body as any).projectSlug = project.slug;
+      (body as any).projectTitle = project.title;
+      (body as any).projectUrl = project.url;
+
+      Body.setAngle(body, (Math.random() - 0.5) * 0.6);
+      tagBodies.push(body);
+    });
+
+    Composite.add(engine.world, tagBodies);
+    bodiesRef.current = tagBodies;
+
+    // Mouse interaction
+    const mouse = Mouse.create(render.canvas);
+    const mouseConstraint = MouseConstraint.create(engine, {
+      mouse,
+      constraint: {
+        stiffness: 0.2,
+        render: { visible: false },
+      },
+    });
+    Composite.add(engine.world, mouseConstraint);
+    mouseConstraintRef.current = mouseConstraint;
+    render.mouse = mouse;
+
+    // Hover detection
+    let lastHovered: any = null;
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = render.canvas.getBoundingClientRect();
+      const scaleX = W / rect.width;
+      const scaleY = H / rect.height;
+      const mx = (e.clientX - rect.left) * scaleX;
+      const my = (e.clientY - rect.top) * scaleY;
+
+      const allBodies = Composite.allBodies(engine.world);
+      let found: any = null;
+
+      for (const b of allBodies) {
+        if (b.isStatic || b.label === "floor") continue;
+        if (Matter.Bounds.contains(b.bounds, { x: mx, y: my })) {
+          found = b;
+          break;
+        }
+      }
+
+      if (found !== lastHovered) {
+        lastHovered = found;
+        if (found) {
+          const slug = found.projectSlug;
+          const proj = PROJECTS.find(p => p.slug === slug);
+          if (proj) {
+            const px = found.position.x / W;
+            const py = found.position.y / H;
+            // Convert to page coordinates
+            const rect2 = render.canvas.getBoundingClientRect();
+            const pageX = rect2.left + (found.position.x / W) * rect2.width;
+            const pageY = rect2.top + (found.position.y / H) * rect2.height;
+
+            setPreview({
+              visible: true,
+              x: e.clientX,
+              y: e.clientY,
+              title: proj.title,
+              url: proj.url,
+              imgUrl: SHOT(proj.url),
+              slug: proj.slug,
+            });
+          }
+        } else {
+          setPreview(prev => ({ ...prev, visible: false }));
+        }
+      } else if (found) {
+        // Update position to follow mouse
+        setPreview(prev => prev.visible ? { ...prev, x: e.clientX, y: e.clientY } : prev);
+      }
+    };
+
+    render.canvas.addEventListener("mousemove", handleMouseMove);
+    render.canvas.addEventListener("mouseleave", () => {
+      setPreview(prev => ({ ...prev, visible: false }));
+    });
+
+    // Click to navigate
+    let dragStart = { x: 0, y: 0 };
+    render.canvas.addEventListener("mousedown", (e) => {
+      dragStart = { x: e.clientX, y: e.clientY };
+    });
+    render.canvas.addEventListener("mouseup", (e) => {
+      const dx = Math.abs(e.clientX - dragStart.x);
+      const dy = Math.abs(e.clientY - dragStart.y);
+      if (dx < 6 && dy < 6 && lastHovered) {
+        const slug = lastHovered.projectSlug;
+        if (slug) window.location.href = `/realisations/${slug}`;
+      }
+    });
+
+    // Custom rendering — draw tag labels on canvas
+    Events.on(render, "afterRender", () => {
+      const ctx = render.context;
+      const allBodies = Composite.allBodies(engine.world);
+      ctx.save();
+      for (const b of allBodies) {
+        if (b.isStatic || !(b as any).projectTitle) continue;
+        ctx.translate(b.position.x, b.position.y);
+        ctx.rotate(b.angle);
+        ctx.font = `600 13px Manrope, system-ui, sans-serif`;
+        ctx.fillStyle = "#1C1C1C";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText((b as any).projectTitle, 0, 0);
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+      }
+      ctx.restore();
+    });
+
+    const runner = Runner.create();
+    runnerRef.current = runner;
+    Runner.run(runner, engine);
+    Render.run(render);
+
+    // Handle resize
+    const onResize = () => {
+      const nW = container.offsetWidth;
+      const nH = container.offsetHeight;
+      render.canvas.width = nW;
+      render.canvas.height = nH;
+      render.options.width = nW;
+      render.options.height = nH;
+      // Move floor
+      Matter.Body.setPosition(floor, { x: nW / 2, y: nH + thickness / 2 });
+      Matter.Body.setPosition(wallR, { x: nW + thickness / 2, y: nH / 2 });
+    };
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+      render.canvas.removeEventListener("mousemove", handleMouseMove);
+      Render.stop(render);
+      Runner.stop(runner);
+      Engine.clear(engine);
+    };
+  }, []);
+
+  useEffect(() => {
+    let cleanup: (() => void) | undefined;
+    setupPhysics().then(fn => { cleanup = fn; });
+    return () => { cleanup?.(); };
+  }, [setupPhysics]);
+
   return (
     <section
-      className="section-dark relative overflow-hidden"
+      className="section-dark relative"
       style={{ minHeight: "100vh", paddingTop: "80px" }}
     >
-      {/* ── Stars + H1 + CTAs ── */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6 pt-16 lg:pt-24 pb-10">
+      {/* ── Centered text content ── */}
+      <div className="relative z-10 flex flex-col items-center text-center px-6 pt-16 lg:pt-24 pb-10 pointer-events-none">
 
         {/* Stars */}
         <motion.div
@@ -174,47 +280,71 @@ export default function Hero() {
           <span className="font-black">Remplissent votre Carnet.</span>
         </motion.h1>
 
-        {/* CTAs — beige background, white text */}
+        {/* CTAs — pointer-events re-enabled */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.25 }}
-          className="flex flex-col sm:flex-row gap-3"
+          className="flex flex-col sm:flex-row gap-3 pointer-events-auto"
         >
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-base transition-all"
-            style={{ background: "#C9BAAC", color: "#ffffff" }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#ffffff"; (e.currentTarget as HTMLElement).style.color = "#1C1C1C"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#C9BAAC"; (e.currentTarget as HTMLElement).style.color = "#ffffff"; }}
+            className="inline-flex items-center gap-2 bg-beige text-white px-7 py-3.5 rounded-full font-semibold text-base hover:bg-white hover:text-dark transition-all"
           >
             Réserver un appel <ArrowUpRight size={16} />
           </a>
           <a
             href="#portfolio"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-base transition-all"
-            style={{ background: "#C9BAAC", color: "#ffffff" }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#ffffff"; (e.currentTarget as HTMLElement).style.color = "#1C1C1C"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#C9BAAC"; (e.currentTarget as HTMLElement).style.color = "#ffffff"; }}
+            className="inline-flex items-center gap-2 bg-beige text-white px-7 py-3.5 rounded-full font-semibold text-base hover:bg-white hover:text-dark transition-all"
           >
             Voir nos réalisations
           </a>
         </motion.div>
       </div>
 
-      {/* ── MARQUEE TAG ROWS ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
-        className="relative z-20 w-full"
-        style={{ paddingBottom: "60px" }}
+      {/* ── Physics canvas — fills remainder of hero ── */}
+      <div
+        ref={sceneRef}
+        className="relative w-full"
+        style={{ height: "55vh", minHeight: "340px" }}
       >
-        {/* Row 1: scrolls left */}
-        <TagRow tags={ROW1} direction="left" speed="animate-marquee-slow" />
-        {/* Row 2: scrolls right (opposite) */}
-        <TagRow tags={ROW2} direction="right" speed="animate-marquee-right" />
-      </motion.div>
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full"
+          style={{ cursor: "grab" }}
+        />
+      </div>
+
+      {/* ── Hover preview popup ── */}
+      {preview.visible && (
+        <div
+          className="fixed z-[200] pointer-events-none"
+          style={{
+            left: preview.x + 16,
+            top: preview.y - 80,
+            width: "230px",
+          }}
+        >
+          <div
+            className="rounded-2xl overflow-hidden shadow-2xl"
+            style={{ background: "#1A1A1A", border: "1px solid rgba(255,255,255,0.12)" }}
+          >
+            <div style={{ height: "140px", overflow: "hidden" }}>
+              <img
+                src={preview.imgUrl}
+                alt={preview.title}
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block" }}
+              />
+            </div>
+            <div style={{ padding: "10px 14px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
+              <span style={{ color: "#F7F4EF", fontSize: "13px", fontWeight: 700, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {preview.title}
+              </span>
+              <ArrowUpRight size={13} style={{ color: "rgba(247,244,239,0.5)", flexShrink: 0 }} />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
