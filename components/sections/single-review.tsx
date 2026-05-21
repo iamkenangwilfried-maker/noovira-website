@@ -47,7 +47,7 @@ export default function SingleReview() {
           {/* CTA */}
           <a
             href="#avis"
-            className="inline-flex items-center gap-2 border border-border text-dark px-6 py-3 rounded-full font-semibold text-sm hover:border-dark transition-colors"
+            className="inline-flex items-center gap-2 bg-rose text-dark px-6 py-3 rounded-full font-semibold text-sm hover:bg-[#F0F0F0] hover:text-dark transition-colors"
           >
             Voir l'avis complet
           </a>
