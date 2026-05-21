@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/cursor";
+
+// Self-hosted via next/font → zero external round-trips, no render-blocking
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+  variable: "--font-manrope",
+});
 
 export const metadata: Metadata = {
   title: "Noovira AI — Sites Web qui Remplissent votre Carnet de Chantiers",
@@ -36,14 +45,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className="scroll-smooth">
+    <html lang="fr" className={`scroll-smooth ${manrope.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
-        />
+        {/* DNS prefetch for mshots API (portfolio screenshots) */}
+        <link rel="dns-prefetch" href="https://s.wordpress.com" />
+        <link rel="preconnect" href="https://s.wordpress.com" />
       </head>
       <body className="bg-background text-dark antialiased">
         <CustomCursor />

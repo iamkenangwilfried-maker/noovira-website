@@ -2,15 +2,16 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import { PROJECTS } from "@/lib/projects";
+import { useLazyVideo } from "@/hooks/use-lazy-video";
 
 /**
  * Portfolio — Sher Agency "Websites We Created":
- * • White background
- * • LEFT sticky: heading + stats
- * • RIGHT: 2-column staggered grid of cards
- * • Cards: show screenshot at rest, play scroll video on hover
- * • Each card links to /realisations/[slug] (case study page)
+ * PERFORMANCE:
+ * • next/image for screenshots (WebP/AVIF auto, lazy, CLS-free)
+ * • IntersectionObserver: video src only set when card enters viewport
+ * • preload="none" + no src until visible = zero network cost for off-screen cards
  */
 
 function shot(url: string) {
@@ -21,10 +22,21 @@ const COL_A = PROJECTS.slice(0, 9);
 const COL_B = PROJECTS.slice(9);
 
 function ProjectCard({ project, delay = 0 }: { project: typeof PROJECTS[0]; delay?: number }) {
+  const containerRef = useRef<HTMLAnchorElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Set video src only when card enters viewport (200px before)
+  useLazyVideo(containerRef as React.RefObject<Element>, videoRef, `/videos/${project.slug}/01.mp4`);
+
+  function handleEnter() { videoRef.current?.play(); }
+  function handleLeave() {
+    const v = videoRef.current;
+    if (v) { v.pause(); v.currentTime = 0; }
+  }
 
   return (
     <motion.a
+      ref={containerRef}
       href={`/realisations/${project.slug}`}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -32,25 +44,23 @@ function ProjectCard({ project, delay = 0 }: { project: typeof PROJECTS[0]; dela
       transition={{ duration: 0.6, delay }}
       className="group relative rounded-2xl overflow-hidden bg-dark block cursor-pointer"
       style={{ height: "480px" }}
-      onMouseEnter={() => { videoRef.current?.play(); }}
-      onMouseLeave={() => {
-        const v = videoRef.current;
-        if (v) { v.pause(); v.currentTime = 0; }
-      }}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
     >
-      {/* Static screenshot — visible at rest, fades out on hover */}
-      <img
+      {/* Screenshot — static, visible at rest */}
+      <Image
         src={shot(project.url)}
         alt={project.title}
-        className="absolute inset-0 w-full object-cover object-top transition-opacity duration-500 group-hover:opacity-0"
-        style={{ height: "130%" }}
+        fill
+        sizes="(max-width:640px) 100vw, (max-width:1280px) 50vw, 33vw"
+        className="object-cover object-top transition-opacity duration-500 group-hover:opacity-0"
         loading="lazy"
+        unoptimized // mshots is already optimised externally
       />
 
-      {/* Video scroll recording — invisible at rest, fades in on hover */}
+      {/* Video — src injected by IntersectionObserver, plays on hover */}
       <video
         ref={videoRef}
-        src={`/videos/${project.slug}/01.mp4`}
         muted
         playsInline
         loop
@@ -58,11 +68,11 @@ function ProjectCard({ project, delay = 0 }: { project: typeof PROJECTS[0]; dela
         className="absolute inset-0 w-full h-full object-cover object-top opacity-0 transition-opacity duration-500 group-hover:opacity-100"
       />
 
-      {/* Dark overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-dark/5" />
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-dark/5 z-10" />
 
-      {/* Content at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 p-6">
+      {/* Bottom content */}
+      <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
         <div className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-2">
           {project.category}
         </div>
@@ -87,7 +97,7 @@ export default function Portfolio() {
 
         <div className="grid lg:grid-cols-[280px_1fr] gap-10 lg:gap-16 items-start">
 
-          {/* ── LEFT: Title + CTA (sticky) ── */}
+          {/* LEFT: Title + CTA (sticky) */}
           <div className="lg:sticky lg:top-32 lg:self-start">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -108,7 +118,6 @@ export default function Portfolio() {
                 Toutes nos réalisations <ArrowUpRight size={14} />
               </a>
 
-              {/* Stats */}
               <div className="mt-10 pt-8 border-t border-border flex gap-8">
                 <div>
                   <div className="font-heading font-black text-2xl text-dark">{PROJECTS.length}+</div>
@@ -122,15 +131,13 @@ export default function Portfolio() {
             </motion.div>
           </div>
 
-          {/* ── RIGHT: Two staggered columns ── */}
+          {/* RIGHT: Two staggered columns */}
           <div className="grid sm:grid-cols-2 gap-5">
-            {/* Column A */}
             <div className="flex flex-col gap-5">
               {COL_A.map((p, i) => (
                 <ProjectCard key={p.slug} project={p} delay={i * 0.04} />
               ))}
             </div>
-            {/* Column B — offset down */}
             <div className="flex flex-col gap-5 sm:mt-12">
               {COL_B.map((p, i) => (
                 <ProjectCard key={p.slug} project={p} delay={i * 0.04 + 0.1} />

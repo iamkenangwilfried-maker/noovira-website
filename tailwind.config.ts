@@ -29,9 +29,9 @@ const config: Config = {
         success:      "#22C55E",
       },
       fontFamily: {
-        heading: ["Manrope", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
-        body:    ["Manrope", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
-        sans:    ["Manrope", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        heading: ["var(--font-manrope)", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        body:    ["var(--font-manrope)", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        sans:    ["var(--font-manrope)", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
       },
       fontSize: {
         "display-xl": ["clamp(3rem, 6vw, 5.5rem)", { lineHeight: "1.05", letterSpacing: "-0.03em" }],
