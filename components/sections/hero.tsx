@@ -55,10 +55,10 @@ function makeSprite(text: string, bg: string, fg: string, w: number, h: number):
   ctx.fill();
 
   ctx.fillStyle = fg;
-  ctx.font = `700 26px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+  ctx.font = `700 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  const maxW = w - 56;
+  const maxW = w - 40;
   let t = text;
   while (ctx.measureText(t).width > maxW && t.length > 4) t = t.slice(0, -2) + "…";
   ctx.fillText(t, w / 2, h / 2);
@@ -97,7 +97,7 @@ export default function Hero() {
       canvas.width  = W;
       canvas.height = H;
 
-      const engine = Engine.create({ gravity: { y: 1.2 } });
+      const engine = Engine.create({ gravity: { y: 2.0 } });
 
       const render = Render.create({
         element: section,
@@ -111,7 +111,7 @@ export default function Hero() {
       // → le rang inférieur des tags a son CENTRE à y=H (base de section)
       // → overflow:hidden coupe au milieu du rang du bas = tranche nette comme Sher
       const wall = 60;
-      const FLOOR_Y = H + 62 + wall / 2; // tagH/2 = 62 pour des tags de 124px
+      const FLOOR_Y = H + 39 + wall / 2; // tagH/2 = 39 pour des tags de 78px
       const floor = Bodies.rectangle(W / 2, FLOOR_Y, W * 4, wall, {
         isStatic: true, label: "__floor",
         render: { fillStyle: "transparent", strokeStyle: "transparent", lineWidth: 0 },
@@ -127,32 +127,33 @@ export default function Hero() {
       Composite.add(engine.world, [floor, wallL, wallR]);
 
       // ── TAGS ──
-      // 480×124 px (2× bigger) — 3 colonnes — pile finale ~700px de hauteur
-      const tagW = 480;
-      const tagH = 124;
+      // 320×78 px — 5 colonnes — spawne AU-DESSUS du viewport (cascade)
+      // Physique : pile ~340px dans le tiers inférieur, zone texte propre
+      // ×1.33 vs l'original 240×62, largement plus gros et visible
+      const tagW = 320;
+      const tagH = 78;
+      const GAP  = 14;
       const tagBodies: any[] = [];
 
       PROJECTS.forEach((project, i) => {
         const color  = TAG_COLORS[i % TAG_COLORS.length];
         const sprite = makeSprite(project.title, color.bg, color.fg, tagW, tagH);
 
-        // 3 colonnes pour les tags de 480px
-        const cols = 3;
+        const cols = 5;
         const col  = i % cols;
         const row  = Math.floor(i / cols);
 
-        // Distribués sur toute la largeur, ±25% aléatoire par colonne
+        // X : réparti sur 5 colonnes + aléatoire ±25%
         const x = (col + 0.5) * (W / cols) + (Math.random() - 0.5) * (W / cols * 0.5);
 
-        // Spawn réparti sur toute la hauteur visible :
-        // 6 rangées × (124+24px) ≈ 888px → couvre tout le 100vh
-        // Visibles immédiatement dès le chargement, tombent lentement
-        const y = H * 0.08 + row * (tagH + 24) + Math.random() * 18;
+        // Y : AU-DESSUS du viewport, décalage par rangée (cascade)
+        // row 0 → y≈-92, row 3 → y≈-368 → tous arrivés en <1s
+        const y = -(row + 1) * (tagH + GAP) - Math.random() * 30;
 
         const body = Bodies.rectangle(x, y, tagW, tagH, {
-          restitution: 0.18,
-          friction: 0.7,
-          frictionAir: 0.04,
+          restitution: 0.15,
+          friction: 0.8,
+          frictionAir: 0.03,
           chamfer: { radius: tagH / 2 },
           render: {
             sprite: { texture: sprite, xScale: 0.5, yScale: 0.5 },
@@ -161,10 +162,10 @@ export default function Hero() {
         });
 
         (body as any)._project = project;
-        Body.setAngle(body, (Math.random() - 0.5) * 0.35);
+        Body.setAngle(body, (Math.random() - 0.5) * 0.3);
         Body.setVelocity(body, {
-          x: (Math.random() - 0.5) * 3,
-          y: Math.random() * 1.5 + 0.5,
+          x: (Math.random() - 0.5) * 2,
+          y: Math.random() * 2 + 1,
         });
         tagBodies.push(body);
       });
@@ -246,7 +247,7 @@ export default function Hero() {
         render.canvas.height = nH;
         (render.options as any).width  = nW;
         (render.options as any).height = nH;
-        Body.setPosition(floor,  { x: nW / 2, y: nH + 62 + wall / 2 });
+        Body.setPosition(floor,  { x: nW / 2, y: nH + 39 + wall / 2 });
         Body.setPosition(wallR,  { x: nW + wall / 2, y: nH / 2 });
       };
       window.addEventListener("resize", onResize);
