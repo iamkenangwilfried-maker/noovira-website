@@ -29,20 +29,20 @@ export default function Navbar() {
         className="fixed top-0 left-0 right-0 z-50 flex items-stretch"
         style={{ height: `${NAV_H}px` }}
       >
-        {/* ── LEFT: Logo box — élargi pour afficher le logo horizontal correctement ── */}
+        {/* ── LEFT: Logo box — carré dark comme Sher, fond noir = logo intégré ── */}
         <a
           href="/"
-          className="flex-shrink-0 bg-white flex items-center justify-center px-5"
-          style={{ width: "200px", minWidth: "200px" }}
+          className="flex-shrink-0 flex items-center justify-center"
+          style={{ width: `${NAV_H}px`, minWidth: `${NAV_H}px`, background: "#0A0A0A" }}
           aria-label="Noovira AI — Agence web pour le bâtiment en Suisse"
         >
           <img
-            src="/logo.png"
-            alt="Noovira AI — Sites web pour artisans et PME du bâtiment"
-            className="h-10 w-auto"
-            style={{ maxWidth: "150px" }}
+            src="/logo-novira.svg"
+            alt="Noovira AI"
+            width={54}
+            height={54}
+            style={{ width: 54, height: 54 }}
             loading="eager"
-            fetchPriority="high"
           />
         </a>
 

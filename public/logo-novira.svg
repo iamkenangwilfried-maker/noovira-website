@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300">
+  <rect width="300" height="300" fill="#0A0A0A"/>
+  <text
+    x="150" y="148"
+    text-anchor="middle"
+    font-family="Manrope, 'Arial Black', Helvetica, sans-serif"
+    font-weight="900"
+    font-size="108"
+    fill="#FFD6D8"
+    letter-spacing="-4">NOV</text>
+  <text
+    x="150" y="258"
+    text-anchor="middle"
+    font-family="Manrope, 'Arial Black', Helvetica, sans-serif"
+    font-weight="900"
+    font-size="108"
+    fill="#FFD6D8"
+    letter-spacing="-4">IRA</text>
+</svg>
