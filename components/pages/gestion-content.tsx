@@ -77,7 +77,7 @@ export default function GestionContent() {
 
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 bg-beige text-white px-7 py-4 rounded-full font-bold text-base hover:bg-white hover:text-dark transition-all"
+              className="inline-flex items-center gap-2 bg-rose text-dark px-7 py-4 rounded-full font-bold text-base hover:bg-white hover:text-dark transition-all"
             >
               Réserver un appel <ArrowUpRight size={16} />
             </a>
@@ -165,7 +165,7 @@ export default function GestionContent() {
                   { val: "1×/mois", label: "Rapport de performance envoyé" },
                 ].map((s) => (
                   <div key={s.label} className="flex items-center gap-4 border-b border-border-dark pb-5 last:border-b-0 last:pb-0">
-                    <div className="font-heading font-black text-beige text-2xl min-w-[80px]">
+                    <div className="font-heading font-black text-rose text-2xl min-w-[80px]">
                       {s.val}
                     </div>
                     <div className="text-text-light/55 text-sm">{s.label}</div>

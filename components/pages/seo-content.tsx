@@ -52,7 +52,7 @@ export default function SeoContent() {
 
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 bg-beige text-white px-7 py-4 rounded-full font-bold text-base hover:bg-white hover:text-dark transition-all"
+              className="inline-flex items-center gap-2 bg-rose text-dark px-7 py-4 rounded-full font-bold text-base hover:bg-white hover:text-dark transition-all"
             >
               Réserver un appel <ArrowUpRight size={16} />
             </a>
@@ -74,7 +74,7 @@ export default function SeoContent() {
               className="border border-border-dark rounded-3xl p-8 lg:p-10"
               style={{ background: "#1E1E1E" }}
             >
-              <div className="text-xs font-bold uppercase tracking-widest text-beige/60 mb-4">Service 01</div>
+              <div className="text-xs font-bold uppercase tracking-widest text-rose/60 mb-4">Service 01</div>
               <h2
                 className="font-heading font-bold text-text-light leading-tight mb-4"
                 style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
@@ -87,12 +87,12 @@ export default function SeoContent() {
               <ul className="space-y-3">
                 {SEO_FEATURES.map((f) => (
                   <li key={f} className="flex items-start gap-3 text-sm text-text-light/60">
-                    <span className="text-beige font-bold flex-shrink-0 mt-0.5">✓</span>
+                    <span className="text-rose font-bold flex-shrink-0 mt-0.5">✓</span>
                     {f}
                   </li>
                 ))}
               </ul>
-              <a href="#contact" className="inline-flex items-center gap-2 mt-8 bg-beige text-white px-5 py-3 rounded-full text-sm font-bold hover:bg-white hover:text-dark transition-colors">
+              <a href="#contact" className="inline-flex items-center gap-2 mt-8 bg-rose text-dark px-5 py-3 rounded-full text-sm font-bold hover:bg-white hover:text-dark transition-colors">
                 En savoir plus <ArrowUpRight size={14} />
               </a>
             </motion.div>
@@ -106,7 +106,7 @@ export default function SeoContent() {
               className="border border-border-dark rounded-3xl p-8 lg:p-10"
               style={{ background: "#1E1E1E" }}
             >
-              <div className="text-xs font-bold uppercase tracking-widest text-beige/60 mb-4">Service 02</div>
+              <div className="text-xs font-bold uppercase tracking-widest text-rose/60 mb-4">Service 02</div>
               <h2
                 className="font-heading font-bold text-text-light leading-tight mb-4"
                 style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
@@ -119,12 +119,12 @@ export default function SeoContent() {
               <ul className="space-y-3">
                 {ADS_FEATURES.map((f) => (
                   <li key={f} className="flex items-start gap-3 text-sm text-text-light/60">
-                    <span className="text-beige font-bold flex-shrink-0 mt-0.5">✓</span>
+                    <span className="text-rose font-bold flex-shrink-0 mt-0.5">✓</span>
                     {f}
                   </li>
                 ))}
               </ul>
-              <a href="#contact" className="inline-flex items-center gap-2 mt-8 bg-beige text-white px-5 py-3 rounded-full text-sm font-bold hover:bg-white hover:text-dark transition-colors">
+              <a href="#contact" className="inline-flex items-center gap-2 mt-8 bg-rose text-dark px-5 py-3 rounded-full text-sm font-bold hover:bg-white hover:text-dark transition-colors">
                 En savoir plus <ArrowUpRight size={14} />
               </a>
             </motion.div>
@@ -150,7 +150,7 @@ export default function SeoContent() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
               >
-                <div className="font-heading font-black text-beige text-4xl mb-2">{s.val}</div>
+                <div className="font-heading font-black text-rose text-4xl mb-2">{s.val}</div>
                 <div className="text-text-light/40 text-sm">{s.label}</div>
               </motion.div>
             ))}

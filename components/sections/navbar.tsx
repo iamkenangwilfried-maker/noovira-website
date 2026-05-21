@@ -64,7 +64,7 @@ export default function Navbar() {
           {/* Beige pill CTA */}
           <a
             href="#contact"
-            className="inline-flex items-center gap-1.5 bg-beige text-white px-5 py-2.5 rounded-full font-bold text-sm hover:bg-white hover:text-dark transition-colors duration-200 whitespace-nowrap ml-2 flex-shrink-0"
+            className="inline-flex items-center gap-1.5 bg-rose text-dark px-5 py-2.5 rounded-full font-bold text-sm hover:bg-white hover:text-dark transition-colors duration-200 whitespace-nowrap ml-2 flex-shrink-0"
           >
             Démarrer votre projet <ArrowUpRight size={13} />
           </a>
@@ -112,7 +112,7 @@ export default function Navbar() {
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="font-heading font-bold text-text-light text-3xl hover:text-beige transition-colors"
+                className="font-heading font-bold text-text-light text-3xl hover:text-rose transition-colors"
                 style={{ fontSize: "clamp(1.8rem, 5vw, 3rem)" }}
               >
                 {l.label}
@@ -124,7 +124,7 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="inline-flex items-center gap-2 bg-beige text-white px-7 py-4 rounded-full font-bold text-base hover:bg-white hover:text-dark transition-colors"
+              className="inline-flex items-center gap-2 bg-rose text-dark px-7 py-4 rounded-full font-bold text-base hover:bg-white hover:text-dark transition-colors"
             >
               Démarrer votre projet <ArrowUpRight size={16} />
             </a>

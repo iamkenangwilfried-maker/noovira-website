@@ -107,7 +107,7 @@ export default function SocialContent() {
 
             {/* Navigation dots */}
             <div className="flex items-center gap-3 mt-6">
-              <button className="w-9 h-9 rounded-full border border-border-dark flex items-center justify-center text-text-light/40 hover:border-beige hover:text-beige transition-all">
+              <button className="w-9 h-9 rounded-full border border-border-dark flex items-center justify-center text-text-light/40 hover:border-rose hover:text-rose transition-all">
                 <ChevronLeft size={16} />
               </button>
               <div className="flex gap-2">
@@ -115,7 +115,7 @@ export default function SocialContent() {
                   <div key={i} className={`h-1.5 rounded-full transition-all ${i === page ? "w-6 bg-beige" : "w-1.5 bg-border-dark"}`} />
                 ))}
               </div>
-              <button className="w-9 h-9 rounded-full border border-border-dark flex items-center justify-center text-text-light/40 hover:border-beige hover:text-beige transition-all">
+              <button className="w-9 h-9 rounded-full border border-border-dark flex items-center justify-center text-text-light/40 hover:border-rose hover:text-rose transition-all">
                 <ChevronRight size={16} />
               </button>
             </div>
@@ -130,13 +130,13 @@ export default function SocialContent() {
           >
             {/* Platform icons */}
             <div className="flex gap-3 mb-8">
-              <div className="w-11 h-11 rounded-full border border-border-dark flex items-center justify-center text-text-light/60 hover:border-beige hover:text-beige transition-all">
+              <div className="w-11 h-11 rounded-full border border-border-dark flex items-center justify-center text-text-light/60 hover:border-rose hover:text-rose transition-all">
                 <InstagramIcon />
               </div>
-              <div className="w-11 h-11 rounded-full border border-border-dark flex items-center justify-center text-text-light/60 hover:border-beige hover:text-beige transition-all">
+              <div className="w-11 h-11 rounded-full border border-border-dark flex items-center justify-center text-text-light/60 hover:border-rose hover:text-rose transition-all">
                 <YoutubeIcon />
               </div>
-              <div className="w-11 h-11 rounded-full border border-border-dark flex items-center justify-center text-text-light/60 hover:border-beige hover:text-beige transition-all">
+              <div className="w-11 h-11 rounded-full border border-border-dark flex items-center justify-center text-text-light/60 hover:border-rose hover:text-rose transition-all">
                 <TikTokIcon />
               </div>
             </div>

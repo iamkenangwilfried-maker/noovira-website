@@ -112,12 +112,12 @@ export default function Process() {
                         {s.id}
                       </span>
                       <span
-                        className="font-heading font-bold text-text-light group-hover:text-beige transition-colors flex-1"
+                        className="font-heading font-bold text-text-light group-hover:text-rose transition-colors flex-1"
                         style={{ fontSize: "clamp(1.2rem, 2vw, 1.6rem)" }}
                       >
                         {s.title}
                       </span>
-                      <div className="flex-shrink-0 w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-text-light/50 group-hover:border-beige group-hover:text-beige transition-all">
+                      <div className="flex-shrink-0 w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-text-light/50 group-hover:border-rose group-hover:text-rose transition-all">
                         {isOpen ? <Minus size={16} /> : <Plus size={16} />}
                       </div>
                     </button>

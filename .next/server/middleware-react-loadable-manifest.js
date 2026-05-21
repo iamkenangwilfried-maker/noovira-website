@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST='{"components/sections/hero.tsx -> matter-js":{"id":5785,"files":["static/chunks/4b5b508e.69a2500056c1c052.js"]}}';
+self.__REACT_LOADABLE_MANIFEST="{\"components/sections/hero.tsx -> matter-js\":{\"id\":\"components/sections/hero.tsx -> matter-js\",\"files\":[\"static/chunks/_app-pages-browser_node_modules_matter-js_build_matter_js.js\"]}}"

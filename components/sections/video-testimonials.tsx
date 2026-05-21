@@ -118,7 +118,7 @@ function VideoCard({ t }: { t: typeof TESTIMONIALS[0] }) {
 
         {/* Author */}
         <div className="flex items-center gap-3 pt-3 border-t border-border-dark">
-          <div className="w-9 h-9 rounded-full bg-beige/25 flex items-center justify-center text-sm font-bold text-beige flex-shrink-0">
+          <div className="w-9 h-9 rounded-full bg-beige/25 flex items-center justify-center text-sm font-bold text-rose flex-shrink-0">
             {t.name.charAt(0)}
           </div>
           <div>

@@ -69,7 +69,7 @@ export default function LeadMagnet() {
                   transition={{ duration: 0.4, delay: i * 0.07 }}
                   className="flex items-start gap-3"
                 >
-                  <CheckCircle2 size={18} className="text-beige flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 size={18} className="text-rose flex-shrink-0 mt-0.5" />
                   <span className="text-text-light/65 text-sm leading-relaxed">{item}</span>
                 </motion.li>
               ))}
@@ -90,7 +90,7 @@ export default function LeadMagnet() {
               {sent ? (
                 <div className="text-center py-10">
                   <div className="w-16 h-16 rounded-full bg-beige/20 flex items-center justify-center mx-auto mb-5">
-                    <CheckCircle2 size={32} className="text-beige" />
+                    <CheckCircle2 size={32} className="text-rose" />
                   </div>
                   <h3 className="font-heading font-bold text-text-light text-xl mb-3">
                     Votre checklist arrive !
@@ -141,7 +141,7 @@ export default function LeadMagnet() {
 
                     <button
                       type="submit"
-                      className="w-full bg-beige text-dark font-bold px-6 py-4 rounded-xl text-sm hover:bg-beige/90 transition-colors flex items-center justify-center gap-2 mt-2"
+                      className="w-full bg-rose text-dark font-bold px-6 py-4 rounded-xl text-sm hover:bg-rose/90 transition-colors flex items-center justify-center gap-2 mt-2"
                     >
                       Télécharger la checklist <ArrowUpRight size={16} />
                     </button>

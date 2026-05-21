@@ -82,7 +82,7 @@ function ProjectCard({ project, delay = 0 }: { project: typeof PROJECTS[0]; dela
         >
           {project.title}
         </h3>
-        <span className="inline-flex items-center gap-1.5 bg-beige text-white text-xs font-bold px-4 py-2 rounded-full group-hover:bg-white group-hover:text-dark transition-all">
+        <span className="inline-flex items-center gap-1.5 bg-rose text-dark text-xs font-bold px-4 py-2 rounded-full group-hover:bg-white group-hover:text-dark transition-all">
           Voir le projet <ArrowUpRight size={12} />
         </span>
       </div>
@@ -113,7 +113,7 @@ export default function Portfolio() {
               </h2>
               <a
                 href="/realisations"
-                className="inline-flex items-center gap-2 bg-beige text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-dark hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 bg-rose text-dark px-6 py-3 rounded-full font-semibold text-sm hover:bg-white hover:text-dark transition-colors"
               >
                 Toutes nos réalisations <ArrowUpRight size={14} />
               </a>

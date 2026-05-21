@@ -33,7 +33,7 @@ export default function LogoStrip() {
                 <span className="text-[13px] font-bold text-text-light/85 leading-tight tracking-tight">
                   {badge.label}
                 </span>
-                <span className="text-[10px] font-medium text-beige/60 uppercase tracking-widest">
+                <span className="text-[10px] font-medium text-rose/60 uppercase tracking-widest">
                   {badge.sub}
                 </span>
               </div>

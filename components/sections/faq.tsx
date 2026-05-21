@@ -71,7 +71,7 @@ export default function FAQ() {
 
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 bg-beige text-white px-6 py-3.5 rounded-full font-bold text-sm hover:bg-dark hover:text-white transition-all"
+                className="inline-flex items-center gap-2 bg-rose text-dark px-6 py-3.5 rounded-full font-bold text-sm hover:bg-white hover:text-dark transition-all"
               >
                 Nous contacter <ArrowUpRight size={14} />
               </a>

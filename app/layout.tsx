@@ -12,7 +12,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Noovira AI — Sites Web qui Remplissent votre Carnet de Chantiers",
+  title: "Noovira AI — Sites Web qui vous apportent des Devis. Pas juste des visites.",
   description:
     "Agence web spécialisée artisans & PMEs du bâtiment. Sites professionnels sur-mesure livrés en 2 semaines, optimisés SEO pour générer des leads qualifiés. Couvreurs, rénovation, charpente.",
   keywords: "agence web bâtiment, site internet couvreur, site rénovation, charpente web, SEO construction, leads artisans, agence web PME",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     locale: "fr_CH",
     url: "https://nooviraai.com",
     siteName: "Noovira AI",
-    title: "Noovira AI — Sites Web qui Remplissent votre Carnet de Chantiers",
+    title: "Noovira AI — Sites Web qui vous apportent des Devis. Pas juste des visites.",
     description:
       "Agence web spécialisée artisans & PMEs du bâtiment. Sites professionnels + SEO + gestion de présence en ligne.",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Noovira AI" }],
@@ -34,7 +34,10 @@ export const metadata: Metadata = {
     description: "Sites web qui remplissent votre carnet de chantiers.",
   },
   icons: {
-    icon: "/favicon.png",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
     apple: "/favicon.png",
   },
 };

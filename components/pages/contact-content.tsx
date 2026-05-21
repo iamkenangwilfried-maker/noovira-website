@@ -45,7 +45,7 @@ export default function ContactContent() {
             <ul className="space-y-4 mb-12">
               {GUARANTEES.map((g) => (
                 <li key={g} className="flex items-start gap-3 text-sm text-text-light/65">
-                  <CheckCircle2 size={18} className="text-beige flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 size={18} className="text-rose flex-shrink-0 mt-0.5" />
                   {g}
                 </li>
               ))}
@@ -54,17 +54,17 @@ export default function ContactContent() {
             {/* Trust stats */}
             <div className="flex items-center gap-8 pt-8 border-t border-border-dark">
               <div>
-                <div className="font-heading font-black text-beige text-2xl">17+</div>
+                <div className="font-heading font-black text-rose text-2xl">17+</div>
                 <div className="text-text-light/35 text-xs uppercase tracking-widest mt-0.5">Sites livrés</div>
               </div>
               <div className="w-px h-10 bg-border-dark" />
               <div>
-                <div className="font-heading font-black text-beige text-2xl">5.0 ★</div>
+                <div className="font-heading font-black text-rose text-2xl">5.0 ★</div>
                 <div className="text-text-light/35 text-xs uppercase tracking-widest mt-0.5">Note Google</div>
               </div>
               <div className="w-px h-10 bg-border-dark" />
               <div>
-                <div className="font-heading font-black text-beige text-2xl">2 sem.</div>
+                <div className="font-heading font-black text-rose text-2xl">2 sem.</div>
                 <div className="text-text-light/35 text-xs uppercase tracking-widest mt-0.5">Délai garanti</div>
               </div>
             </div>
