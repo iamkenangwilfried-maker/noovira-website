@@ -108,10 +108,11 @@ export default function Hero() {
       // Taille calculée depuis la vraie largeur → fonctionne sur tous écrans
       const GAP  = 12;
       const wall = 60;
-      // 5 cols desktop → 4 rangées pour 17 tags → pile ~360px (gap réduit comme Sher)
+      // 5 cols desktop → 4 rangées × 52px = pile 244px (zone violette y=656-900)
+      // tagW capé à 200px max → taille proche de Sher (180-200px)
       const cols = W > 900 ? 5 : W > 500 ? 4 : 3;
-      const tagW = Math.max(100, Math.floor((W - (cols + 1) * GAP) / cols));
-      const tagH = Math.max(44,  Math.round(tagW * 0.30)); // ratio largeur/hauteur harmonieux
+      const tagW = Math.min(200, Math.max(90, Math.floor((W - (cols + 1) * GAP) / cols)));
+      const tagH = Math.max(40,  Math.round(tagW * 0.26)); // 200×0.26 = 52px
 
       // Floor: la BASE du rang inférieur est à y=H (canvas edge)
       // → tag center à y=H-tagH/2 → tag entier visible dans le canvas
