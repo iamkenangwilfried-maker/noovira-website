@@ -318,8 +318,9 @@ export default function Hero() {
             className="font-heading font-extrabold text-text-light tracking-tight leading-[1.05] mb-8 max-w-4xl"
             style={{ fontSize: "clamp(2.8rem, 6.5vw, 5.5rem)" }}
           >
-            Nous créons des sites qui{" "}
-            <span className="font-extrabold">Remplissent votre Carnet.</span>
+            Nous créons des sites qui vous apportent des{" "}
+            <span className="font-extrabold">Devis.</span>{" "}
+            Pas juste des visites.
           </motion.h1>
 
           <motion.div
