@@ -165,6 +165,15 @@ export default function Hero() {
       Composite.add(engine.world, mc);
       (render as any).mouse = mouse;
 
+      // ── FIX SCROLL ──
+      // Matter.js attache mousewheel + DOMMouseScroll sur le canvas
+      // pour gérer le zoom → ils bloquent le scroll natif de la page.
+      // On les supprime : on n'a pas besoin du zoom canvas.
+      canvas.removeEventListener("mousewheel",    (mouse as any).mousewheel);
+      canvas.removeEventListener("DOMMouseScroll",(mouse as any).mousewheel);
+      // Bloquer aussi le touchmove pour ne pas gêner le scroll mobile
+      canvas.addEventListener("touchstart", (e) => { if (e.touches.length > 1) e.preventDefault(); }, { passive: false });
+
       // Hover + click
       let lastBody: any = null;
       let mouseDown = { x: 0, y: 0 };

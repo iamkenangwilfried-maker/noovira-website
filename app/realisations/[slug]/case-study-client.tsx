@@ -64,26 +64,17 @@ function ProcessBlock({ slug, videoSrc, poster, text, label, flip }: {
         <div className="mt-5 text-text-light font-heading font-extrabold text-xl">{label}</div>
       </div>
 
-      {/* Visuel : screenshot visible par défaut, vidéo au survol */}
+      {/* Vidéo de scroll — autoplay en boucle, toujours visible */}
       <div
-        className={`relative rounded-2xl overflow-hidden border border-white/10 cursor-pointer ${flip ? "lg:order-1" : ""}`}
+        className={`relative rounded-2xl overflow-hidden border border-white/10 ${flip ? "lg:order-1" : ""}`}
         style={{ aspectRatio: "16/10", background: "#0a0a0a" }}
-        onMouseEnter={() => ref.current?.play()}
-        onMouseLeave={() => { const v = ref.current; if (v) { v.pause(); v.currentTime = 0; } }}
       >
-        {/* Screenshot — toujours visible */}
-        <img
-          src={poster}
-          alt={label}
-          className="absolute inset-0 w-full h-full object-cover object-top"
-          loading="lazy"
-        />
-        {/* Vidéo — overlay au survol */}
         <video
           ref={ref}
           src={videoSrc}
-          muted playsInline loop preload="none"
-          className="absolute inset-0 w-full h-full object-cover object-top opacity-0 transition-opacity duration-300 hover:opacity-100"
+          poster={poster}
+          autoPlay muted loop playsInline preload="auto"
+          className="w-full h-full object-cover object-top"
         />
       </div>
     </div>
