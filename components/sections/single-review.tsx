@@ -36,7 +36,7 @@ export default function SingleReview() {
 
           {/* Quote */}
           <blockquote
-            className="font-heading font-bold text-dark leading-[1.1] tracking-tight mb-10"
+            className="font-heading font-light text-dark leading-[1.1] tracking-tight mb-10"
             style={{ fontSize: "clamp(1.5rem, 4vw, 3rem)" }}
           >
             "Depuis que Noovira a refait notre site, on reçoit{" "}

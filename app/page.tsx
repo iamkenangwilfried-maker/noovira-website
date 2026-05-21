@@ -20,9 +20,9 @@ export default function Home() {
   return (
     <main>
       <Navbar />
-      <Hero />               {/* DARK  — H1 + 2 rangées de tags défilants (marquee) */}
-      <HowWeMake />          {/* DARK  — Vidéo gauche + texte droite (section 2, comme Sher) */}
-      <LogoStrip />          {/* WHITE — Logos clients défilants */}
+      <Hero />               {/* DARK  — H1 + tags physiques */}
+      <LogoStrip />          {/* WHITE — Éléments de confiance avant la vidéo HOW */}
+      <HowWeMake />          {/* DARK  — Vidéo gauche + texte droite */}
       <WhatWeDo />           {/* WHITE — Accordéon 3 services */}
       <SingleReview />       {/* WHITE — Témoignage mis en avant */}
       <VideoTestimonials />  {/* WHITE — Real Client Stories */}

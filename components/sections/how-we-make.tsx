@@ -33,7 +33,7 @@ const ClutchBadge = () => (
           </svg>
         ))}
       </div>
-      <span className="text-text-light/50 text-[10px] leading-tight">38 Avis Vérifiés</span>
+      <span className="text-text-light/50 text-[10px] leading-tight">50 Avis Vérifiés</span>
     </div>
   </div>
 );

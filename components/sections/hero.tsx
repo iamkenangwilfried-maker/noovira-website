@@ -334,16 +334,14 @@ export default function Hero() {
           >
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-base transition-all hover:opacity-90 hover:scale-[1.02]"
-              style={{ background: "#FFD6D8", color: "#111111" }}
+              className="inline-flex items-center gap-2 bg-rose text-dark px-7 py-3.5 rounded-full font-semibold text-base transition-all hover:bg-[#F0F0F0] hover:text-dark"
               aria-label="Réserver un appel gratuit avec Noovira AI"
             >
               Réserver un appel <ArrowUpRight size={16} />
             </a>
             <a
               href="/realisations"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-base transition-all hover:opacity-90 hover:scale-[1.02]"
-              style={{ background: "#FFD6D8", color: "#111111" }}
+              className="inline-flex items-center gap-2 bg-rose text-dark px-7 py-3.5 rounded-full font-semibold text-base transition-all hover:bg-[#F0F0F0] hover:text-dark"
               aria-label="Voir nos réalisations de sites web"
             >
               Voir nos réalisations
