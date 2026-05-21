@@ -18,13 +18,15 @@ import { PROJECTS } from "@/lib/projects";
 const SHOT = (url: string) =>
   `https://s.wordpress.com/mshots/v1/https%3A%2F%2F${encodeURIComponent(url)}?w=480&h=320`;
 
+// Palette : toutes les couleurs claires → visibles sur fond #1C1C1C
+// (pas de dark-on-dark qui disparaît comme avant)
 const TAG_COLORS = [
-  { bg: "#C9BAAC", fg: "#1A1A1A" },
-  { bg: "#1A1A1A", fg: "#F7F4EF" },
-  { bg: "#FFFFFF", fg: "#1A1A1A" },
-  { bg: "#EDE8E2", fg: "#1A1A1A" },
-  { bg: "#8B7F75", fg: "#F7F4EF" },
-  { bg: "#F7F4EF", fg: "#1A1A1A" },
+  { bg: "#FFFFFF",   fg: "#1A1A1A" },  // blanc pur
+  { bg: "#F5F2EC",   fg: "#1A1A1A" },  // crème
+  { bg: "#EBE5DC",   fg: "#1A1A1A" },  // sable clair
+  { bg: "#DDD5C8",   fg: "#1A1A1A" },  // sable
+  { bg: "#CBC0B0",   fg: "#1A1A1A" },  // beige brand
+  { bg: "#B8AC9C",   fg: "#1A1A1A" },  // pierre
 ];
 
 function makeSprite(text: string, bg: string, fg: string, w: number, h: number): string {
@@ -108,8 +110,10 @@ export default function Hero() {
       const cols  = 6;
       const wall  = 60;
 
-      // Floor: le centre du rang inférieur est à y=H → overflow:hidden coupe au milieu
-      const FLOOR_Y = H + tagH / 2 + wall / 2;
+      // Floor: la BASE du rang inférieur est à y=H (canvas edge)
+      // → tag center à y=H-tagH/2 → tag entier visible dans le canvas
+      // (avant: center à y=H → seulement le demi-haut visible → bug)
+      const FLOOR_Y = H + wall / 2;
 
       const floor = Bodies.rectangle(W / 2, FLOOR_Y, W * 4, wall, {
         isStatic: true, label: "__floor",
@@ -237,7 +241,7 @@ export default function Hero() {
         render.canvas.height = nH;
         (render.options as any).width  = nW;
         (render.options as any).height = nH;
-        Body.setPosition(floor,  { x: nW / 2, y: nH + tagH / 2 + wall / 2 });
+        Body.setPosition(floor,  { x: nW / 2, y: nH + wall / 2 });
         Body.setPosition(wallR,  { x: nW + wall / 2, y: nH / 2 });
       };
       window.addEventListener("resize", onResize);
