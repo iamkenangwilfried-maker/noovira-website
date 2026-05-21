@@ -33,7 +33,7 @@ const ClutchBadge = () => (
           </svg>
         ))}
       </div>
-      <span className="text-text-light/50 text-[10px] leading-tight">50 Avis Vérifiés</span>
+      <span className="text-dark/50 text-[10px] leading-tight">50 Avis Vérifiés</span>
     </div>
   </div>
 );
@@ -48,8 +48,8 @@ const GoodFirmsBadge = () => (
       <span className="text-white font-black text-xs leading-none">GF</span>
     </div>
     <div className="flex flex-col">
-      <span className="text-text-light/80 text-[11px] font-bold leading-tight">GoodFirms</span>
-      <span className="text-text-light/40 text-[10px] leading-tight">Top Web Designer</span>
+      <span className="text-dark/80 text-[11px] font-bold leading-tight">GoodFirms</span>
+      <span className="text-dark/40 text-[10px] leading-tight">Top Web Designer</span>
     </div>
   </div>
 );
@@ -58,7 +58,7 @@ export default function HowWeMake() {
   const [playing, setPlaying] = useState(false);
 
   return (
-    <section className="section-dark py-20 lg:py-28" id="comment">
+    <section className="section-white py-20 lg:py-28" id="comment">
       <div className="max-w-7xl mx-auto px-6">
 
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -102,7 +102,7 @@ export default function HowWeMake() {
 
                 {/* "HOW" large text overlay — Sher exact top of video */}
                 <div
-                  className="absolute top-6 left-6 font-heading font-black text-text-light/90 leading-none select-none"
+                  className="absolute top-6 left-6 font-heading font-black text-dark/80 leading-none select-none"
                   style={{ fontSize: "clamp(3rem, 8vw, 5rem)", letterSpacing: "-0.04em" }}
                 >
                   HOW
@@ -110,7 +110,7 @@ export default function HowWeMake() {
 
                 {/* Bottom caption — Sher exact */}
                 <div className="absolute bottom-5 left-6 right-6">
-                  <p className="text-text-light/70 text-xs font-bold uppercase tracking-widest">
+                  <p className="text-dark/60 text-xs font-bold uppercase tracking-widest">
                     Comment créer un site qui génère des leads.
                   </p>
                 </div>
@@ -131,7 +131,7 @@ export default function HowWeMake() {
             transition={{ duration: 0.7, delay: 0.1 }}
           >
             <h2
-              className="font-heading text-text-light leading-[1.05] tracking-tight mb-10"
+              className="font-heading text-dark leading-[1.05] tracking-tight mb-10"
               style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
             >
               Voici <span className="font-black">comment nous</span>
@@ -150,7 +150,7 @@ export default function HowWeMake() {
               </a>
 
               {/* Vertical separator */}
-              <div className="w-px h-10 bg-border-dark flex-shrink-0" />
+              <div className="w-px h-10 bg-dark/20 flex-shrink-0" />
 
               {/* Clutch badge */}
               <ClutchBadge />
