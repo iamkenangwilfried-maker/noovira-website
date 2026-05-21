@@ -107,8 +107,12 @@ export default function Hero() {
       });
 
       // Boundaries
+      // Le plancher est à H + tagH/2 sous la section :
+      // → le rang inférieur des tags a son CENTRE à y=H (base de section)
+      // → overflow:hidden coupe au milieu du rang du bas = tranche nette comme Sher
       const wall = 60;
-      const floor = Bodies.rectangle(W / 2, H + wall / 2, W * 4, wall, {
+      const FLOOR_Y = H + 62 + wall / 2; // tagH/2 = 62 pour des tags de 124px
+      const floor = Bodies.rectangle(W / 2, FLOOR_Y, W * 4, wall, {
         isStatic: true, label: "__floor",
         render: { fillStyle: "transparent", strokeStyle: "transparent", lineWidth: 0 },
       });
@@ -242,7 +246,7 @@ export default function Hero() {
         render.canvas.height = nH;
         (render.options as any).width  = nW;
         (render.options as any).height = nH;
-        Body.setPosition(floor,  { x: nW / 2, y: nH + wall / 2 });
+        Body.setPosition(floor,  { x: nW / 2, y: nH + 62 + wall / 2 });
         Body.setPosition(wallR,  { x: nW + wall / 2, y: nH / 2 });
       };
       window.addEventListener("resize", onResize);
