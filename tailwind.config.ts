@@ -27,6 +27,8 @@ const config: Config = {
         "accent-hover":"#B8A898",
         "card-border":"#E5E0D9",
         success:      "#22C55E",
+        rose:         "#FFD6D8",
+        "rose-light": "#FFEAEB",
       },
       fontFamily: {
         heading: ["var(--font-manrope)", "-apple-system", "BlinkMacSystemFont", "sans-serif"],

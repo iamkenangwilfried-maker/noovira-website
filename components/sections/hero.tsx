@@ -18,18 +18,15 @@ import { PROJECTS } from "@/lib/projects";
 const SHOT = (url: string) =>
   `https://s.wordpress.com/mshots/v1/https%3A%2F%2F${encodeURIComponent(url)}?w=480&h=320`;
 
-// Palette : toutes les couleurs claires → visibles sur fond #1C1C1C
-// (pas de dark-on-dark qui disparaît comme avant)
+// Palette : rotation blanc → noir (visible sur fond dark) → rose brand
+// 3 couleurs cycliques pour 17 projets → séquence propre et intentionnelle
 const TAG_COLORS = [
-  { bg: "#FFFFFF",   fg: "#1A1A1A" },  // blanc pur
-  { bg: "#F5F2EC",   fg: "#1A1A1A" },  // crème
-  { bg: "#EBE5DC",   fg: "#1A1A1A" },  // sable clair
-  { bg: "#DDD5C8",   fg: "#1A1A1A" },  // sable
-  { bg: "#CBC0B0",   fg: "#1A1A1A" },  // beige brand
-  { bg: "#B8AC9C",   fg: "#1A1A1A" },  // pierre
+  { bg: "#FFFFFF", fg: "#111111", border: undefined                  },  // blanc pur
+  { bg: "#0A0A0A", fg: "#FFFFFF", border: "rgba(255,255,255,0.20)"   },  // noir (bordure blanche = se démarque de #1C1C1C)
+  { bg: "#FFD6D8", fg: "#111111", border: undefined                  },  // rose brand
 ];
 
-function makeSprite(text: string, bg: string, fg: string, w: number, h: number): string {
+function makeSprite(text: string, bg: string, fg: string, w: number, h: number, border?: string): string {
   const c = document.createElement("canvas");
   c.width = w * 2;
   c.height = h * 2;
@@ -51,8 +48,15 @@ function makeSprite(text: string, bg: string, fg: string, w: number, h: number):
   ctx.fillStyle = bg;
   ctx.fill();
 
+  // Bordure optionnelle pour les tags sombres (visibilité sur fond dark)
+  if (border) {
+    ctx.strokeStyle = border;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
   ctx.fillStyle = fg;
-  const fontSize = Math.max(11, Math.round(h * 0.22)); // police proportionnelle (pas trop grande)
+  const fontSize = Math.max(11, Math.round(h * 0.26));
   ctx.font = `700 ${fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
@@ -140,7 +144,7 @@ export default function Hero() {
 
       PROJECTS.forEach((project, i) => {
         const color  = TAG_COLORS[i % TAG_COLORS.length];
-        const sprite = makeSprite(project.title, color.bg, color.fg, tagW, tagH);
+        const sprite = makeSprite(project.title, color.bg, color.fg, tagW, tagH, color.border);
 
         const col = i % cols;
         const row = Math.floor(i / cols);
@@ -325,12 +329,20 @@ export default function Hero() {
             className="flex flex-col sm:flex-row gap-3"
             style={{ pointerEvents: "auto" }}
           >
-            <a href="#contact"
-              className="inline-flex items-center gap-2 bg-beige text-white px-7 py-3.5 rounded-full font-semibold text-base hover:bg-white hover:text-dark transition-all">
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-base transition-all hover:opacity-90 hover:scale-[1.02]"
+              style={{ background: "#FFD6D8", color: "#111111" }}
+              aria-label="Réserver un appel gratuit avec Noovira AI"
+            >
               Réserver un appel <ArrowUpRight size={16} />
             </a>
-            <a href="#portfolio"
-              className="inline-flex items-center gap-2 bg-beige text-white px-7 py-3.5 rounded-full font-semibold text-base hover:bg-white hover:text-dark transition-all">
+            <a
+              href="/realisations"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-base transition-all hover:opacity-90 hover:scale-[1.02]"
+              style={{ background: "#FFD6D8", color: "#111111" }}
+              aria-label="Voir nos réalisations de sites web"
+            >
               Voir nos réalisations
             </a>
           </motion.div>

@@ -17,6 +17,8 @@
   --text-light: #F7F4EF;
   --border: #E5E0D9;
   --border-dark: #2E2E2E;
+  --rose:        #FFD6D8;
+  --rose-light:  #FFEAEB;
 }
 
 * {
