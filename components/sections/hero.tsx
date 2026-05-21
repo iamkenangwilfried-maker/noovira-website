@@ -5,48 +5,37 @@ import { ArrowUpRight } from "lucide-react";
 import { PROJECTS } from "@/lib/projects";
 
 /**
- * Hero — Matter.js physics (Sher Agency exact clone):
+ * Hero — Matter.js physics
  *
- * STRUCTURE:
- * • Section = 100vh, position:relative, overflow:hidden
- * • Physics canvas = position:absolute covering full section (behind text)
- * • Stars + H1 + CTAs overlaid with z-index (pointer-events-none except buttons)
- *
- * PHYSICS:
- * • Tags spawn at top of canvas (y: 0 → -some offset) and fall WITH GRAVITY
- * • They land within the hero viewport — no scrolling needed
- * • Tags are DRAGGABLE (MouseConstraint)
- * • Each tag has TEXT BAKED IN via Canvas 2D sprite (pre-rendered)
- * • Colors: varied (white, dark, gray) — not uniform beige
- *
- * INTERACTION:
- * • Hover → preview popup with website screenshot
- * • Click → /realisations/[slug]
+ * FIXES:
+ * • Canvas = absolute inset-0 (full 100vh, top:0) → floor aligns with visible bottom
+ * • Tags spawn just above canvas top (y = -50 to -220) → visible within ~0.5s
+ * • Tags are BIG: 200×54px with large font
+ * • Gravity 4.5 → fast fall, quick settle
+ * • Text content has paddingTop: 100px to clear the fixed navbar
  */
 
 const SHOT = (url: string) =>
   `https://s.wordpress.com/mshots/v1/https%3A%2F%2F${encodeURIComponent(url)}?w=480&h=320`;
 
-// Tag color variants — varied palette (white / dark / gray)
 const TAG_COLORS = [
-  { bg: "#FFFFFF", fg: "#1A1A1A" }, // white
-  { bg: "#1A1A1A", fg: "#F7F4EF" }, // dark
-  { bg: "#D4D4D4", fg: "#1A1A1A" }, // light gray
-  { bg: "#F7F4EF", fg: "#1A1A1A" }, // off-white
-  { bg: "#3A3A3A", fg: "#F7F4EF" }, // charcoal
-  { bg: "#ABABAB", fg: "#1A1A1A" }, // medium gray
+  { bg: "#FFFFFF", fg: "#1A1A1A" },
+  { bg: "#1A1A1A", fg: "#F7F4EF" },
+  { bg: "#D4D4D4", fg: "#1A1A1A" },
+  { bg: "#F7F4EF", fg: "#1A1A1A" },
+  { bg: "#3A3A3A", fg: "#F7F4EF" },
+  { bg: "#ABABAB", fg: "#1A1A1A" },
 ];
 
-/** Pre-render a tag pill to a data URL so text is baked in */
 function makeSprite(text: string, bg: string, fg: string, w: number, h: number): string {
   const c = document.createElement("canvas");
-  c.width = w * 2; // retina
+  c.width = w * 2;
   c.height = h * 2;
   const ctx = c.getContext("2d")!;
   ctx.scale(2, 2);
 
-  // Rounded rect background
-  const r = 10;
+  // Pill / rounded rect
+  const r = h / 2;
   ctx.beginPath();
   ctx.moveTo(r, 0);
   ctx.lineTo(w - r, 0);
@@ -61,34 +50,27 @@ function makeSprite(text: string, bg: string, fg: string, w: number, h: number):
   ctx.fillStyle = bg;
   ctx.fill();
 
-  // Text
+  // Text — bold, 15px
   ctx.fillStyle = fg;
-  ctx.font = `600 12.5px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+  ctx.font = `700 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  // Truncate if too long
-  const maxW = w - 20;
-  let displayText = text;
-  while (ctx.measureText(displayText).width > maxW && displayText.length > 4) {
-    displayText = displayText.slice(0, -2) + "…";
-  }
-  ctx.fillText(displayText, w / 2, h / 2);
+  const maxW = w - 28;
+  let t = text;
+  while (ctx.measureText(t).width > maxW && t.length > 4) t = t.slice(0, -2) + "…";
+  ctx.fillText(t, w / 2, h / 2);
 
   return c.toDataURL();
 }
 
 interface Preview {
-  visible: boolean;
-  x: number;
-  y: number;
-  title: string;
-  imgUrl: string;
-  slug: string;
+  visible: boolean; x: number; y: number;
+  title: string; imgUrl: string; slug: string;
 }
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef  = useRef<HTMLCanvasElement>(null);
   const cleanupRef = useRef<(() => void) | null>(null);
   const [preview, setPreview] = useState<Preview>({
     visible: false, x: 0, y: 0, title: "", imgUrl: "", slug: "",
@@ -99,41 +81,34 @@ export default function Hero() {
 
     async function init() {
       if (!sectionRef.current || !canvasRef.current) return;
-
       const Matter = await import("matter-js");
       if (cancelled) return;
 
-      const { Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint, Events } = Matter;
+      const { Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint } = Matter;
 
       const section = sectionRef.current!;
-      const canvas = canvasRef.current!;
+      const canvas  = canvasRef.current!;
       const W = section.offsetWidth;
-      const H = section.offsetHeight;
+      const H = section.offsetHeight; // full 100vh
 
-      // Set canvas size explicitly
-      canvas.width = W;
+      canvas.width  = W;
       canvas.height = H;
 
-      const engine = Engine.create({ gravity: { y: 2.8 } });
+      // Gravity 4.5 → fast fall, settle quickly
+      const engine = Engine.create({ gravity: { y: 4.5 } });
 
       const render = Render.create({
         element: section,
         engine,
         canvas,
-        options: {
-          width: W,
-          height: H,
-          wireframes: false,
-          background: "transparent",
-        },
+        options: { width: W, height: H, wireframes: false, background: "transparent" },
       });
 
-      // Walls + floor (invisible static bodies)
-      const wall = 80;
+      // Static boundaries — floor at exactly H (bottom of visible canvas)
+      const wall = 60;
       const floor = Bodies.rectangle(W / 2, H + wall / 2, W * 4, wall, {
-        isStatic: true,
+        isStatic: true, label: "__floor",
         render: { fillStyle: "transparent", strokeStyle: "transparent", lineWidth: 0 },
-        label: "__floor",
       });
       const wallL = Bodies.rectangle(-wall / 2, H / 2, wall, H * 3, {
         isStatic: true,
@@ -145,45 +120,43 @@ export default function Hero() {
       });
       Composite.add(engine.world, [floor, wallL, wallR]);
 
-      // Create tag bodies with pre-rendered sprites
-      const tagW = 155;
-      const tagH = 42;
+      // ── TAG BODIES ──
+      const tagW = 200;
+      const tagH = 54;
       const tagBodies: any[] = [];
 
       PROJECTS.forEach((project, i) => {
-        const color = TAG_COLORS[i % TAG_COLORS.length];
+        const color  = TAG_COLORS[i % TAG_COLORS.length];
         const sprite = makeSprite(project.title, color.bg, color.fg, tagW, tagH);
 
-        // Spread horizontally, stagger vertically above canvas
+        // 4 columns — spawn just above canvas top, staggered by row
         const cols = 4;
-        const col = i % cols;
-        const row = Math.floor(i / cols);
-        const x = (col + 0.5) * (W / cols) + (Math.random() - 0.5) * 60;
-        const y = -tagH - row * (tagH + 20) - Math.random() * 40;
+        const col  = i % cols;
+        const row  = Math.floor(i / cols);
+
+        const x = (col + 0.5) * (W / cols) + (Math.random() - 0.5) * 80;
+        // Keep spawn close to top: max -220px so all tags visible within ~0.5s
+        const y = -tagH - row * (tagH + 12) - Math.random() * 20;
 
         const body = Bodies.rectangle(x, y, tagW, tagH, {
-          restitution: 0.35,
-          friction: 0.4,
-          frictionAir: 0.015,
-          chamfer: { radius: 10 },
+          restitution: 0.25,
+          friction: 0.5,
+          frictionAir: 0.018,
+          chamfer: { radius: tagH / 2 },
           render: {
-            sprite: {
-              texture: sprite,
-              xScale: 0.5, // because we drew at 2x for retina
-              yScale: 0.5,
-            },
+            sprite: { texture: sprite, xScale: 0.5, yScale: 0.5 },
           },
           label: `tag_${project.slug}`,
         });
 
         (body as any)._project = project;
-        Matter.Body.setAngle(body, (Math.random() - 0.5) * 0.5);
+        Matter.Body.setAngle(body, (Math.random() - 0.5) * 0.3);
         tagBodies.push(body);
       });
 
       Composite.add(engine.world, tagBodies);
 
-      // Mouse control
+      // Mouse drag
       const mouse = Mouse.create(canvas);
       const mc = MouseConstraint.create(engine, {
         mouse,
@@ -192,23 +165,18 @@ export default function Hero() {
       Composite.add(engine.world, mc);
       (render as any).mouse = mouse;
 
-      // Hover + click detection
+      // Hover + click
       let lastBody: any = null;
       let mouseDown = { x: 0, y: 0 };
 
       canvas.addEventListener("mousemove", (e) => {
         const rect = canvas.getBoundingClientRect();
         const mx = (e.clientX - rect.left) * (W / rect.width);
-        const my = (e.clientY - rect.top) * (H / rect.height);
-
+        const my = (e.clientY - rect.top)  * (H / rect.height);
         let found: any = null;
         for (const b of tagBodies) {
-          if (Matter.Bounds.contains(b.bounds, { x: mx, y: my })) {
-            found = b;
-            break;
-          }
+          if (Matter.Bounds.contains(b.bounds, { x: mx, y: my })) { found = b; break; }
         }
-
         if (found !== lastBody) {
           lastBody = found;
           if (found?._project) {
@@ -235,16 +203,16 @@ export default function Hero() {
         }
       });
 
-      // Handle resize
+      // Resize
       const onResize = () => {
         const nW = section.offsetWidth;
         const nH = section.offsetHeight;
-        render.canvas.width = nW;
+        render.canvas.width  = nW;
         render.canvas.height = nH;
-        (render.options as any).width = nW;
+        (render.options as any).width  = nW;
         (render.options as any).height = nH;
-        Matter.Body.setPosition(floor, { x: nW / 2, y: nH + wall / 2 });
-        Matter.Body.setPosition(wallR, { x: nW + wall / 2, y: nH / 2 });
+        Matter.Body.setPosition(floor,  { x: nW / 2, y: nH + wall / 2 });
+        Matter.Body.setPosition(wallR,  { x: nW + wall / 2, y: nH / 2 });
       };
       window.addEventListener("resize", onResize);
 
@@ -261,10 +229,7 @@ export default function Hero() {
     }
 
     init();
-    return () => {
-      cancelled = true;
-      cleanupRef.current?.();
-    };
+    return () => { cancelled = true; cleanupRef.current?.(); };
   }, []);
 
   return (
@@ -272,25 +237,29 @@ export default function Hero() {
       <section
         ref={sectionRef}
         className="section-dark relative overflow-hidden"
-        style={{ height: "100vh", minHeight: "600px", paddingTop: "80px" }}
+        style={{ height: "100vh", minHeight: "640px" }}
       >
-        {/* Canvas injected here by Matter.js Render (absolute via CSS below) */}
+        {/* Canvas: full section, top:0 — floor aligns with visible bottom */}
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 w-full h-full"
-          style={{ top: "80px", height: "calc(100% - 80px)", zIndex: 1 }}
+          style={{
+            position: "absolute",
+            top: 0, left: 0,
+            width: "100%", height: "100%",
+            zIndex: 1,
+          }}
         />
 
-        {/* Text content — above canvas */}
+        {/* Text overlay — paddingTop clears the fixed navbar (80px) */}
         <div
-          className="relative flex flex-col items-center text-center px-6 pt-12 lg:pt-20"
-          style={{ zIndex: 10, pointerEvents: "none" }}
+          className="relative flex flex-col items-center text-center px-6"
+          style={{ zIndex: 10, pointerEvents: "none", paddingTop: "100px" }}
         >
           {/* Stars */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.45 }}
             className="flex flex-col items-center gap-1.5 mb-6"
           >
             <div className="flex gap-1">
@@ -309,19 +278,19 @@ export default function Hero() {
           <motion.h1
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="font-heading font-bold text-text-light tracking-tight leading-[1.05] mb-8 max-w-4xl"
+            transition={{ duration: 0.6, delay: 0.08 }}
+            className="font-heading font-extrabold text-text-light tracking-tight leading-[1.05] mb-8 max-w-4xl"
             style={{ fontSize: "clamp(2.8rem, 6.5vw, 5.5rem)" }}
           >
             Nous créons des sites qui{" "}
-            <span className="font-black">Remplissent votre Carnet.</span>
+            <span className="font-extrabold">Remplissent votre Carnet.</span>
           </motion.h1>
 
           {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.25 }}
+            transition={{ duration: 0.45, delay: 0.2 }}
             className="flex flex-col sm:flex-row gap-3"
             style={{ pointerEvents: "auto" }}
           >
@@ -341,17 +310,17 @@ export default function Hero() {
         </div>
       </section>
 
-      {/* Preview popup — fixed, outside section so not clipped */}
+      {/* Preview popup — fixed so it's never clipped */}
       {preview.visible && (
         <div
           className="fixed pointer-events-none"
-          style={{ left: preview.x + 18, top: preview.y - 90, width: 230, zIndex: 9999 }}
+          style={{ left: preview.x + 18, top: preview.y - 100, width: 240, zIndex: 9999 }}
         >
           <div
             className="rounded-2xl overflow-hidden shadow-2xl"
             style={{ background: "#1A1A1A", border: "1px solid rgba(255,255,255,0.12)" }}
           >
-            <div style={{ height: 140, overflow: "hidden" }}>
+            <div style={{ height: 148, overflow: "hidden" }}>
               <img
                 src={preview.imgUrl}
                 alt={preview.title}
