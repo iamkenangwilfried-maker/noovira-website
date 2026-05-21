@@ -315,12 +315,13 @@ export default function Hero() {
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.08 }}
-            className="font-heading font-extrabold text-text-light tracking-tight leading-[1.05] mb-8 max-w-4xl"
-            style={{ fontSize: "clamp(2.8rem, 6.5vw, 5.5rem)" }}
+            className="font-heading text-text-light tracking-tight leading-[1.05] mb-8 max-w-4xl"
+            style={{ fontSize: "clamp(2.8rem, 6.5vw, 5.5rem)", fontWeight: 300 }}
           >
             Nous créons des sites qui vous apportent des{" "}
-            <span className="font-extrabold">Devis.</span>{" "}
-            Pas juste des visites.
+            <span style={{ fontWeight: 800, color: "#FFD6D8" }}>Devis.</span>{" "}
+            Pas juste des{" "}
+            <span style={{ fontWeight: 800, color: "#FFD6D8" }}>visites.</span>
           </motion.h1>
 
           <motion.div
