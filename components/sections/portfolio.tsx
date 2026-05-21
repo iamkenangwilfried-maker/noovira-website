@@ -50,7 +50,7 @@ function ProjectCard({ project, delay = 0 }: { project: typeof PROJECTS[0]; dela
       {/* Video scroll recording — invisible at rest, fades in on hover */}
       <video
         ref={videoRef}
-        src={`/videos/${project.slug}/scroll.mp4`}
+        src={`/videos/${project.slug}/01.mp4`}
         muted
         playsInline
         loop

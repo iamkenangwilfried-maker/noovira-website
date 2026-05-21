@@ -31,7 +31,7 @@ function VideoCard({ project }: { project: Project }) {
       {/* Video — fades in on hover */}
       <video
         ref={videoRef}
-        src={`/videos/${project.slug}/scroll.mp4`}
+        src={`/videos/${project.slug}/01.mp4`}
         muted
         playsInline
         loop
