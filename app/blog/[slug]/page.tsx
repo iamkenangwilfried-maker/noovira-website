@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import Navbar from "@/components/sections/navbar";
 import Footer from "@/components/sections/footer";
 import { getAllArticleSlugs, getArticleBySlug } from "@/lib/articles";
@@ -113,53 +114,64 @@ export default function ArticlePage({
       <Navbar />
 
       <main className="min-h-screen bg-background">
-        {/* ── Hero image (full-width, 40vh) ── */}
-        <div className="relative w-full h-[45vh] min-h-[300px] overflow-hidden">
-          <img
-            src={article.image}
-            alt={article.imageAlt ?? article.title}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          {/* Dark overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/30 to-transparent" />
+        {/* ── Dark header band (like other pages) ── */}
+        <div className="bg-dark pt-28 pb-12">
+          <div className="max-w-4xl mx-auto px-6">
+            {/* Back link */}
+            <a
+              href="/blog"
+              className="inline-flex items-center gap-1.5 text-sm text-beige hover:text-text-light transition-colors mb-6"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Retour au blog
+            </a>
 
-          {/* Category badge over image */}
-          <div className="absolute bottom-6 left-6">
-            <span className="bg-accent text-dark text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wide">
-              {article.category}
-            </span>
+            {/* Category badge */}
+            <div className="mb-4">
+              <span className="bg-accent text-dark text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wide">
+                {article.category}
+              </span>
+            </div>
+
+            {/* Title */}
+            <h1 className="text-3xl md:text-4xl font-bold text-text-light leading-tight mb-6 tracking-tight">
+              {article.title}
+            </h1>
+
+            {/* Meta row */}
+            <div className="flex flex-wrap items-center gap-4 text-beige text-sm">
+              <span className="flex items-center gap-1.5">
+                <User className="w-4 h-4" />
+                {article.author}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Clock className="w-4 h-4" />
+                {article.readingTime ?? "5 min de lecture"}
+              </span>
+              <time dateTime={article.publishedAt}>
+                {new Date(article.publishedAt).toLocaleDateString("fr-CH", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </time>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Hero image below dark header ── */}
+        <div className="max-w-4xl mx-auto px-6 -mt-0">
+          <div className="w-full overflow-hidden rounded-b-2xl shadow-lg">
+            <img
+              src={article.image}
+              alt={article.imageAlt ?? article.title}
+              className="w-full h-auto max-h-[420px] object-cover object-top"
+            />
           </div>
         </div>
 
         {/* ── Article container ── */}
         <div className="max-w-4xl mx-auto px-6 pt-10 pb-24">
-          {/* Back link */}
-          <a
-            href="/blog"
-            className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-dark transition-colors mb-8"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Retour au blog
-          </a>
-
-          {/* Meta row */}
-          <div className="flex flex-wrap items-center gap-4 text-muted text-sm mb-6">
-            <span className="flex items-center gap-1.5">
-              <User className="w-4 h-4" />
-              {article.author}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Clock className="w-4 h-4" />
-              {article.readingTime ?? "5 min de lecture"}
-            </span>
-            <time dateTime={article.publishedAt}>
-              {new Date(article.publishedAt).toLocaleDateString("fr-CH", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })}
-            </time>
-          </div>
 
           {/* Tags */}
           {article.tags?.length > 0 && (
@@ -199,7 +211,10 @@ export default function ArticlePage({
               prose-code:text-dark prose-code:bg-bg-alt prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
             "
           >
-            <MDXRemote source={article.content} />
+            <MDXRemote
+              source={article.content}
+              options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+            />
           </article>
 
           {/* ── CTA box ── */}
