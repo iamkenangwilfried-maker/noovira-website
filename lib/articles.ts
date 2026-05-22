@@ -4,6 +4,9 @@ import matter from "gray-matter";
 
 const ARTICLES_DIR = path.join(process.cwd(), "content", "articles");
 
+/** Auteure par défaut pour tous les articles Noovira AI */
+export const DEFAULT_AUTHOR = "Jennifer Hang";
+
 export interface ArticleFrontmatter {
   title: string;
   slug: string;
@@ -49,7 +52,8 @@ export function getAllArticles(): ArticleFrontmatter[] {
       const filePath = path.join(ARTICLES_DIR, `${slug}.mdx`);
       const raw = fs.readFileSync(filePath, "utf-8");
       const { data } = matter(raw);
-      return { ...(data as ArticleFrontmatter), slug };
+      const fm = data as ArticleFrontmatter;
+      return { ...fm, author: fm.author || DEFAULT_AUTHOR, slug };
     })
     .sort(
       (a, b) =>
@@ -67,8 +71,10 @@ export function getArticleBySlug(slug: string): Article | null {
   const raw = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(raw);
 
+  const fm = data as ArticleFrontmatter;
   return {
-    ...(data as ArticleFrontmatter),
+    ...fm,
+    author: fm.author || DEFAULT_AUTHOR,   // fallback Jennifer Hang si non précisé
     slug,
     content: stripMdxExports(content),
   };
