@@ -86,6 +86,13 @@ export default function Hero() {
 
     async function init() {
       if (!sectionRef.current || !canvasRef.current) return;
+
+      // ── DESKTOP ONLY ──
+      // Ne pas initialiser la physique sur mobile/tablette < 768px
+      // Le canvas est masqué par Tailwind (hidden md:block), on coupe
+      // aussi l'engine pour ne pas consommer CPU inutilement.
+      if (window.innerWidth < 768) return;
+
       const Matter = await import("matter-js");
       if (cancelled) return;
 
@@ -275,11 +282,17 @@ export default function Hero() {
       <section
         ref={sectionRef}
         className="section-dark relative overflow-hidden"
-        style={{ height: "90vh", minHeight: "580px" }}
+        style={{
+          // Mobile : hauteur auto ajustée au contenu (pas de canvas)
+          // Desktop (≥ md) : 90vh pour que les tags aient de la place
+          height: "clamp(480px, 90vh, 960px)",
+          minHeight: "unset",
+        }}
       >
-        {/* Canvas : top:0, couvre tout le 100vh */}
+        {/* Canvas Matter.js : desktop uniquement (≥ md: 768px) */}
         <canvas
           ref={canvasRef}
+          className="hidden md:block"
           style={{
             position: "absolute",
             top: 0, left: 0,
@@ -290,7 +303,7 @@ export default function Hero() {
 
         {/* Texte */}
         <div
-          className="relative flex flex-col items-center text-center px-6"
+          className="relative flex flex-col items-center text-center px-6 pb-16 md:pb-0"
           style={{ zIndex: 10, pointerEvents: "none", paddingTop: "100px" }}
         >
           <motion.div
@@ -333,7 +346,7 @@ export default function Hero() {
             style={{ pointerEvents: "auto" }}
           >
             <a
-              href="#contact"
+              href="/contact"
               className="inline-flex items-center gap-2 bg-rose text-dark px-7 py-3.5 rounded-full font-semibold text-base transition-all hover:bg-[#F0F0F0] hover:text-dark"
               aria-label="Réserver un appel gratuit avec Noovira AI"
             >
