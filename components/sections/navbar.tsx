@@ -48,7 +48,7 @@ export default function Navbar() {
           </a>
 
           {/* ── Desktop nav ── */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6">
             {LINKS.map((l) => (
               <a
                 key={l.href}
@@ -66,10 +66,10 @@ export default function Navbar() {
             </a>
           </nav>
 
-          {/* ── Hamburger (mobile) ── */}
+          {/* ── Hamburger (mobile + tablet) ── */}
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden flex items-center justify-center rounded-xl transition-colors"
+            className="lg:hidden flex items-center justify-center rounded-xl transition-colors"
             style={{ width: "44px", height: "44px", background: "#2A2A2A" }}
             aria-label="Toggle menu"
           >
