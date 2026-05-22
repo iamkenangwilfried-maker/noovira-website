@@ -1,6 +1,5 @@
 "use client";
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 /**
  * Team — grille statique 4 colonnes (marquee quand 8+ membres)
@@ -41,13 +40,12 @@ function TeamCard({ m, index }: { m: (typeof TEAM)[0]; index: number }) {
       className="flex-1 min-w-0"
     >
       {/* Photo portrait */}
-      <div className="relative rounded-2xl overflow-hidden mb-5" style={{ aspectRatio: "3/4" }}>
-        <Image
+      <div className="rounded-2xl overflow-hidden mb-5" style={{ aspectRatio: "3/4" }}>
+        <img
           src={m.photo}
           alt={m.name}
-          fill
-          className="object-cover object-top"
-          sizes="(max-width: 768px) 50vw, 25vw"
+          className="w-full h-full object-cover object-top"
+          loading="lazy"
         />
       </div>
       {/* Nom + rôle */}
