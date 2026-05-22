@@ -1,0 +1,784 @@
+{
+  "bleeze.ch": [
+    {
+      "block_type": null,
+      "block_position": 4,
+      "keyword": "agence web fribourg",
+      "position": 3,
+      "prev_pos": null,
+      "volume": 210,
+      "cpc": 1.48,
+      "competition": 0.16,
+      "url": "https://www.bleeze.ch/",
+      "difficulty": 38,
+      "total_sites": null,
+      "traffic": 9,
+      "traffic_percent": 50,
+      "price": 13.32,
+      "serp_features": [
+        "local_pack",
+        "reviews",
+        "tads",
+        "bads",
+        "related_searches",
+        "mads"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 11,
+      "keyword": "création site internet suisse romande",
+      "position": 10,
+      "prev_pos": null,
+      "volume": 110,
+      "cpc": 3.59,
+      "competition": 0.14,
+      "url": "https://www.bleeze.ch/blog/combien-coute-site-web-suisse-romande-2026-prix-reels",
+      "difficulty": 21,
+      "total_sites": null,
+      "traffic": 2,
+      "traffic_percent": 11.11,
+      "price": 7.18,
+      "serp_features": [
+        "reviews",
+        "video",
+        "sge",
+        "related_searches"
+      ],
+      "intents": [
+        "I"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 21,
+      "keyword": "agence création de site",
+      "position": 21,
+      "prev_pos": null,
+      "volume": 110,
+      "cpc": 0,
+      "competition": 0.05,
+      "url": "https://www.bleeze.ch/",
+      "difficulty": 50,
+      "total_sites": null,
+      "traffic": 1,
+      "traffic_percent": 5.56,
+      "price": 0,
+      "serp_features": [
+        "local_pack",
+        "reviews",
+        "video",
+        "bads",
+        "related_searches"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 5,
+      "keyword": "prix site internet",
+      "position": 5,
+      "prev_pos": null,
+      "volume": 110,
+      "cpc": 2.06,
+      "competition": 0.57,
+      "url": "https://www.bleeze.ch/blog/combien-coute-site-web-suisse-romande-2026-prix-reels",
+      "difficulty": 5,
+      "total_sites": null,
+      "traffic": 1,
+      "traffic_percent": 5.56,
+      "price": 2.06,
+      "serp_features": [
+        "reviews",
+        "video",
+        "people_also_ask",
+        "images",
+        "bads",
+        "sge",
+        "related_searches"
+      ],
+      "intents": [
+        "I"
+      ]
+    },
+    {
+      "block_type": "sge",
+      "block_position": 1,
+      "keyword": "prix site internet",
+      "position": 1,
+      "prev_pos": null,
+      "volume": 110,
+      "cpc": 2.06,
+      "competition": 0.57,
+      "url": "https://www.bleeze.ch/blog/combien-coute-site-web-suisse-romande-2026-prix-reels",
+      "difficulty": 5,
+      "total_sites": null,
+      "traffic": 1,
+      "traffic_percent": 5.56,
+      "price": 2.06,
+      "serp_features": [
+        "reviews",
+        "video",
+        "people_also_ask",
+        "images",
+        "bads",
+        "sge",
+        "related_searches"
+      ],
+      "intents": [
+        "I"
+      ]
+    },
+    {
+      "block_type": "sge",
+      "block_position": 1,
+      "keyword": "site internet prix",
+      "position": 1,
+      "prev_pos": null,
+      "volume": 110,
+      "cpc": 2.06,
+      "competition": 0.57,
+      "url": "https://www.bleeze.ch/blog/combien-coute-site-web-suisse-romande-2026-prix-reels",
+      "difficulty": 16,
+      "total_sites": null,
+      "traffic": 1,
+      "traffic_percent": 5.56,
+      "price": 2.06,
+      "serp_features": [
+        "reviews",
+        "video",
+        "people_also_ask",
+        "sge",
+        "related_searches"
+      ],
+      "intents": [
+        "I"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 29,
+      "keyword": "agence web suisse romande",
+      "position": 29,
+      "prev_pos": null,
+      "volume": 110,
+      "cpc": 2.51,
+      "competition": 0.59,
+      "url": "https://www.bleeze.ch/",
+      "difficulty": 62,
+      "total_sites": null,
+      "traffic": 1,
+      "traffic_percent": 5.56,
+      "price": 2.51,
+      "serp_features": [
+        "reviews",
+        "people_also_ask",
+        "bads",
+        "gmb",
+        "related_searches"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 12,
+      "keyword": "création site internet fribourg",
+      "position": 12,
+      "prev_pos": null,
+      "volume": 110,
+      "cpc": 3.39,
+      "competition": 0.1,
+      "url": "https://www.bleeze.ch/",
+      "difficulty": 17,
+      "total_sites": null,
+      "traffic": 1,
+      "traffic_percent": 5.56,
+      "price": 3.39,
+      "serp_features": [
+        "reviews",
+        "people_also_ask",
+        "gmb",
+        "image_in_block"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 13,
+      "keyword": "agence seo fribourg",
+      "position": 13,
+      "prev_pos": null,
+      "volume": 70,
+      "cpc": 0,
+      "competition": 0.03,
+      "url": "https://www.bleeze.ch/",
+      "difficulty": 40,
+      "total_sites": null,
+      "traffic": 1,
+      "traffic_percent": 5.56,
+      "price": 0,
+      "serp_features": [
+        "local_pack",
+        "reviews",
+        "video",
+        "people_also_ask",
+        "bads",
+        "related_searches"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 66,
+      "keyword": "webdesign fribourg",
+      "position": 66,
+      "prev_pos": null,
+      "volume": 20,
+      "cpc": 0,
+      "competition": 0.55,
+      "url": "https://www.bleeze.ch/",
+      "difficulty": 38,
+      "total_sites": null,
+      "traffic": 0,
+      "traffic_percent": 0,
+      "price": 0,
+      "serp_features": [
+        "local_pack",
+        "reviews",
+        "related_searches"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    }
+  ],
+  "keweb.ch": [
+    {
+      "block_type": "local_pack",
+      "block_position": 1,
+      "keyword": "agence web valais",
+      "position": 1,
+      "prev_pos": 1,
+      "volume": 140,
+      "cpc": 2.23,
+      "competition": 0.28,
+      "url": "https://keweb.ch/",
+      "difficulty": 36,
+      "total_sites": null,
+      "traffic": 13,
+      "traffic_percent": 23.64,
+      "price": 28.99,
+      "serp_features": [
+        "local_pack",
+        "reviews",
+        "bads",
+        "related_searches"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    },
+    {
+      "block_type": "local_pack",
+      "block_position": 1,
+      "keyword": "création site internet valais",
+      "position": 1,
+      "prev_pos": 1,
+      "volume": 70,
+      "cpc": 1.67,
+      "competition": 0.44,
+      "url": "https://keweb.ch/",
+      "difficulty": 23,
+      "total_sites": null,
+      "traffic": 6,
+      "traffic_percent": 10.91,
+      "price": 10.02,
+      "serp_features": [
+        "local_pack",
+        "reviews",
+        "bads",
+        "related_searches"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 26,
+      "keyword": "création site internet agence",
+      "position": 26,
+      "prev_pos": null,
+      "volume": 170,
+      "cpc": 0,
+      "competition": 0.04,
+      "url": "https://keweb.ch/",
+      "difficulty": 41,
+      "total_sites": null,
+      "traffic": 5,
+      "traffic_percent": 9.09,
+      "price": 0,
+      "serp_features": [
+        "reviews",
+        "video",
+        "bads",
+        "related_searches"
+      ],
+      "intents": [
+        "I"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 26,
+      "keyword": "agence création de site internet",
+      "position": 26,
+      "prev_pos": null,
+      "volume": 390,
+      "cpc": 0,
+      "competition": 0.39,
+      "url": "https://keweb.ch/",
+      "difficulty": 56,
+      "total_sites": null,
+      "traffic": 4,
+      "traffic_percent": 7.27,
+      "price": 0,
+      "serp_features": [
+        "local_pack",
+        "reviews",
+        "video",
+        "bads",
+        "related_searches"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 1,
+      "keyword": "agence seo sion",
+      "position": 1,
+      "prev_pos": 5,
+      "volume": 20,
+      "cpc": 0,
+      "competition": 0,
+      "url": "https://keweb.ch/",
+      "difficulty": 16,
+      "total_sites": null,
+      "traffic": 4,
+      "traffic_percent": 7.27,
+      "price": 0,
+      "serp_features": [
+        "reviews",
+        "gmb"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 23,
+      "keyword": "infomaniak smtp",
+      "position": 23,
+      "prev_pos": null,
+      "volume": 170,
+      "cpc": 2.01,
+      "competition": 0.06,
+      "url": "https://keweb.ch/configuration-email-en-suisse/",
+      "difficulty": 11,
+      "total_sites": null,
+      "traffic": 3,
+      "traffic_percent": 5.45,
+      "price": 6.03,
+      "serp_features": [
+        "bads",
+        "related_searches"
+      ],
+      "intents": [
+        "I"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 28,
+      "keyword": "agence de création de site internet",
+      "position": 28,
+      "prev_pos": null,
+      "volume": 390,
+      "cpc": 0,
+      "competition": 0.39,
+      "url": "https://keweb.ch/",
+      "difficulty": 62,
+      "total_sites": null,
+      "traffic": 2,
+      "traffic_percent": 3.64,
+      "price": 0,
+      "serp_features": [
+        "local_pack",
+        "reviews",
+        "people_also_ask",
+        "bads",
+        "related_searches"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 25,
+      "keyword": "site agence web",
+      "position": 25,
+      "prev_pos": 79,
+      "volume": 90,
+      "cpc": 0,
+      "competition": 0,
+      "url": "https://keweb.ch/",
+      "difficulty": 61,
+      "total_sites": null,
+      "traffic": 2,
+      "traffic_percent": 3.64,
+      "price": 0,
+      "serp_features": [
+        "reviews",
+        "bads",
+        "related_searches"
+      ],
+      "intents": [
+        "I"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 28,
+      "keyword": "web and seo",
+      "position": 27,
+      "prev_pos": null,
+      "volume": 390,
+      "cpc": 2.95,
+      "competition": 0.18,
+      "url": "https://keweb.ch/",
+      "difficulty": 62,
+      "total_sites": null,
+      "traffic": 2,
+      "traffic_percent": 3.64,
+      "price": 5.9,
+      "serp_features": [
+        "reviews",
+        "video",
+        "people_also_ask",
+        "knowledge_graph",
+        "sge",
+        "related_searches",
+        "places_sites_products"
+      ],
+      "intents": [
+        "I"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 28,
+      "keyword": "agence web site internet",
+      "position": 28,
+      "prev_pos": 93,
+      "volume": 70,
+      "cpc": 0,
+      "competition": 0,
+      "url": "https://keweb.ch/",
+      "difficulty": 55,
+      "total_sites": null,
+      "traffic": 2,
+      "traffic_percent": 3.64,
+      "price": 0,
+      "serp_features": [
+        "reviews",
+        "bads",
+        "related_searches"
+      ],
+      "intents": [
+        "I"
+      ]
+    }
+  ],
+  "pixelium.ch": [
+    {
+      "block_type": "local_pack",
+      "block_position": 1,
+      "keyword": "développement web lausanne",
+      "position": 1,
+      "prev_pos": null,
+      "volume": 50,
+      "cpc": 0,
+      "competition": 0,
+      "url": "https://pixelium.ch/agence-web-lausanne",
+      "difficulty": 45,
+      "total_sites": null,
+      "traffic": 4,
+      "traffic_percent": 14.29,
+      "price": 0,
+      "serp_features": [
+        "local_pack",
+        "reviews",
+        "related_searches"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    },
+    {
+      "block_type": "local_pack",
+      "block_position": 1,
+      "keyword": "referencement lausanne",
+      "position": 1,
+      "prev_pos": null,
+      "volume": 140,
+      "cpc": 3.15,
+      "competition": 0.33,
+      "url": "https://pixelium.ch/agence-web-lausanne",
+      "difficulty": 38,
+      "total_sites": null,
+      "traffic": 3,
+      "traffic_percent": 10.71,
+      "price": 9.45,
+      "serp_features": [
+        "local_pack",
+        "reviews",
+        "video",
+        "bads"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 27,
+      "keyword": "agence-web-geneve",
+      "position": 27,
+      "prev_pos": 23,
+      "volume": 590,
+      "cpc": 2.71,
+      "competition": 0.52,
+      "url": "https://pixelium.ch/agence-web-geneve/",
+      "difficulty": 64,
+      "total_sites": null,
+      "traffic": 3,
+      "traffic_percent": 10.71,
+      "price": 8.13,
+      "serp_features": [
+        "local_pack",
+        "reviews",
+        "related_searches"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    },
+    {
+      "block_type": "local_pack",
+      "block_position": 1,
+      "keyword": "webdesign lausanne",
+      "position": 1,
+      "prev_pos": null,
+      "volume": 70,
+      "cpc": 3.29,
+      "competition": 0.38,
+      "url": "https://pixelium.ch/agence-web-lausanne",
+      "difficulty": 57,
+      "total_sites": null,
+      "traffic": 2,
+      "traffic_percent": 7.14,
+      "price": 6.58,
+      "serp_features": [
+        "local_pack",
+        "reviews",
+        "bads",
+        "related_searches"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 22,
+      "keyword": "agence seo lausanne",
+      "position": 22,
+      "prev_pos": 20,
+      "volume": 320,
+      "cpc": 3.6,
+      "competition": 0.18,
+      "url": "https://pixelium.ch/agence-seo-lausanne/",
+      "difficulty": 39,
+      "total_sites": null,
+      "traffic": 2,
+      "traffic_percent": 7.14,
+      "price": 7.2,
+      "serp_features": [
+        "local_pack",
+        "reviews",
+        "video",
+        "related_searches"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    },
+    {
+      "block_type": "local_pack",
+      "block_position": 1,
+      "keyword": "consultant seo lausanne",
+      "position": 1,
+      "prev_pos": null,
+      "volume": 70,
+      "cpc": 4.53,
+      "competition": 0.13,
+      "url": "https://pixelium.ch/agence-web-lausanne",
+      "difficulty": 36,
+      "total_sites": null,
+      "traffic": 2,
+      "traffic_percent": 7.14,
+      "price": 9.06,
+      "serp_features": [
+        "local_pack",
+        "reviews",
+        "video",
+        "bads"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 29,
+      "keyword": "lausanne seo",
+      "position": 29,
+      "prev_pos": 27,
+      "volume": 170,
+      "cpc": 2.85,
+      "competition": 0.35,
+      "url": "https://pixelium.ch/agence-seo-lausanne/",
+      "difficulty": 19,
+      "total_sites": null,
+      "traffic": 2,
+      "traffic_percent": 7.14,
+      "price": 5.7,
+      "serp_features": [
+        "local_pack",
+        "reviews",
+        "video",
+        "related_searches"
+      ],
+      "intents": [
+        "L",
+        "C"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 23,
+      "keyword": "agence web seo",
+      "position": 23,
+      "prev_pos": 16,
+      "volume": 110,
+      "cpc": 0,
+      "competition": 0,
+      "url": "https://pixelium.ch/agence-seo-suisse/",
+      "difficulty": 37,
+      "total_sites": null,
+      "traffic": 1,
+      "traffic_percent": 3.57,
+      "price": 0,
+      "serp_features": [
+        "reviews",
+        "sge",
+        "related_searches"
+      ],
+      "intents": [
+        "I"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 26,
+      "keyword": "agence référencement",
+      "position": 26,
+      "prev_pos": null,
+      "volume": 70,
+      "cpc": 0,
+      "competition": 0.04,
+      "url": "https://pixelium.ch/agence-seo-suisse/",
+      "difficulty": 15,
+      "total_sites": null,
+      "traffic": 1,
+      "traffic_percent": 3.57,
+      "price": 0,
+      "serp_features": [
+        "reviews",
+        "bads",
+        "related_searches"
+      ],
+      "intents": [
+        "I"
+      ]
+    },
+    {
+      "block_type": null,
+      "block_position": 21,
+      "keyword": "agence référencement naturel",
+      "position": 21,
+      "prev_pos": 18,
+      "volume": 140,
+      "cpc": 0,
+      "competition": 0.02,
+      "url": "https://pixelium.ch/agence-seo-suisse/",
+      "difficulty": 16,
+      "total_sites": null,
+      "traffic": 1,
+      "traffic_percent": 3.57,
+      "price": 0,
+      "serp_features": [
+        "reviews",
+        "video",
+        "people_also_ask",
+        "sge",
+        "related_searches"
+      ],
+      "intents": [
+        "I"
+      ]
+    }
+  ]
+}
