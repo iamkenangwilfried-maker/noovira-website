@@ -39,7 +39,7 @@ const FAQS = [
   },
   {
     q: "Où est basée Noovira AI ?",
-    a: "Nous sommes une équipe 100% remote spécialisée sur le marché suisse romand et francophone. Nos experts sont répartis en Europe et en Asie — mais nos clients sont en Suisse.",
+    a: "Noovira AI a d'abord fait ses preuves sur des marchés anglophones parmi les plus compétitifs au monde — Royaume-Uni, Australie, États-Unis. Forts de ces résultats, nous avons décidé de conquérir la Suisse romande, un marché encore sous-exploité par les agences web sérieuses.",
   },
 ];
 
@@ -70,7 +70,7 @@ export default function FAQ() {
               </h2>
 
               <a
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center gap-2 bg-rose text-dark px-6 py-3.5 rounded-full font-bold text-sm hover:bg-[#F0F0F0] hover:text-dark transition-all"
               >
                 Nous contacter <ArrowUpRight size={14} />

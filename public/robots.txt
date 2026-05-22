@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Bloquer les anciennes URLs fantômes (ancien site)
+Disallow: /bold-colors-and-gradients-reviving-retro-styles-in-contemporary-design/
+Disallow: /wp-admin/
+Disallow: /wp-content/
+Disallow: /wp-includes/
+
+Sitemap: https://nooviraai.com/sitemap.xml

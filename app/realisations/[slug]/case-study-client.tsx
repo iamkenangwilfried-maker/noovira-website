@@ -4,12 +4,11 @@ import { ArrowUpRight, ArrowLeft, ArrowRight } from "lucide-react";
 import { Project } from "@/lib/projects";
 
 /**
- * Case Study — structure identique à Sher Agency
- *
- * §1  HERO           Titre fin + "Website Design" gras + <hr> full-width
- * §2  THE WEBSITE    "The Website" + "See It Live" | carousel horizontal 3 colonnes + ← →
- * §3  THE PROCESS    "The Process" | 4 lignes texte GAUCHE / vidéo DROITE
- * §4  WEBSITES WE CREATED  sticky gauche + grille 2 colonnes de cartes sombres
+ * Case Study — style Sher Agency
+ * §1  HERO           Titre fin + sous-titre gras + <hr>
+ * §2  LE SITE        Carousel large format portrait (2 items visibles) + flèches
+ * §3  NOTRE PROCESSUS  Texte GAUCHE / vidéo DROITE
+ * §4  NOS RÉALISATIONS  Sticky gauche + grille 2 colonnes
  */
 
 function shot(url: string, w = 1200, h = 750) {
@@ -18,7 +17,7 @@ function shot(url: string, w = 1200, h = 750) {
 
 interface Props { project: Project; otherProjects: Project[] }
 
-/* ─── §3 ProcessRow — texte GAUCHE / vidéo DROITE (jamais inversé) ─── */
+/* ─── §3 ProcessRow ─── */
 function ProcessRow({
   num, text, label, videoSrc, poster,
 }: {
@@ -26,8 +25,6 @@ function ProcessRow({
 }) {
   return (
     <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-
-      {/* Texte — toujours à gauche */}
       <div className="pt-2">
         <div
           className="font-heading text-text-light/20 font-extrabold mb-6 leading-none select-none"
@@ -35,32 +32,19 @@ function ProcessRow({
         >
           {num}
         </div>
-        <p
-          className="text-text-light/70 leading-relaxed"
-          style={{ fontSize: "clamp(1rem, 1.4vw, 1.15rem)" }}
-        >
+        <p className="text-text-light/70 leading-relaxed" style={{ fontSize: "clamp(1rem, 1.4vw, 1.15rem)" }}>
           {text}
         </p>
         <div className="text-text-light font-heading font-extrabold text-lg mt-6">{label}</div>
       </div>
-
-      {/* Vidéo — toujours à droite, autoPlay */}
-      <div
-        className="rounded-2xl overflow-hidden border border-white/10"
-        style={{ background: "#0a0a0a", aspectRatio: "16/10" }}
-      >
-        <video
-          src={videoSrc}
-          poster={poster}
-          autoPlay muted loop playsInline preload="auto"
-          className="w-full h-full object-cover object-top"
-        />
+      <div className="rounded-2xl overflow-hidden border border-white/10" style={{ background: "#0a0a0a", aspectRatio: "16/10" }}>
+        <video src={videoSrc} poster={poster} autoPlay muted loop playsInline preload="auto" className="w-full h-full object-cover object-top" />
       </div>
     </div>
   );
 }
 
-/* ─── §4 OtherCard — screenshot au repos, vidéo au survol ─── */
+/* ─── §4 OtherCard ─── */
 function OtherCard({ project }: { project: Project }) {
   const ref = useRef<HTMLVideoElement>(null);
   return (
@@ -74,34 +58,15 @@ function OtherCard({ project }: { project: Project }) {
         if (v) { v.pause(); v.currentTime = 0; }
       }}
     >
-      {/* Screenshot au repos */}
-      <img
-        src={shot(project.url, 600, 400)}
-        alt={project.title}
-        className="absolute inset-0 w-full h-full object-cover object-top group-hover:opacity-0 transition-opacity duration-300"
-      />
-      {/* Vidéo au survol */}
-      <video
-        ref={ref}
-        src={`/videos/${project.slug}/01.mp4`}
-        muted playsInline loop preload="none"
-        className="absolute inset-0 w-full h-full object-cover object-top"
-      />
-      {/* Gradient sombre vers le bas */}
-      <div
-        className="absolute inset-0 z-10"
-        style={{ background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.05) 100%)" }}
-      />
-      {/* Contenu */}
+      <img src={shot(project.url, 600, 400)} alt={project.title} className="absolute inset-0 w-full h-full object-cover object-top group-hover:opacity-0 transition-opacity duration-300" />
+      <video ref={ref} src={`/videos/${project.slug}/01.mp4`} muted playsInline loop preload="none" className="absolute inset-0 w-full h-full object-cover object-top" />
+      <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.05) 100%)" }} />
       <div className="absolute bottom-0 left-0 right-0 p-6 z-20 flex flex-col gap-4">
-        <h3
-          className="font-heading font-bold text-white leading-tight"
-          style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)" }}
-        >
+        <h3 className="font-heading font-bold text-white leading-tight" style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)" }}>
           {project.title}
         </h3>
         <span className="inline-flex items-center gap-2 bg-white text-dark text-sm font-bold px-5 py-2.5 rounded-full w-fit opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">
-          View Project <ArrowUpRight size={13} />
+          Voir le projet <ArrowUpRight size={13} />
         </span>
       </div>
     </a>
@@ -115,27 +80,25 @@ export default function CaseStudyClient({ project, otherProjects }: Props) {
 
   const poster = shot(project.url);
 
-  // §2 — 5 vidéos pour le carousel
+  // 5 vidéos pour le carousel
   const videos = Array.from({ length: 5 }, (_, i) =>
     `/videos/${project.slug}/${String(i + 1).padStart(2, "0")}.mp4`
   );
 
-  // §2 — ref pour scrollBy
   const sliderRef = useRef<HTMLDivElement>(null);
 
   function slidePrev() {
     if (!sliderRef.current) return;
-    // largeur d'un item = (container - 2 gaps de 16px) / 3
-    const itemW = (sliderRef.current.clientWidth - 32) / 3;
-    sliderRef.current.scrollBy({ left: -(itemW + 16), behavior: "smooth" });
+    // chaque item = ~52vw → on scroll d'environ 1 carte
+    const itemW = Math.min(window.innerWidth * 0.52, 720) + 16;
+    sliderRef.current.scrollBy({ left: -itemW, behavior: "smooth" });
   }
   function slideNext() {
     if (!sliderRef.current) return;
-    const itemW = (sliderRef.current.clientWidth - 32) / 3;
-    sliderRef.current.scrollBy({ left: itemW + 16, behavior: "smooth" });
+    const itemW = Math.min(window.innerWidth * 0.52, 720) + 16;
+    sliderRef.current.scrollBy({ left: itemW, behavior: "smooth" });
   }
 
-  // §3 — 4 étapes du process
   const processSteps = [
     {
       num: "01",
@@ -170,127 +133,107 @@ export default function CaseStudyClient({ project, otherProjects }: Props) {
       ════════════════════════════════ */}
       <section className="section-dark" style={{ paddingTop: "120px", paddingBottom: 0 }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-
-          {/* Titre fin */}
           <h1
             className="font-heading text-text-light tracking-tight"
-            style={{
-              fontSize: "clamp(2.8rem, 8vw, 8rem)",
-              fontWeight: 300,
-              lineHeight: 0.95,
-              marginBottom: "0.1em",
-            }}
+            style={{ fontSize: "clamp(2.8rem, 8vw, 8rem)", fontWeight: 300, lineHeight: 0.95, marginBottom: "0.1em" }}
           >
             {project.title}
           </h1>
-
-          {/* "Website Design" gras */}
           <p
             className="font-heading text-text-light tracking-tight"
-            style={{
-              fontSize: "clamp(2.8rem, 8vw, 8rem)",
-              fontWeight: 800,
-              lineHeight: 1,
-              marginBottom: "clamp(2rem, 4vw, 4rem)",
-            }}
+            style={{ fontSize: "clamp(2.8rem, 8vw, 8rem)", fontWeight: 800, lineHeight: 1, marginBottom: "clamp(2rem, 4vw, 4rem)" }}
           >
-            Website Design
+            Création de Site Web
           </p>
-
-          {/* Séparateur full-width */}
           <div style={{ borderTop: "1px solid rgba(247,244,239,0.12)" }} />
         </div>
       </section>
 
       {/* ════════════════════════════════
-          §2  THE WEBSITE
-          Carousel horizontal — 3 items visibles + flèches ← →
+          §2  LE SITE
+          Carousel large format (2 items + peek du 3e) — flèches en bas
       ════════════════════════════════ */}
-      <section className="section-dark pt-16 lg:pt-24 pb-20 lg:pb-28">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-
-          {/* Ligne en-tête */}
-          <div className="flex items-end justify-between gap-6 mb-8 lg:mb-10">
+      <section className="section-dark pt-16 lg:pt-24 pb-20 lg:pb-28 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-10">
+          <div className="flex items-end justify-between gap-6">
             <h2
               className="font-heading font-extrabold text-text-light leading-none"
               style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}
             >
-              The Website
+              Le Site
             </h2>
             <a
               href={`https://${project.url}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 inline-flex items-center gap-2 border border-text-light/30 text-text-light px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#F0F0F0] hover:text-dark hover:border-white transition-all"
+              className="flex-shrink-0 inline-flex items-center gap-2 bg-rose text-dark px-6 py-3 rounded-full text-sm font-bold hover:bg-[#F0F0F0] hover:text-dark transition-all"
             >
-              See It Live <ArrowUpRight size={14} />
+              Voir en Direct <ArrowUpRight size={14} />
             </a>
           </div>
+        </div>
 
-          {/* Flèches de navigation */}
-          <div className="flex gap-2 mb-6">
-            <button
-              onClick={slidePrev}
-              aria-label="Précédent"
-              className="w-10 h-10 rounded-full border border-text-light/20 flex items-center justify-center text-text-light hover:bg-[#F0F0F0] hover:text-dark hover:border-white transition-all"
+        {/* Carousel — items 45% de la largeur container, format portrait 4:5 */}
+        <div
+          ref={sliderRef}
+          className="flex gap-4 overflow-x-scroll hide-scrollbar"
+          style={{
+            paddingLeft: "max(24px, calc((100vw - 1280px) / 2 + 48px))",
+            paddingRight: "max(24px, calc((100vw - 1280px) / 2 + 48px))",
+          }}
+        >
+          {videos.map((src, i) => (
+            <div
+              key={i}
+              className="flex-none rounded-2xl overflow-hidden border border-white/10"
+              style={{
+                width: "clamp(320px, 52vw, 720px)",
+                background: "#0a0a0a",
+                aspectRatio: "16/10",
+              }}
             >
-              <ArrowLeft size={16} />
-            </button>
-            <button
-              onClick={slideNext}
-              aria-label="Suivant"
-              className="w-10 h-10 rounded-full border border-text-light/20 flex items-center justify-center text-text-light hover:bg-[#F0F0F0] hover:text-dark hover:border-white transition-all"
-            >
-              <ArrowRight size={16} />
-            </button>
-          </div>
+              <video
+                src={src}
+                poster={poster}
+                autoPlay muted loop playsInline preload="auto"
+                className="w-full h-full object-cover object-top"
+              />
+            </div>
+          ))}
+        </div>
 
-          {/* Carousel — overflow-x scroll, scrollbar cachée */}
-          <div
-            ref={sliderRef}
-            className="flex gap-4 hide-scrollbar"
-            style={{ overflowX: "scroll" }}
+        {/* Flèches — en dessous du carousel */}
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 mt-8 flex gap-3">
+          <button
+            onClick={slidePrev}
+            aria-label="Précédent"
+            className="w-11 h-11 rounded-full border border-text-light/20 flex items-center justify-center text-text-light hover:bg-[#F0F0F0] hover:text-dark hover:border-white transition-all"
           >
-            {videos.map((src, i) => (
-              <div
-                key={i}
-                className="flex-none rounded-2xl overflow-hidden border border-white/10"
-                style={{
-                  width: "calc((100% - 32px) / 3)",
-                  background: "#0a0a0a",
-                }}
-              >
-                <video
-                  src={src}
-                  poster={poster}
-                  autoPlay muted loop playsInline preload="auto"
-                  className="w-full block object-cover object-top"
-                  style={{ aspectRatio: "4/3" }}
-                />
-              </div>
-            ))}
-          </div>
-
+            <ArrowLeft size={16} />
+          </button>
+          <button
+            onClick={slideNext}
+            aria-label="Suivant"
+            className="w-11 h-11 rounded-full border border-text-light/20 flex items-center justify-center text-text-light hover:bg-[#F0F0F0] hover:text-dark hover:border-white transition-all"
+          >
+            <ArrowRight size={16} />
+          </button>
         </div>
       </section>
 
-      {/* Séparateur */}
       <div style={{ borderTop: "1px solid rgba(247,244,239,0.08)" }} />
 
       {/* ════════════════════════════════
-          §3  THE PROCESS
-          Texte GAUCHE / Vidéo DROITE — toujours
+          §3  NOTRE PROCESSUS
       ════════════════════════════════ */}
       <section className="section-dark pt-20 lg:pt-28 pb-24 lg:pb-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-
           <h2
             className="font-heading font-extrabold text-text-light mb-20 lg:mb-28"
             style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}
           >
-            The Process
+            Notre Processus
           </h2>
-
           <div className="flex flex-col gap-24 lg:gap-32">
             {processSteps.map((step) => (
               <ProcessRow
@@ -307,8 +250,7 @@ export default function CaseStudyClient({ project, otherProjects }: Props) {
       </section>
 
       {/* ════════════════════════════════
-          §4  WEBSITES WE CREATED
-          Sticky gauche + grille 2 colonnes sombres
+          §4  NOS RÉALISATIONS
       ════════════════════════════════ */}
       <section className="py-20 lg:py-28" style={{ background: "#111111" }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -320,13 +262,13 @@ export default function CaseStudyClient({ project, otherProjects }: Props) {
                 className="font-heading text-text-light leading-tight tracking-tight mb-8"
                 style={{ fontSize: "clamp(2rem, 3.5vw, 3rem)" }}
               >
-                Websites<br />We <span className="font-extrabold">Created</span>
+                Sites Web<br />que nous avons <span className="font-extrabold">créés</span>
               </h2>
               <a
                 href="/realisations"
-                className="inline-flex items-center gap-2 border border-text-light/20 text-text-light px-6 py-3 rounded-full font-semibold text-sm hover:bg-[#F0F0F0] hover:text-dark hover:border-white transition-all"
+                className="inline-flex items-center gap-2 bg-rose text-dark px-6 py-3 rounded-full font-bold text-sm hover:bg-[#F0F0F0] hover:text-dark transition-all"
               >
-                More Case Studies <ArrowUpRight size={14} />
+                Voir toutes les réalisations <ArrowUpRight size={14} />
               </a>
             </div>
 

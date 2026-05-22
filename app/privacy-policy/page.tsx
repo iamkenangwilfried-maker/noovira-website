@@ -3,8 +3,8 @@ import Footer from "@/components/sections/footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Noovira AI",
-  description: "Learn how Noovira AI collects, uses, and protects your personal information.",
+  title: "Politique de confidentialité — Noovira AI",
+  description: "Découvrez comment Noovira AI collecte, utilise et protège vos données personnelles.",
 };
 
 export default function PrivacyPolicy() {
@@ -14,108 +14,108 @@ export default function PrivacyPolicy() {
       <main className="min-h-screen bg-background pt-28 pb-20">
         <div className="max-w-3xl mx-auto px-5">
           <div className="mb-10">
-            <span className="text-xs font-semibold uppercase tracking-widest text-accent">Legal</span>
-            <h1 className="text-4xl font-bold text-navy mt-2 mb-4">Privacy Policy</h1>
-            <p className="text-secondary text-sm">Last updated: April 8, 2026</p>
+            <span className="text-xs font-semibold uppercase tracking-widest text-accent">Légal</span>
+            <h1 className="text-4xl font-bold text-navy mt-2 mb-4">Politique de confidentialité</h1>
+            <p className="text-secondary text-sm">Dernière mise à jour : 8 avril 2026</p>
           </div>
 
           <div className="prose prose-slate max-w-none space-y-8 text-secondary">
 
             <section>
-              <h2 className="text-xl font-semibold text-navy mb-3">1. Who We Are</h2>
+              <h2 className="text-xl font-semibold text-navy mb-3">1. Qui sommes-nous</h2>
               <p className="text-sm leading-relaxed">
-                Noovira AI is the trading name of <strong>NOVIRA AI LIMITED</strong> (Company Number: 17159912), a private limited company incorporated in England and Wales. Our registered office is at Office 18190, 182-184 High Street North, East Ham, London, E6 2JA, United Kingdom. We operate online at <strong>nooviraai.com</strong>. If you have any questions about this policy, contact us at <a href="mailto:contact@nooviraai.com" className="text-accent hover:underline">contact@nooviraai.com</a>.
+                Noovira AI est le nom commercial de <strong>NOVIRA AI LIMITED</strong> (Numéro d&apos;entreprise : 17159912), société privée à responsabilité limitée enregistrée en Angleterre et au Pays de Galles. Notre siège social est situé au Office 18190, 182-184 High Street North, East Ham, London, E6 2JA, United Kingdom. Nous opérons en ligne à l&apos;adresse <strong>nooviraai.com</strong>. Pour toute question relative à cette politique, contactez-nous à <a href="mailto:contact@nooviraai.com" className="text-accent hover:underline">contact@nooviraai.com</a>.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-navy mb-3">2. Information We Collect</h2>
-              <p className="text-sm leading-relaxed mb-3">We collect the following types of information:</p>
+              <h2 className="text-xl font-semibold text-navy mb-3">2. Informations collectées</h2>
+              <p className="text-sm leading-relaxed mb-3">Nous collectons les types d&apos;informations suivants :</p>
               <ul className="text-sm space-y-2 list-disc list-inside">
-                <li><strong>Contact information</strong> — name, email address, phone number, and business name when you book a call or fill out a form.</li>
-                <li><strong>Usage data</strong> — pages visited, time on site, referring URLs, browser type, and device type via analytics tools.</li>
-                <li><strong>Communication data</strong> — messages, emails, or notes you send us directly.</li>
-                <li><strong>Cookies</strong> — small files stored on your device to improve site performance and user experience (see our Cookie Policy).</li>
+                <li><strong>Informations de contact</strong> — nom, adresse e-mail, numéro de téléphone et nom de l&apos;entreprise lorsque vous prenez rendez-vous ou remplissez un formulaire.</li>
+                <li><strong>Données d&apos;utilisation</strong> — pages visitées, temps passé sur le site, URL de provenance, type de navigateur et type d&apos;appareil via des outils d&apos;analyse.</li>
+                <li><strong>Données de communication</strong> — messages, e-mails ou notes que vous nous envoyez directement.</li>
+                <li><strong>Cookies</strong> — petits fichiers stockés sur votre appareil pour améliorer les performances du site et l&apos;expérience utilisateur (voir notre politique de cookies).</li>
               </ul>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-navy mb-3">3. How We Use Your Information</h2>
-              <p className="text-sm leading-relaxed mb-3">We use your information to:</p>
+              <h2 className="text-xl font-semibold text-navy mb-3">3. Utilisation de vos informations</h2>
+              <p className="text-sm leading-relaxed mb-3">Nous utilisons vos informations pour :</p>
               <ul className="text-sm space-y-2 list-disc list-inside">
-                <li>Schedule and conduct strategy calls with you.</li>
-                <li>Deliver and improve our services.</li>
-                <li>Send relevant follow-up communications about your project.</li>
-                <li>Analyze website traffic to improve user experience.</li>
-                <li>Comply with legal obligations.</li>
+                <li>Planifier et conduire des appels stratégiques avec vous.</li>
+                <li>Fournir et améliorer nos services.</li>
+                <li>Vous envoyer des communications pertinentes concernant votre projet.</li>
+                <li>Analyser le trafic du site afin d&apos;améliorer l&apos;expérience utilisateur.</li>
+                <li>Respecter nos obligations légales.</li>
               </ul>
-              <p className="text-sm leading-relaxed mt-3">We do <strong>not</strong> sell your personal information to third parties.</p>
+              <p className="text-sm leading-relaxed mt-3">Nous ne <strong>vendons pas</strong> vos données personnelles à des tiers.</p>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-navy mb-3">4. Legal Basis for Processing (UK GDPR)</h2>
+              <h2 className="text-xl font-semibold text-navy mb-3">4. Base légale du traitement (UK GDPR)</h2>
               <p className="text-sm leading-relaxed">
-                As a UK-registered company, we process personal data in accordance with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018. Our legal bases include: <strong>Consent</strong> (for cookies and marketing communications), <strong>Contractual necessity</strong> (to deliver our services), and <strong>Legitimate interests</strong> (for analytics and business operations). Users in the EEA are also covered under GDPR.
+                En tant que société enregistrée au Royaume-Uni, nous traitons les données personnelles conformément au Règlement général sur la protection des données du Royaume-Uni (UK GDPR) et au Data Protection Act 2018. Nos bases légales comprennent : le <strong>Consentement</strong> (pour les cookies et les communications marketing), la <strong>Nécessité contractuelle</strong> (pour la fourniture de nos services) et les <strong>Intérêts légitimes</strong> (pour les analyses et opérations commerciales). Les utilisateurs de l&apos;EEE sont également couverts par le RGPD.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-navy mb-3">5. Data Sharing</h2>
-              <p className="text-sm leading-relaxed mb-3">We may share your data with trusted third-party service providers strictly to operate our business:</p>
+              <h2 className="text-xl font-semibold text-navy mb-3">5. Partage des données</h2>
+              <p className="text-sm leading-relaxed mb-3">Nous pouvons partager vos données avec des prestataires tiers de confiance, uniquement pour faire fonctionner notre activité :</p>
               <ul className="text-sm space-y-2 list-disc list-inside">
-                <li><strong>Cal.com</strong> — for scheduling calls.</li>
-                <li><strong>Vercel</strong> — for website hosting.</li>
-                <li><strong>Google Analytics / similar tools</strong> — for site analytics.</li>
-                <li><strong>Email service providers</strong> — for sending communications.</li>
+                <li><strong>Cal.com</strong> — pour la planification des appels.</li>
+                <li><strong>Vercel</strong> — pour l&apos;hébergement du site web.</li>
+                <li><strong>Google Analytics / outils similaires</strong> — pour l&apos;analyse du trafic.</li>
+                <li><strong>Fournisseurs de services e-mail</strong> — pour l&apos;envoi de communications.</li>
               </ul>
-              <p className="text-sm leading-relaxed mt-3">All third-party providers are required to handle your data in compliance with applicable privacy laws.</p>
+              <p className="text-sm leading-relaxed mt-3">Tous les prestataires tiers sont tenus de traiter vos données en conformité avec les lois applicables en matière de protection des données.</p>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-navy mb-3">6. Data Retention</h2>
+              <h2 className="text-xl font-semibold text-navy mb-3">6. Conservation des données</h2>
               <p className="text-sm leading-relaxed">
-                We retain your personal data only as long as necessary to provide our services or as required by law. Contact data is retained for up to 3 years after last interaction. You may request deletion at any time.
+                Nous conservons vos données personnelles uniquement le temps nécessaire à la fourniture de nos services ou tel que requis par la loi. Les données de contact sont conservées jusqu&apos;à 3 ans après la dernière interaction. Vous pouvez demander leur suppression à tout moment.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-navy mb-3">7. Your Rights</h2>
-              <p className="text-sm leading-relaxed mb-3">Depending on your location, you may have the right to:</p>
+              <h2 className="text-xl font-semibold text-navy mb-3">7. Vos droits</h2>
+              <p className="text-sm leading-relaxed mb-3">Selon votre lieu de résidence, vous pouvez avoir le droit de :</p>
               <ul className="text-sm space-y-2 list-disc list-inside">
-                <li>Access the personal data we hold about you.</li>
-                <li>Request correction or deletion of your data.</li>
-                <li>Object to or restrict our processing of your data.</li>
-                <li>Request data portability.</li>
-                <li>Withdraw consent at any time (where processing is based on consent).</li>
+                <li>Accéder aux données personnelles que nous détenons vous concernant.</li>
+                <li>Demander la correction ou la suppression de vos données.</li>
+                <li>Vous opposer au traitement ou en demander la limitation.</li>
+                <li>Demander la portabilité de vos données.</li>
+                <li>Retirer votre consentement à tout moment (lorsque le traitement est basé sur le consentement).</li>
               </ul>
-              <p className="text-sm leading-relaxed mt-3">To exercise any of these rights, email us at <a href="mailto:contact@nooviraai.com" className="text-accent hover:underline">contact@nooviraai.com</a>.</p>
+              <p className="text-sm leading-relaxed mt-3">Pour exercer l&apos;un de ces droits, envoyez-nous un e-mail à <a href="mailto:contact@nooviraai.com" className="text-accent hover:underline">contact@nooviraai.com</a>.</p>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-navy mb-3">8. Security</h2>
+              <h2 className="text-xl font-semibold text-navy mb-3">8. Sécurité</h2>
               <p className="text-sm leading-relaxed">
-                We implement reasonable technical and organizational measures to protect your personal data from unauthorized access, loss, or misuse. However, no internet transmission is 100% secure.
+                Nous mettons en place des mesures techniques et organisationnelles raisonnables pour protéger vos données personnelles contre tout accès non autorisé, perte ou utilisation abusive. Toutefois, aucune transmission sur Internet n&apos;est sécurisée à 100%.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-navy mb-3">9. International Transfers</h2>
+              <h2 className="text-xl font-semibold text-navy mb-3">9. Transferts internationaux</h2>
               <p className="text-sm leading-relaxed">
-                NOVIRA AI LIMITED is based in the United Kingdom and serves clients in the US, UK, Australia, and New Zealand. Your data may be processed in countries outside your own. We ensure appropriate safeguards are in place for all international transfers, in accordance with UK GDPR and applicable data protection laws.
+                NOVIRA AI LIMITED est basée au Royaume-Uni et intervient auprès de clients aux États-Unis, au Royaume-Uni, en Australie et en Nouvelle-Zélande. Vos données peuvent être traitées dans des pays autres que le vôtre. Nous veillons à ce que des garanties appropriées soient en place pour tous les transferts internationaux, conformément au UK GDPR et aux lois applicables en matière de protection des données.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-navy mb-3">10. Changes to This Policy</h2>
+              <h2 className="text-xl font-semibold text-navy mb-3">10. Modifications de cette politique</h2>
               <p className="text-sm leading-relaxed">
-                We may update this Privacy Policy from time to time. When we do, we will revise the &quot;Last updated&quot; date at the top of this page. We encourage you to review this policy periodically.
+                Nous pouvons mettre à jour cette politique de confidentialité de temps à autre. Lorsque nous le faisons, nous révisons la date de &quot;Dernière mise à jour&quot; en haut de cette page. Nous vous encourageons à consulter cette politique régulièrement.
               </p>
             </section>
 
             <section>
               <h2 className="text-xl font-semibold text-navy mb-3">11. Contact</h2>
               <p className="text-sm leading-relaxed">
-                For any questions or concerns about this Privacy Policy, please contact us at:<br />
+                Pour toute question ou préoccupation concernant cette politique de confidentialité, contactez-nous à :<br />
                 <a href="mailto:contact@nooviraai.com" className="text-accent hover:underline">contact@nooviraai.com</a>
               </p>
             </section>
