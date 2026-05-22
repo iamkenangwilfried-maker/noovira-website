@@ -33,7 +33,7 @@ const ClutchBadge = () => (
           </svg>
         ))}
       </div>
-      <span className="text-dark/50 text-[10px] leading-tight">50 Avis Vérifiés</span>
+      <span className="text-dark/50 text-[12px] leading-tight">50 Avis Vérifiés</span>
     </div>
   </div>
 );
@@ -48,8 +48,8 @@ const GoodFirmsBadge = () => (
       <span className="text-white font-black text-xs leading-none">GF</span>
     </div>
     <div className="flex flex-col">
-      <span className="text-dark/80 text-[11px] font-bold leading-tight">GoodFirms</span>
-      <span className="text-dark/40 text-[10px] leading-tight">Top Web Designer</span>
+      <span className="text-dark/80 text-[13px] font-bold leading-tight">GoodFirms</span>
+      <span className="text-dark/40 text-[12px] leading-tight">Top Web Designer</span>
     </div>
   </div>
 );
@@ -87,11 +87,14 @@ export default function HowWeMake() {
                 className="absolute inset-0 w-full h-full group"
                 data-cursor="project"
               >
-                {/* YouTube thumbnail */}
+                {/* YouTube thumbnail — dimensions explicites pour éviter CLS */}
                 <img
                   src={`https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`}
                   alt="Comment Noovira crée des sites"
+                  width={1280}
+                  height={720}
                   className="w-full h-full object-cover object-top"
+                  loading="lazy"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${VIDEO_ID}/hqdefault.jpg`;
                   }}
@@ -143,7 +146,7 @@ export default function HowWeMake() {
             <div className="flex flex-wrap items-center gap-4">
               {/* White pill CTA — Sher exact */}
               <a
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center gap-2 bg-rose text-dark px-6 py-3.5 rounded-full font-bold text-sm hover:bg-[#F0F0F0] hover:text-dark transition-colors flex-shrink-0"
               >
                 Réserver un appel <ArrowUpRight size={14} />

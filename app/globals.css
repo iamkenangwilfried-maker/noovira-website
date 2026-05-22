@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap');
+/* Manrope est self-hosted via next/font/google dans layout.tsx — pas d'@import Google Fonts */
 
 @tailwind base;
 @tailwind components;
@@ -29,6 +29,7 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: 17px; /* up from 16px — improves readability of all rem-based text */
 }
 
 body {
@@ -37,6 +38,7 @@ body {
   font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.65;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -116,18 +118,20 @@ section {
   100% { transform: translateY(0); }
 }
 
-/* ─── Portfolio full-page scroll-on-hover effect ─────────── */
-/* Matches Sher Agency: image slowly scrolls down on hover    */
+/* ─── Portfolio scroll-on-hover (homepage cards, 480px) ──── */
 .portfolio-scroll-img {
   width: 100%;
   display: block;
-  transform: translateY(0%);
-  transition: transform 5s ease-in-out;
+  transform: translateY(0);
+  transition: transform 6s ease-in-out;
   will-change: transform;
 }
 .group:hover .portfolio-scroll-img {
-  transform: translateY(calc(-100% + 450px));
+  transform: translateY(calc(-100% + 480px));
 }
+
+/* ─── Realisations page — scroll géré par JS (requestAnimationFrame) ── */
+/* Aucune animation CSS ici — voir realisations-grid.tsx AutoScrollImg */
 
 /* ─── Marquee animation (logo strip + hero tags) ─────────── */
 @keyframes marquee {
@@ -157,6 +161,17 @@ section {
 .tag-row:hover .animate-marquee,
 .tag-row:hover .animate-marquee-right,
 .tag-row:hover .animate-marquee-slow {
+  animation-play-state: paused;
+}
+
+/* ─── Team marquee — pause on hover ─────────────────────── */
+.team-row:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+/* ─── Reviews marquee — pause on hover ──────────────────── */
+.reviews-row:hover .animate-marquee,
+.reviews-row:hover .animate-marquee-right {
   animation-play-state: paused;
 }
 

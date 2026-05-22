@@ -57,6 +57,11 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://s.wordpress.com" />
         <link rel="preconnect" href="https://s.wordpress.com" />
 
+        {/* Preconnect YouTube (thumbnails in how-we-make + video-testimonials) */}
+        <link rel="preconnect" href="https://img.youtube.com" />
+        <link rel="dns-prefetch" href="https://img.youtube.com" />
+        <link rel="dns-prefetch" href="https://www.youtube.com" />
+
         {/* ── JSON-LD — Organization + LocalBusiness ── */}
         <script
           type="application/ld+json"

@@ -61,7 +61,10 @@ function VideoCard({ t }: { t: typeof TESTIMONIALS[0] }) {
             <img
               src={`https://img.youtube.com/vi/${t.youtubeId}/maxresdefault.jpg`}
               alt={t.name}
+              width={1280}
+              height={720}
               className="w-full h-full object-cover"
+              loading="lazy"
               onError={(e) => {
                 (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${t.youtubeId}/hqdefault.jpg`;
               }}
