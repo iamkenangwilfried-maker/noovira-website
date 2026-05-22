@@ -96,8 +96,47 @@ faq:
 - https://nooviraai.com/cookie-policy
 - https://nooviraai.com/terms-of-service
 
-### Articles blog
+### Articles blog (30 articles)
+
+**Cluster A — Fondations (couvreurs)**
 - https://nooviraai.com/blog/prix-site-internet-couvreur-suisse
+- https://nooviraai.com/blog/creation-site-internet-couvreur-suisse
+- https://nooviraai.com/blog/google-my-business-couvreur-suisse
+- https://nooviraai.com/blog/seo-local-couvreur-suisse-romande
+- https://nooviraai.com/blog/generer-devis-couvreur-site-internet
+- https://nooviraai.com/blog/roi-site-internet-couvreur
+- https://nooviraai.com/blog/site-internet-charpentier-suisse
+
+**Cluster B — Stratégie digitale (couvreurs)**
+- https://nooviraai.com/blog/seo-vs-google-ads-couvreur-suisse
+- https://nooviraai.com/blog/choisir-agence-web-couvreur-suisse
+- https://nooviraai.com/blog/avis-google-couvreur-strategie
+
+**Cluster C — Pages locales (villes)**
+- https://nooviraai.com/blog/couvreur-lausanne-google-maps
+- https://nooviraai.com/blog/couvreur-geneve-visibilite-en-ligne
+- https://nooviraai.com/blog/couvreur-fribourg-premier-google
+- https://nooviraai.com/blog/couvreur-neuchatel-valais-devis-locaux
+
+**Cluster D — Autres métiers du bâtiment**
+- https://nooviraai.com/blog/site-internet-renovateur-suisse
+- https://nooviraai.com/blog/site-internet-electricien-suisse
+- https://nooviraai.com/blog/site-internet-peintre-suisse
+- https://nooviraai.com/blog/site-internet-plombier-chauffagiste-suisse
+- https://nooviraai.com/blog/reseaux-sociaux-artisans-batiment-suisse
+- https://nooviraai.com/blog/photos-chantier-couvreur-guide
+- https://nooviraai.com/blog/whatsapp-business-artisans-suisse
+
+**Cluster E — Développement business couvreurs**
+- https://nooviraai.com/blog/devis-couvreur-structure-qui-fait-signer
+- https://nooviraai.com/blog/tarifs-couvreur-suisse-fixer-ses-prix
+- https://nooviraai.com/blog/trouver-chantiers-couvreur-2026
+- https://nooviraai.com/blog/fidelisation-client-couvreur-recommandations
+- https://nooviraai.com/blog/entretien-toiture-suisse-frequence-couts
+- https://nooviraai.com/blog/assurances-couvreur-suisse-rc-professionnelle
+- https://nooviraai.com/blog/urgences-toiture-organisation-couvreur
+- https://nooviraai.com/blog/suissetec-couvreur-certification-suisse
+- https://nooviraai.com/blog/checklist-digital-couvreur-2026
 
 ### Études de cas (portfolio)
 - https://nooviraai.com/realisations/roulin-couverture
