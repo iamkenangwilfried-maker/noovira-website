@@ -25,17 +25,15 @@ export default function FinalCTA() {
             className="font-heading text-text-light leading-[1.05] tracking-tight mb-12"
             style={{ fontSize: "clamp(2.5rem, 7vw, 7rem)" }}
           >
-            Réinventez Votre<br />
-            Site Avec Nous.
+            Obtenez plus de<br />
+            <span style={{ fontWeight: 800 }}>devis avec nous.</span>
           </h2>
 
           <a
-            href="https://link.nooviraai.com/widget/bookings/45min-nooviraai-call"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-rose text-dark px-8 py-4 rounded-full font-bold text-base hover:bg-[#F0F0F0] hover:text-dark transition-all"
+            href="/contact"
+            className="inline-flex items-center bg-rose text-dark px-8 py-4 rounded-full font-bold text-base hover:bg-[#F0F0F0] hover:text-dark transition-all"
           >
-            Réserver un appel gratuit <ArrowUpRight size={16} />
+            Réserver un appel gratuit
           </a>
         </motion.div>
 

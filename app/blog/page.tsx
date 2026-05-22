@@ -42,8 +42,8 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* ── Articles grid ── */}
-      <section className="section-dark pb-24">
+      {/* ── Articles grid — fond blanc comme la section Portfolio ── */}
+      <section className="section-white py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-6">
           <BlogGrid articles={articles} />
         </div>
