@@ -199,51 +199,98 @@ export default function ProgrammaticPage({ params }: Props) {
 
         {/* ── STATS / COÛT DE L'INVISIBILITÉ ── */}
         <section className="bg-[#F7F4EF] py-20 px-6">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
-              Ce que votre invisibilité vous coûte à {ville.nom}
-            </h2>
-            <p className="text-gray-600 text-center max-w-2xl mx-auto mb-12">
-              Chaque jour sans visibilité sur Google, c&apos;est un chantier que votre
-              concurrent décroche à votre place. Voici les chiffres concrets pour un {metier.nom.toLowerCase()} à {ville.nom}.
-            </p>
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
-              <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:border-rose-300 transition-colors">
-                <div className="text-5xl font-bold text-rose-500 mb-1">30%</div>
-                <p className="text-rose-500 text-xs font-semibold uppercase tracking-wider mb-3">des clics</p>
-                <h3 className="font-semibold text-gray-900 mb-2">vont au 1er résultat Google</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  Si ce n&apos;est pas vous sur &ldquo;{metier.motCle} {ville.nom}&rdquo;,
-                  c&apos;est votre concurrent direct qui reçoit ces appels toutes les semaines.
-                </p>
-              </div>
-              <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:border-rose-300 transition-colors">
-                <div className="text-5xl font-bold text-rose-500 mb-1">{metier.panier}</div>
-                <p className="text-rose-500 text-xs font-semibold uppercase tracking-wider mb-3">CHF par chantier</p>
-                <h3 className="font-semibold text-gray-900 mb-2">panier moyen d&apos;un {metier.nom.toLowerCase()}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  2 chantiers supplémentaires par mois à {ville.nom} suffisent pour rentabiliser
-                  votre investissement plusieurs fois.
-                </p>
-              </div>
-              <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:border-rose-300 transition-colors">
-                <div className="text-5xl font-bold text-rose-500 mb-1">0</div>
-                <p className="text-rose-500 text-xs font-semibold uppercase tracking-wider mb-3">concurrent sérieux</p>
-                <h3 className="font-semibold text-gray-900 mb-2">ne domine encore ces recherches</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  Aucune agence spécialisée bâtiment ne cible &ldquo;{metier.motCle} {ville.nom}&rdquo;.
-                  La fenêtre d&apos;opportunité est ouverte — mais pas indéfiniment.
-                </p>
-              </div>
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <p className="text-rose-500 text-xs font-semibold uppercase tracking-widest mb-3">Opportunité locale</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Ce que votre invisibilité vous coûte à {ville.nom}
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Chaque jour sans visibilité sur Google, c&apos;est un chantier que votre
+                concurrent décroche à votre place.
+              </p>
             </div>
-            <div className="text-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-bold px-8 py-4 rounded-full transition-colors shadow-lg shadow-rose-500/30"
-              >
-                Obtenir mon audit gratuit →
-              </Link>
-              <p className="text-gray-400 text-xs mt-3">100% gratuit · Sans engagement · Réponse sous 24h</p>
+
+            {/* Layout: vidéo à gauche, stats à droite */}
+            <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
+              {/* Vidéo site créé — grand format avec cadre navigateur */}
+              <div className="relative">
+                <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-white">
+                  {/* Barre navigateur décorative */}
+                  <div className="bg-gray-100 px-4 py-2.5 flex items-center gap-2 border-b border-gray-200">
+                    <span className="w-3 h-3 rounded-full bg-red-400" />
+                    <span className="w-3 h-3 rounded-full bg-yellow-400" />
+                    <span className="w-3 h-3 rounded-full bg-green-400" />
+                    <div className="flex-1 ml-3 bg-white rounded-full px-3 py-1 text-xs text-gray-400">
+                      roulin-couverture.ch
+                    </div>
+                  </div>
+                  <video
+                    src="/videos/roulin-couverture/01.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-72 object-cover object-top"
+                  />
+                </div>
+                {/* Badge flottant */}
+                <div className="absolute -bottom-4 -right-4 bg-rose-500 text-white rounded-2xl px-5 py-3 shadow-lg shadow-rose-500/30">
+                  <p className="text-xs font-semibold">Site livré en</p>
+                  <p className="text-xl font-bold">2 semaines</p>
+                </div>
+              </div>
+
+              {/* Stats */}
+              <div className="space-y-6">
+                <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-start gap-5">
+                  <div className="shrink-0">
+                    <div className="text-4xl font-bold text-rose-500">30%</div>
+                    <p className="text-rose-500 text-xs font-semibold uppercase tracking-wider">des clics</p>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">vont au 1er résultat Google</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed">
+                      Si ce n&apos;est pas vous sur &ldquo;{metier.motCle} {ville.nom}&rdquo;,
+                      c&apos;est votre concurrent qui reçoit ces appels.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-start gap-5">
+                  <div className="shrink-0">
+                    <div className="text-4xl font-bold text-rose-500">{metier.panier}</div>
+                    <p className="text-rose-500 text-xs font-semibold uppercase tracking-wider">CHF / chantier</p>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">panier moyen d&apos;un {metier.nom.toLowerCase()}</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed">
+                      2 chantiers en plus par mois à {ville.nom} et votre investissement est rentabilisé.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-start gap-5">
+                  <div className="shrink-0">
+                    <div className="text-4xl font-bold text-rose-500">0</div>
+                    <p className="text-rose-500 text-xs font-semibold uppercase tracking-wider">concurrent sérieux</p>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">ne domine encore ces recherches</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed">
+                      La fenêtre d&apos;opportunité sur &ldquo;{metier.motCle} {ville.nom}&rdquo; est ouverte — pas indéfiniment.
+                    </p>
+                  </div>
+                </div>
+
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-bold px-8 py-4 rounded-full transition-colors shadow-lg shadow-rose-500/30 w-full justify-center"
+                >
+                  Obtenir mon audit gratuit →
+                </Link>
+                <p className="text-gray-400 text-xs text-center">100% gratuit · Sans engagement · Réponse sous 24h</p>
+              </div>
             </div>
           </div>
         </section>
