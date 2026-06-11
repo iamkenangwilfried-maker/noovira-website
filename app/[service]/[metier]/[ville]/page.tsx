@@ -16,6 +16,10 @@ import {
   VILLE_IMAGES,
 } from "@/lib/seo-data"
 
+// Brand colors (inline to bypass Tailwind purge on bracket-named dirs)
+const ROSE = "#FFD6D8"
+const DARK = "#1C1C1C"
+
 type Props = {
   params: { service: string; metier: string; ville: string }
 }
@@ -39,7 +43,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!service || !metier || !ville) return {}
 
   const title = `${service.nom} pour ${metier.nom} à ${ville.nom} | Noovira AI`
-  // ≤150 chars
   const description = `${service.nomCourt} pour ${metier.nomPluriel} à ${ville.nom} — livré en 2 semaines, résultats garantis. Spécialiste artisans bâtiment Suisse romande. Audit gratuit.`
 
   return {
@@ -118,6 +121,43 @@ export default function ProgrammaticPage({ params }: Props) {
     })),
   }
 
+  const btnRose = {
+    backgroundColor: ROSE,
+    color: DARK,
+    display: "inline-flex" as const,
+    alignItems: "center" as const,
+    gap: "8px",
+    fontWeight: "700",
+    padding: "16px 32px",
+    borderRadius: "9999px",
+    textDecoration: "none",
+    fontSize: "15px",
+  }
+
+  const badgeRose = {
+    backgroundColor: ROSE,
+    color: DARK,
+    fontSize: "11px",
+    fontWeight: "700",
+    padding: "4px 12px",
+    borderRadius: "9999px",
+    display: "inline-block" as const,
+  }
+
+  const circleBadge = {
+    backgroundColor: ROSE,
+    color: DARK,
+    width: "40px",
+    height: "40px",
+    borderRadius: "9999px",
+    fontWeight: "700",
+    display: "flex" as const,
+    alignItems: "center" as const,
+    justifyContent: "center" as const,
+    fontSize: "13px",
+    flexShrink: 0,
+  }
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -128,12 +168,12 @@ export default function ProgrammaticPage({ params }: Props) {
         {/* ── HERO ── */}
         <section className="bg-[#1C1C1C] py-24 px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <p className="text-rose-400 text-xs font-semibold uppercase tracking-widest mb-4">
+            <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: ROSE }}>
               {service.nomCourt} · {ville.nom} · Canton {ville.canton}
             </p>
             <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-6">
               {service.nom} pour{" "}
-              <span className="text-rose-400">{metier.nomPluriel}</span>
+              <span style={{ color: ROSE }}>{metier.nomPluriel}</span>
               <br />à {ville.nom}
             </h1>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-4">
@@ -145,12 +185,9 @@ export default function ProgrammaticPage({ params }: Props) {
               Spécialiste artisans du bâtiment · Suisse romande · Canton {ville.canton}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-bold px-8 py-4 rounded-full transition-colors shadow-lg shadow-rose-500/30"
-              >
+              <a href="/contact" style={btnRose}>
                 Obtenir mon audit gratuit →
-              </Link>
+              </a>
               <Link
                 href={`/${service.slug}/${metier.slug}`}
                 className="inline-flex items-center justify-center gap-2 border border-white/30 hover:border-white text-white hover:bg-white/10 font-medium px-8 py-4 rounded-full transition-colors text-sm"
@@ -161,20 +198,20 @@ export default function ProgrammaticPage({ params }: Props) {
           </div>
         </section>
 
-        {/* ── RÉSUMÉ RAPIDE (Helpful content) ── */}
-        <section className="bg-rose-500 py-8 px-6">
-          <div className="max-w-4xl mx-auto grid sm:grid-cols-3 gap-6 text-white text-center">
+        {/* ── RÉSUMÉ RAPIDE ── */}
+        <section className="py-8 px-6" style={{ backgroundColor: ROSE }}>
+          <div className="max-w-4xl mx-auto grid sm:grid-cols-3 gap-6 text-center" style={{ color: DARK }}>
             <div>
-              <p className="text-2xl font-bold">À partir de 3'000 CHF</p>
-              <p className="text-rose-100 text-sm mt-1">Forfait {service.nomCourt} tout inclus</p>
+              <p className="text-2xl font-bold">À partir de 3&apos;000 CHF</p>
+              <p className="text-sm mt-1 opacity-70">Forfait {service.nomCourt} tout inclus</p>
             </div>
             <div>
               <p className="text-2xl font-bold">Livraison en 2 semaines</p>
-              <p className="text-rose-100 text-sm mt-1">Garanti contractuellement</p>
+              <p className="text-sm mt-1 opacity-70">Garanti contractuellement</p>
             </div>
             <div>
               <p className="text-2xl font-bold">Audit gratuit</p>
-              <p className="text-rose-100 text-sm mt-1">Avant tout engagement</p>
+              <p className="text-sm mt-1 opacity-70">Avant tout engagement</p>
             </div>
           </div>
         </section>
@@ -190,7 +227,7 @@ export default function ProgrammaticPage({ params }: Props) {
               "Résultats ou remboursement",
             ].map((item) => (
               <span key={item} className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-rose-400 inline-block" />
+                <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ backgroundColor: ROSE }} />
                 {item}
               </span>
             ))}
@@ -201,7 +238,9 @@ export default function ProgrammaticPage({ params }: Props) {
         <section className="bg-[#F7F4EF] py-20 px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <p className="text-rose-500 text-xs font-semibold uppercase tracking-widest mb-3">Opportunité locale</p>
+              <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: DARK }}>
+                Opportunité locale
+              </p>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 Ce que votre invisibilité vous coûte à {ville.nom}
               </h2>
@@ -211,12 +250,10 @@ export default function ProgrammaticPage({ params }: Props) {
               </p>
             </div>
 
-            {/* Layout: vidéo à gauche, stats à droite */}
             <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
-              {/* Vidéo site créé — grand format avec cadre navigateur */}
+              {/* Vidéo site créé */}
               <div className="relative">
                 <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-white">
-                  {/* Barre navigateur décorative */}
                   <div className="bg-gray-100 px-4 py-2.5 flex items-center gap-2 border-b border-gray-200">
                     <span className="w-3 h-3 rounded-full bg-red-400" />
                     <span className="w-3 h-3 rounded-full bg-yellow-400" />
@@ -231,71 +268,44 @@ export default function ProgrammaticPage({ params }: Props) {
                     muted
                     loop
                     playsInline
-                    className="w-full h-72 object-cover object-top"
+                    className="w-full object-cover object-top"
+                    style={{ height: "clamp(200px, 30vw, 320px)" }}
                   />
                 </div>
-                {/* Badge flottant */}
-                <div className="absolute -bottom-4 -right-4 bg-rose-500 text-white rounded-2xl px-5 py-3 shadow-lg shadow-rose-500/30">
-                  <p className="text-xs font-semibold">Site livré en</p>
-                  <p className="text-xl font-bold">2 semaines</p>
+                <div className="absolute -bottom-4 -right-4 rounded-2xl px-5 py-3 shadow-lg" style={{ backgroundColor: ROSE }}>
+                  <p className="text-xs font-semibold" style={{ color: DARK }}>Site livré en</p>
+                  <p className="text-xl font-bold" style={{ color: DARK }}>2 semaines</p>
                 </div>
               </div>
 
               {/* Stats */}
               <div className="space-y-6">
-                <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-start gap-5">
-                  <div className="shrink-0">
-                    <div className="text-4xl font-bold text-rose-500">30%</div>
-                    <p className="text-rose-500 text-xs font-semibold uppercase tracking-wider">des clics</p>
+                {[
+                  { val: "30%", unit: "des clics", title: "vont au 1er résultat Google", desc: `Si ce n'est pas vous sur "${metier.motCle} ${ville.nom}", c'est votre concurrent qui reçoit ces appels.` },
+                  { val: metier.panier, unit: "CHF / chantier", title: `panier moyen d'un ${metier.nom.toLowerCase()}`, desc: `2 chantiers en plus par mois à ${ville.nom} et votre investissement est rentabilisé.` },
+                  { val: "0", unit: "concurrent sérieux", title: "ne domine encore ces recherches", desc: `La fenêtre d'opportunité sur "${metier.motCle} ${ville.nom}" est ouverte — pas indéfiniment.` },
+                ].map((stat) => (
+                  <div key={stat.val} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-start gap-5">
+                    <div className="shrink-0">
+                      <div className="text-4xl font-bold" style={{ color: DARK }}>{stat.val}</div>
+                      <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: DARK }}>{stat.unit}</p>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-1">{stat.title}</h3>
+                      <p className="text-gray-500 text-sm leading-relaxed">{stat.desc}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">vont au 1er résultat Google</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed">
-                      Si ce n&apos;est pas vous sur &ldquo;{metier.motCle} {ville.nom}&rdquo;,
-                      c&apos;est votre concurrent qui reçoit ces appels.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-start gap-5">
-                  <div className="shrink-0">
-                    <div className="text-4xl font-bold text-rose-500">{metier.panier}</div>
-                    <p className="text-rose-500 text-xs font-semibold uppercase tracking-wider">CHF / chantier</p>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">panier moyen d&apos;un {metier.nom.toLowerCase()}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed">
-                      2 chantiers en plus par mois à {ville.nom} et votre investissement est rentabilisé.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-start gap-5">
-                  <div className="shrink-0">
-                    <div className="text-4xl font-bold text-rose-500">0</div>
-                    <p className="text-rose-500 text-xs font-semibold uppercase tracking-wider">concurrent sérieux</p>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">ne domine encore ces recherches</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed">
-                      La fenêtre d&apos;opportunité sur &ldquo;{metier.motCle} {ville.nom}&rdquo; est ouverte — pas indéfiniment.
-                    </p>
-                  </div>
-                </div>
-
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-bold px-8 py-4 rounded-full transition-colors shadow-lg shadow-rose-500/30 w-full justify-center"
-                >
+                ))}
+                <a href="/contact" style={{ ...btnRose, width: "100%", justifyContent: "center" }}>
                   Obtenir mon audit gratuit →
-                </Link>
+                </a>
                 <p className="text-gray-400 text-xs text-center">100% gratuit · Sans engagement · Réponse sous 24h</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── CE QU'ON FAIT / IMAGE + TEXTE ── */}
+        {/* ── CE QU'ON FAIT ── */}
         <section className="bg-[#1C1C1C] py-24 px-6">
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
             <div className="relative h-80 rounded-2xl overflow-hidden">
@@ -308,7 +318,7 @@ export default function ProgrammaticPage({ params }: Props) {
               />
             </div>
             <div>
-              <p className="text-rose-400 text-xs font-semibold uppercase tracking-widest mb-3">
+              <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: ROSE }}>
                 Notre spécialité
               </p>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
@@ -325,12 +335,9 @@ export default function ProgrammaticPage({ params }: Props) {
                 convertit un visiteur en demande de devis. Chaque page est optimisée pour
                 &ldquo;{metier.motCle} {ville.nom}&rdquo; dès le premier mois.
               </p>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-bold px-7 py-4 rounded-full transition-colors shadow-lg shadow-rose-500/30"
-              >
+              <a href="/contact" style={btnRose}>
                 Démarrer maintenant →
-              </Link>
+              </a>
             </div>
           </div>
         </section>
@@ -339,7 +346,7 @@ export default function ProgrammaticPage({ params }: Props) {
         <section className="bg-[#F7F4EF] py-20 px-6">
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <p className="text-rose-500 text-xs font-semibold uppercase tracking-widest mb-3">
+              <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: DARK }}>
                 Ce qui est inclus
               </p>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
@@ -348,17 +355,14 @@ export default function ProgrammaticPage({ params }: Props) {
               <ul className="space-y-4">
                 {service.includes.map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <span className="text-rose-500 font-bold mt-0.5 shrink-0">✓</span>
+                    <span className="font-bold mt-0.5 shrink-0" style={{ color: DARK }}>✓</span>
                     <span className="text-gray-700 text-sm leading-relaxed">{item}</span>
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 mt-10 bg-rose-500 hover:bg-rose-600 text-white font-bold px-8 py-4 rounded-full transition-colors shadow-lg shadow-rose-500/30"
-              >
+              <a href="/contact" style={{ ...btnRose, marginTop: "40px" }}>
                 Demander un devis gratuit →
-              </Link>
+              </a>
             </div>
             <div className="relative h-80 rounded-2xl overflow-hidden shadow-lg">
               <Image
@@ -372,11 +376,11 @@ export default function ProgrammaticPage({ params }: Props) {
           </div>
         </section>
 
-        {/* ── EXEMPLES DE SITES RÉALISÉS (vidéos) ── */}
+        {/* ── EXEMPLES DE SITES RÉALISÉS ── */}
         <section className="bg-[#1C1C1C] py-24 px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-14">
-              <p className="text-rose-400 text-xs font-semibold uppercase tracking-widest mb-3">
+              <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: ROSE }}>
                 Exemples réels
               </p>
               <h2 className="text-3xl md:text-4xl font-bold text-white">
@@ -395,9 +399,13 @@ export default function ProgrammaticPage({ params }: Props) {
               ].map((item) => (
                 <div
                   key={item.slug}
-                  className="group bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-rose-400 transition-all flex flex-col"
+                  className="group bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-white/30 transition-all flex flex-col"
                 >
-                  <div className="relative overflow-hidden bg-black flex-shrink-0" style={{ height: "560px" }}>
+                  {/* Vidéo responsive: 300px mobile, 400px tablette, 560px desktop */}
+                  <div
+                    className="relative overflow-hidden bg-black flex-shrink-0"
+                    style={{ height: "clamp(300px, 40vw, 560px)" }}
+                  >
                     <video
                       src={item.video}
                       poster={item.poster}
@@ -409,39 +417,34 @@ export default function ProgrammaticPage({ params }: Props) {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                     <div className="absolute bottom-4 left-4 right-4">
-                      <p className="text-xs text-rose-400 uppercase tracking-wide font-semibold mb-0.5">{item.type}</p>
+                      <p className="text-xs uppercase tracking-wide font-semibold mb-0.5" style={{ color: ROSE }}>{item.type}</p>
                       <p className="text-white font-bold text-lg">{item.label}</p>
                     </div>
                   </div>
                   <div className="p-5 flex-1 flex items-center justify-center">
-                    <Link
+                    <a
                       href={`/realisations/${item.slug}`}
-                      style={{ backgroundColor: "#f43f5e" }}
-                      className="inline-flex items-center gap-2 text-white font-bold px-6 py-3 rounded-full text-sm w-full justify-center hover:opacity-90 transition-opacity"
+                      style={{ ...btnRose, padding: "12px 24px", fontSize: "13px", width: "100%", justifyContent: "center" }}
                     >
                       Voir le projet →
-                    </Link>
+                    </a>
                   </div>
                 </div>
               ))}
             </div>
             <div className="text-center mt-10">
-              <Link
-                href="/realisations"
-                style={{ backgroundColor: "#f43f5e" }}
-                className="inline-flex items-center gap-2 text-white font-bold px-8 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg"
-              >
+              <a href="/realisations" style={btnRose}>
                 Voir toutes nos réalisations →
-              </Link>
+              </a>
             </div>
           </div>
         </section>
 
-        {/* ── PROCESSUS (redesign avec vidéos) ── */}
+        {/* ── PROCESSUS ── */}
         <section className="bg-[#F7F4EF] py-24 px-6">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
-              <p className="text-rose-500 text-xs font-semibold uppercase tracking-widest mb-3">
+              <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: DARK }}>
                 Notre process
               </p>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
@@ -455,7 +458,7 @@ export default function ProgrammaticPage({ params }: Props) {
             <div className="space-y-16">
               {/* Étape 1 */}
               <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div className="relative rounded-2xl overflow-hidden bg-black h-64 shadow-xl">
+                <div className="relative rounded-2xl overflow-hidden bg-black shadow-xl" style={{ height: "clamp(220px, 30vw, 320px)" }}>
                   <Image
                     src={villeImage}
                     alt={`Audit visibilité Google ${metier.nomPluriel} ${ville.nom}`}
@@ -464,8 +467,8 @@ export default function ProgrammaticPage({ params }: Props) {
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  <div className="absolute top-4 left-4" style={{ backgroundColor: "#f43f5e" }}>
-                    <span className="text-white text-xs font-bold px-3 py-1 rounded-full inline-block">Étape 01</span>
+                  <div className="absolute top-4 left-4">
+                    <span style={badgeRose}>Étape 01</span>
                   </div>
                   <div className="absolute bottom-4 left-4">
                     <p className="text-white text-xs font-medium">📍 {ville.nom} · Canton {ville.canton}</p>
@@ -473,7 +476,7 @@ export default function ProgrammaticPage({ params }: Props) {
                 </div>
                 <div>
                   <div className="flex items-center gap-3 mb-4">
-                    <span style={{ backgroundColor: "#f43f5e" }} className="w-10 h-10 rounded-full text-white font-bold flex items-center justify-center text-sm shrink-0">01</span>
+                    <span style={circleBadge}>01</span>
                     <h3 className="text-xl font-bold text-gray-900">Audit gratuit de votre présence</h3>
                   </div>
                   <p className="text-gray-600 leading-relaxed mb-4">
@@ -490,7 +493,7 @@ export default function ProgrammaticPage({ params }: Props) {
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="order-2 md:order-1">
                   <div className="flex items-center gap-3 mb-4">
-                    <span style={{ backgroundColor: "#f43f5e" }} className="w-10 h-10 rounded-full text-white font-bold flex items-center justify-center text-sm shrink-0">02</span>
+                    <span style={circleBadge}>02</span>
                     <h3 className="text-xl font-bold text-gray-900">Design & contenu sur-mesure</h3>
                   </div>
                   <p className="text-gray-600 leading-relaxed mb-4">
@@ -501,25 +504,25 @@ export default function ProgrammaticPage({ params }: Props) {
                     ✓ Design 100% sur-mesure &nbsp;·&nbsp; ✓ Textes SEO rédigés &nbsp;·&nbsp; ✓ Mobile first
                   </p>
                 </div>
-                <div className="relative rounded-2xl overflow-hidden bg-black h-64 shadow-xl order-1 md:order-2">
+                <div className="relative rounded-2xl overflow-hidden bg-black shadow-xl order-1 md:order-2" style={{ height: "clamp(220px, 30vw, 320px)" }}>
                   <video src="/videos/steps/step01.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
                   <div className="absolute top-4 left-4">
-                    <span style={{ backgroundColor: "#f43f5e" }} className="text-white text-xs font-bold px-3 py-1 rounded-full inline-block">Étape 02</span>
+                    <span style={badgeRose}>Étape 02</span>
                   </div>
                 </div>
               </div>
 
               {/* Étape 3 */}
               <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div className="relative rounded-2xl overflow-hidden bg-black h-64 shadow-xl">
+                <div className="relative rounded-2xl overflow-hidden bg-black shadow-xl" style={{ height: "clamp(220px, 30vw, 320px)" }}>
                   <video src="/videos/steps/step04.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
                   <div className="absolute top-4 left-4">
-                    <span style={{ backgroundColor: "#f43f5e" }} className="text-white text-xs font-bold px-3 py-1 rounded-full inline-block">Étape 03</span>
+                    <span style={badgeRose}>Étape 03</span>
                   </div>
                 </div>
                 <div>
                   <div className="flex items-center gap-3 mb-4">
-                    <span style={{ backgroundColor: "#f43f5e" }} className="w-10 h-10 rounded-full text-white font-bold flex items-center justify-center text-sm shrink-0">03</span>
+                    <span style={circleBadge}>03</span>
                     <h3 className="text-xl font-bold text-gray-900">Mise en ligne en 2 semaines</h3>
                   </div>
                   <p className="text-gray-600 leading-relaxed mb-4">
@@ -536,7 +539,7 @@ export default function ProgrammaticPage({ params }: Props) {
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="order-2 md:order-1">
                   <div className="flex items-center gap-3 mb-4">
-                    <span style={{ backgroundColor: "#f43f5e" }} className="w-10 h-10 rounded-full text-white font-bold flex items-center justify-center text-sm shrink-0">04</span>
+                    <span style={circleBadge}>04</span>
                     <h3 className="text-xl font-bold text-gray-900">Résultats & suivi mensuel</h3>
                   </div>
                   <p className="text-gray-600 leading-relaxed mb-4">
@@ -547,7 +550,7 @@ export default function ProgrammaticPage({ params }: Props) {
                     ✓ Rapport positions Google &nbsp;·&nbsp; ✓ Suivi demandes de devis &nbsp;·&nbsp; ✓ Optimisation continue
                   </p>
                 </div>
-                <div className="relative rounded-2xl overflow-hidden bg-white h-64 shadow-xl order-1 md:order-2">
+                <div className="relative rounded-2xl overflow-hidden bg-white shadow-xl order-1 md:order-2" style={{ height: "clamp(220px, 30vw, 320px)" }}>
                   <Image
                     src="/results/r1.webp"
                     alt="Résultats SEO et trafic Google Analytics artisan"
@@ -556,17 +559,14 @@ export default function ProgrammaticPage({ params }: Props) {
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <div className="absolute top-4 left-4">
-                    <span style={{ backgroundColor: "#f43f5e" }} className="text-white text-xs font-bold px-3 py-1 rounded-full inline-block">Étape 04</span>
+                    <span style={badgeRose}>Étape 04</span>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="text-center mt-16">
-              <a
-                href="/contact"
-                style={{ backgroundColor: "#f43f5e", color: "#ffffff", display: "inline-flex", alignItems: "center", gap: "8px", fontWeight: "700", padding: "20px 40px", borderRadius: "9999px", fontSize: "18px", textDecoration: "none" }}
-              >
+              <a href="/contact" style={{ ...btnRose, padding: "20px 40px", fontSize: "18px" }}>
                 Démarrer mon audit gratuit →
               </a>
               <p className="text-gray-400 text-xs mt-4">100% gratuit · Sans engagement · Réponse sous 24h</p>
@@ -577,9 +577,8 @@ export default function ProgrammaticPage({ params }: Props) {
         {/* ── TÉMOIGNAGE ── */}
         <section className="bg-[#1C1C1C] py-24 px-6">
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            {/* Vidéo du site du témoignage — taille x2 */}
-            <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/10" style={{ height: "480px" }}>
-              {/* Barre navigateur décorative */}
+            {/* Vidéo du site du témoignage */}
+            <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex flex-col" style={{ height: "clamp(340px, 45vw, 520px)" }}>
               <div className="bg-[#2a2a2a] px-4 py-2.5 flex items-center gap-2 border-b border-white/10 shrink-0">
                 <span className="w-3 h-3 rounded-full bg-red-500/70" />
                 <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
@@ -594,19 +593,21 @@ export default function ProgrammaticPage({ params }: Props) {
                 muted
                 loop
                 playsInline
-                className="w-full object-cover object-top"
-                style={{ height: "calc(480px - 44px)" }}
+                className="w-full flex-1 object-cover object-top"
               />
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "#f43f5e" }}>
+              <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: ROSE }}>
                 Témoignage client
               </p>
               <blockquote className="text-xl text-white font-medium leading-relaxed mb-6">
                 &ldquo;{metier.temoignage.texte}&rdquo;
               </blockquote>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm shrink-0" style={{ backgroundColor: "#f43f5e" }}>
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shrink-0"
+                  style={{ backgroundColor: ROSE, color: DARK }}
+                >
                   {metier.temoignage.nom[0]}
                 </div>
                 <div>
@@ -616,7 +617,7 @@ export default function ProgrammaticPage({ params }: Props) {
               </div>
               <div className="flex items-center gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <span key={i} style={{ color: "#f43f5e" }}>★</span>
+                  <span key={i} style={{ color: ROSE }}>★</span>
                 ))}
                 <span className="text-gray-400 text-xs ml-2">5.0 · Avis Google vérifié 🇨🇭</span>
               </div>
@@ -628,7 +629,9 @@ export default function ProgrammaticPage({ params }: Props) {
         <section className="bg-[#F7F4EF] py-20 px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f43f5e" }}>Ressources utiles</p>
+              <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: DARK }}>
+                Ressources utiles
+              </p>
               <h2 className="text-3xl font-bold text-gray-900">
                 Nos guides pour {metier.nomPluriel} en Suisse romande
               </h2>
@@ -637,7 +640,6 @@ export default function ProgrammaticPage({ params }: Props) {
               </p>
             </div>
 
-            {/* 3 cartes articles */}
             <div className="grid md:grid-cols-3 gap-6 mb-12">
               {metier.relatedArticles.map((article) => (
                 <Link
@@ -658,12 +660,10 @@ export default function ProgrammaticPage({ params }: Props) {
                     </div>
                   </div>
                   <div className="p-5 flex flex-col flex-1">
-                    <h3 className="text-gray-900 font-semibold text-sm leading-snug mb-4 flex-1 group-hover:text-gray-700 transition-colors">
+                    <h3 className="text-gray-900 font-semibold text-sm leading-snug mb-4 flex-1">
                       {article.title}
                     </h3>
-                    <span
-                      style={{ backgroundColor: "#f43f5e", color: "#fff", display: "inline-flex", alignItems: "center", gap: "6px", fontWeight: "600", padding: "8px 16px", borderRadius: "9999px", fontSize: "12px", textDecoration: "none" }}
-                    >
+                    <span style={{ ...badgeRose, padding: "8px 16px", fontSize: "12px", display: "inline-flex", alignItems: "center", gap: "6px" }}>
                       Lire l&apos;article →
                     </span>
                   </div>
@@ -708,8 +708,7 @@ export default function ProgrammaticPage({ params }: Props) {
                   ))}
                   <a
                     href={`/${service.slug}/${metier.slug}`}
-                    style={{ backgroundColor: "#f43f5e", color: "#fff" }}
-                    className="rounded-full px-4 py-2 text-sm font-semibold"
+                    style={{ ...badgeRose, padding: "8px 16px", fontSize: "14px" }}
                   >
                     Toutes les villes →
                   </a>
@@ -723,7 +722,7 @@ export default function ProgrammaticPage({ params }: Props) {
         <section className="bg-white py-20 px-6">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
-              <p className="text-rose-500 text-xs font-semibold uppercase tracking-widest mb-3">FAQ</p>
+              <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: DARK }}>FAQ</p>
               <h2 className="text-3xl font-bold text-gray-900">Questions fréquentes</h2>
               <p className="text-gray-500 mt-3 text-sm">
                 Tout ce que vous devez savoir avant de lancer votre projet à {ville.nom}
@@ -739,12 +738,9 @@ export default function ProgrammaticPage({ params }: Props) {
             </div>
             <div className="text-center mt-10">
               <p className="text-gray-500 text-sm mb-4">Une autre question ? On répond en moins de 24h.</p>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-semibold px-8 py-4 rounded-full transition-colors"
-              >
+              <a href="/contact" style={btnRose}>
                 Nous contacter →
-              </Link>
+              </a>
             </div>
           </div>
         </section>
