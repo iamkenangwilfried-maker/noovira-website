@@ -480,7 +480,7 @@ export default function ProgrammaticPage({ params }: Props) {
             <div className="space-y-16">
               {/* Étape 1 */}
               <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div className="relative rounded-2xl overflow-hidden bg-white shadow-xl" style={{ height: "clamp(220px, 30vw, 320px)" }}>
+                <div className="relative rounded-2xl overflow-hidden bg-white shadow-xl" style={{ height: "clamp(280px, 38vw, 460px)" }}>
                   <Image
                     src="/results/audit-tool.webp"
                     alt={`Audit SEO visibilité Google ${metier.nomPluriel} ${ville.nom}`}
@@ -522,7 +522,7 @@ export default function ProgrammaticPage({ params }: Props) {
                     ✓ Design 100% sur-mesure &nbsp;·&nbsp; ✓ Textes SEO rédigés &nbsp;·&nbsp; ✓ Mobile first
                   </p>
                 </div>
-                <div className="relative rounded-2xl overflow-hidden bg-black shadow-xl order-1 md:order-2" style={{ height: "clamp(220px, 30vw, 320px)" }}>
+                <div className="relative rounded-2xl overflow-hidden bg-black shadow-xl order-1 md:order-2" style={{ height: "clamp(280px, 38vw, 460px)" }}>
                   <video src="/videos/steps/step01.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
                   <div className="absolute top-4 left-4">
                     <span style={badgeRose}>Étape 02</span>
@@ -532,7 +532,7 @@ export default function ProgrammaticPage({ params }: Props) {
 
               {/* Étape 3 */}
               <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div className="relative rounded-2xl overflow-hidden bg-black shadow-xl" style={{ height: "clamp(220px, 30vw, 320px)" }}>
+                <div className="relative rounded-2xl overflow-hidden bg-black shadow-xl" style={{ height: "clamp(280px, 38vw, 460px)" }}>
                   <video src="/videos/steps/step04.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
                   <div className="absolute top-4 left-4">
                     <span style={badgeRose}>Étape 03</span>
@@ -568,7 +568,7 @@ export default function ProgrammaticPage({ params }: Props) {
                     ✓ Rapport positions Google &nbsp;·&nbsp; ✓ Suivi demandes de devis &nbsp;·&nbsp; ✓ Optimisation continue
                   </p>
                 </div>
-                <div className="relative rounded-2xl overflow-hidden bg-white shadow-xl order-1 md:order-2" style={{ height: "clamp(220px, 30vw, 320px)" }}>
+                <div className="relative rounded-2xl overflow-hidden bg-white shadow-xl order-1 md:order-2" style={{ height: "clamp(280px, 38vw, 460px)" }}>
                   <Image
                     src="/results/r1.webp"
                     alt="Résultats SEO et trafic Google Analytics artisan"
