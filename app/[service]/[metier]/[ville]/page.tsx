@@ -440,17 +440,16 @@ export default function ProgrammaticPage({ params }: Props) {
             </div>
             <div className="grid md:grid-cols-3 gap-6">
               {[
-                { domain: "roulin-couverture.ch", label: "Roulin Couverture", type: "Couverture & Toiture · Lausanne 🇨🇭", slug: "roulin-couverture" },
-                { domain: "favre-renovation.ch",  label: "Favre Rénovation",  type: "Rénovation générale · Genève 🇨🇭",    slug: "favre-renovation" },
-                { domain: "muller-charpente.ch",  label: "Müller Charpente",  type: "Charpente & Bois · Fribourg 🇨🇭",     slug: "muller-charpente" },
-              ].map((item, i) => (
+                { videoSrc: "/videos/roulin-couverture/01.mp4", label: "Roulin Couverture", type: "Couverture & Toiture · Lausanne 🇨🇭", slug: "roulin-couverture" },
+                { videoSrc: "/videos/favre-renovation/01.mp4",  label: "Favre Rénovation",  type: "Rénovation générale · Genève 🇨🇭",    slug: "favre-renovation" },
+                { videoSrc: "/videos/muller-charpente/01.mp4",  label: "Müller Charpente",  type: "Charpente & Bois · Fribourg 🇨🇭",     slug: "muller-charpente" },
+              ].map((item) => (
                 <PortfolioScrollCard
                   key={item.slug}
-                  domain={item.domain}
+                  videoSrc={item.videoSrc}
                   label={item.label}
                   type={item.type}
                   slug={item.slug}
-                  index={i}
                   cardHeight={500}
                 />
               ))}
@@ -596,7 +595,7 @@ export default function ProgrammaticPage({ params }: Props) {
         {/* ── TÉMOIGNAGE ── */}
         <section className="bg-[#1C1C1C] py-24 px-6">
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            {/* Screenshot auto-scroll du site du témoignage */}
+            {/* Vidéo du site du témoignage */}
             <div
               className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex flex-col"
               style={{ height: "clamp(380px, 48vw, 540px)" }}
@@ -609,12 +608,14 @@ export default function ProgrammaticPage({ params }: Props) {
                   roulin-couverture-srl-lausanne.ch
                 </div>
               </div>
-              <div className="flex-1 overflow-hidden">
-                <TemoignageScroll
-                  domain="roulin-couverture-srl-lausanne.ch"
-                  cardHeight={490}
-                />
-              </div>
+              <video
+                src="/videos/roulin-couverture/01.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full flex-1 object-cover object-top"
+              />
             </div>
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: ROSE }}>
