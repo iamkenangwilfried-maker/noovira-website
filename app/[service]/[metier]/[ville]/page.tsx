@@ -6,6 +6,7 @@ import Navbar from "@/components/sections/navbar"
 import FinalCTA from "@/components/sections/final-cta"
 import Footer from "@/components/sections/footer"
 import SeoHub from "@/components/sections/seo-hub"
+import PortfolioScrollCard from "@/components/sections/portfolio-scroll-card"
 import {
   SERVICES,
   METIERS,
@@ -438,43 +439,19 @@ export default function ProgrammaticPage({ params }: Props) {
             </div>
             <div className="grid md:grid-cols-3 gap-6">
               {[
-                { video: "/videos/roulin-couverture/01.mp4", poster: "/sites/site1.webp", label: "Roulin Couverture", type: "Couverture & Toiture · Lausanne 🇨🇭", slug: "roulin-couverture" },
-                { video: "/videos/favre-renovation/01.mp4", poster: "/sites/site2.webp", label: "Favre Rénovation", type: "Rénovation générale · Genève 🇨🇭", slug: "favre-renovation" },
-                { video: "/videos/muller-charpente/01.mp4", poster: "/sites/site3.webp", label: "Müller Charpente", type: "Charpente & Bois · Fribourg 🇨🇭", slug: "muller-charpente" },
-              ].map((item) => (
-                <div
+                { domain: "roulin-couverture.ch", label: "Roulin Couverture", type: "Couverture & Toiture · Lausanne 🇨🇭", slug: "roulin-couverture" },
+                { domain: "favre-renovation.ch",  label: "Favre Rénovation",  type: "Rénovation générale · Genève 🇨🇭",    slug: "favre-renovation" },
+                { domain: "muller-charpente.ch",  label: "Müller Charpente",  type: "Charpente & Bois · Fribourg 🇨🇭",     slug: "muller-charpente" },
+              ].map((item, i) => (
+                <PortfolioScrollCard
                   key={item.slug}
-                  className="group bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-white/30 transition-all flex flex-col"
-                >
-                  {/* Vidéo responsive: 300px mobile, 400px tablette, 560px desktop */}
-                  <div
-                    className="relative overflow-hidden bg-black flex-shrink-0"
-                    style={{ height: "clamp(300px, 40vw, 560px)" }}
-                  >
-                    <video
-                      src={item.video}
-                      poster={item.poster}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <p className="text-xs uppercase tracking-wide font-semibold mb-0.5" style={{ color: ROSE }}>{item.type}</p>
-                      <p className="text-white font-bold text-lg">{item.label}</p>
-                    </div>
-                  </div>
-                  <div className="p-5 flex-1 flex items-center justify-center">
-                    <a
-                      href={`/realisations/${item.slug}`}
-                      style={{ ...btnRose, padding: "12px 24px", fontSize: "13px", width: "100%", justifyContent: "center" }}
-                    >
-                      Voir le projet →
-                    </a>
-                  </div>
-                </div>
+                  domain={item.domain}
+                  label={item.label}
+                  type={item.type}
+                  slug={item.slug}
+                  index={i}
+                  cardHeight={500}
+                />
               ))}
             </div>
             <div className="text-center mt-10">
