@@ -473,7 +473,7 @@ export default function ProgrammaticPage({ params }: Props) {
                 </div>
                 <div>
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="w-10 h-10 rounded-full bg-rose-500 text-white font-bold flex items-center justify-center text-sm shrink-0">01</span>
+                    <span style={{ backgroundColor: "#f43f5e" }} className="w-10 h-10 rounded-full text-white font-bold flex items-center justify-center text-sm shrink-0">01</span>
                     <h3 className="text-xl font-bold text-gray-900">Audit gratuit de votre présence</h3>
                   </div>
                   <p className="text-gray-600 leading-relaxed mb-4">
@@ -490,7 +490,7 @@ export default function ProgrammaticPage({ params }: Props) {
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="order-2 md:order-1">
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="w-10 h-10 rounded-full bg-rose-500 text-white font-bold flex items-center justify-center text-sm shrink-0">02</span>
+                    <span style={{ backgroundColor: "#f43f5e" }} className="w-10 h-10 rounded-full text-white font-bold flex items-center justify-center text-sm shrink-0">02</span>
                     <h3 className="text-xl font-bold text-gray-900">Design & contenu sur-mesure</h3>
                   </div>
                   <p className="text-gray-600 leading-relaxed mb-4">
@@ -502,15 +502,9 @@ export default function ProgrammaticPage({ params }: Props) {
                   </p>
                 </div>
                 <div className="relative rounded-2xl overflow-hidden bg-black h-64 shadow-xl order-1 md:order-2">
-                  <Image
-                    src={metier.image}
-                    alt={metier.imageAlt}
-                    fill
-                    className="object-cover opacity-90"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                  <div className="absolute top-4 left-4 bg-rose-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                    Étape 02
+                  <video src="/videos/steps/step01.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
+                  <div className="absolute top-4 left-4">
+                    <span style={{ backgroundColor: "#f43f5e" }} className="text-white text-xs font-bold px-3 py-1 rounded-full inline-block">Étape 02</span>
                   </div>
                 </div>
               </div>
@@ -519,13 +513,13 @@ export default function ProgrammaticPage({ params }: Props) {
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="relative rounded-2xl overflow-hidden bg-black h-64 shadow-xl">
                   <video src="/videos/steps/step04.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
-                  <div className="absolute top-4 left-4 bg-rose-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                    Étape 03
+                  <div className="absolute top-4 left-4">
+                    <span style={{ backgroundColor: "#f43f5e" }} className="text-white text-xs font-bold px-3 py-1 rounded-full inline-block">Étape 03</span>
                   </div>
                 </div>
                 <div>
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="w-10 h-10 rounded-full bg-rose-500 text-white font-bold flex items-center justify-center text-sm shrink-0">03</span>
+                    <span style={{ backgroundColor: "#f43f5e" }} className="w-10 h-10 rounded-full text-white font-bold flex items-center justify-center text-sm shrink-0">03</span>
                     <h3 className="text-xl font-bold text-gray-900">Mise en ligne en 2 semaines</h3>
                   </div>
                   <p className="text-gray-600 leading-relaxed mb-4">
@@ -542,7 +536,7 @@ export default function ProgrammaticPage({ params }: Props) {
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="order-2 md:order-1">
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="w-10 h-10 rounded-full bg-rose-500 text-white font-bold flex items-center justify-center text-sm shrink-0">04</span>
+                    <span style={{ backgroundColor: "#f43f5e" }} className="w-10 h-10 rounded-full text-white font-bold flex items-center justify-center text-sm shrink-0">04</span>
                     <h3 className="text-xl font-bold text-gray-900">Résultats & suivi mensuel</h3>
                   </div>
                   <p className="text-gray-600 leading-relaxed mb-4">
@@ -555,8 +549,8 @@ export default function ProgrammaticPage({ params }: Props) {
                 </div>
                 <div className="relative rounded-2xl overflow-hidden bg-black h-64 shadow-xl order-1 md:order-2">
                   <video src="/videos/steps/step05.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
-                  <div className="absolute top-4 left-4 bg-rose-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                    Étape 04
+                  <div className="absolute top-4 left-4">
+                    <span style={{ backgroundColor: "#f43f5e" }} className="text-white text-xs font-bold px-3 py-1 rounded-full inline-block">Étape 04</span>
                   </div>
                 </div>
               </div>
@@ -565,7 +559,8 @@ export default function ProgrammaticPage({ params }: Props) {
             <div className="text-center mt-16">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-bold px-10 py-5 rounded-full transition-colors shadow-lg shadow-rose-500/30 text-lg"
+                style={{ backgroundColor: "#f43f5e" }}
+                className="inline-flex items-center gap-2 text-white font-bold px-10 py-5 rounded-full hover:opacity-90 transition-opacity shadow-lg text-lg"
               >
                 Démarrer mon audit gratuit →
               </Link>
