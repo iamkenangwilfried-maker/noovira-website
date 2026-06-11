@@ -269,32 +269,28 @@ export default function ProgrammaticPage({ params }: Props) {
             </div>
 
             {/* Layout: vidéo à gauche, stats à droite */}
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              {/* Vidéo dans cadre navigateur */}
-              <div className="relative">
-                <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#2a2a2a]">
-                  <div className="bg-[#2a2a2a] px-4 py-3 flex items-center gap-2 border-b border-white/10">
-                    <span className="w-3 h-3 rounded-full bg-red-500/70" />
-                    <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
-                    <span className="w-3 h-3 rounded-full bg-green-500/70" />
-                    <div className="flex-1 ml-3 bg-white/10 rounded-full px-3 py-1 text-xs text-gray-400">
-                      roulin-couverture.ch — #1 Google &ldquo;couvreur Lausanne&rdquo;
-                    </div>
+            <div className="grid md:grid-cols-2 gap-12 items-start">
+              {/* Vidéo dans cadre navigateur — pleine largeur colonne */}
+              <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#2a2a2a] flex flex-col" style={{ height: "clamp(320px, 42vw, 520px)" }}>
+                <div className="bg-[#2a2a2a] px-4 py-3 flex items-center gap-2 border-b border-white/10 shrink-0">
+                  <span className="w-3 h-3 rounded-full bg-red-500/70" />
+                  <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
+                  <span className="w-3 h-3 rounded-full bg-green-500/70" />
+                  <div className="flex-1 ml-3 bg-white/10 rounded-full px-3 py-1 text-xs text-gray-400 truncate">
+                    roulin-couverture.ch — #1 Google &ldquo;couvreur Lausanne&rdquo;
                   </div>
-                  <video
-                    src="/videos/roulin-couverture/01.mp4"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="w-full object-cover object-top"
-                    style={{ height: "clamp(220px, 32vw, 380px)" }}
-                  />
                 </div>
-                {/* Badge flottant */}
-                <div className="absolute -bottom-5 -right-4 rounded-2xl px-5 py-3 shadow-xl" style={{ backgroundColor: ROSE }}>
-                  <p className="text-xs font-semibold" style={{ color: DARK }}>Client Noovira AI</p>
-                  <p className="text-lg font-bold" style={{ color: DARK }}>+3 chantiers/mois</p>
+                <video
+                  src="/videos/roulin-couverture/01.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full flex-1 object-cover object-top"
+                />
+                {/* Badge intégré en bas */}
+                <div className="px-5 py-3 shrink-0" style={{ backgroundColor: ROSE }}>
+                  <p className="text-xs font-semibold" style={{ color: DARK }}>Client Noovira AI · +3 chantiers/mois</p>
                 </div>
               </div>
 
