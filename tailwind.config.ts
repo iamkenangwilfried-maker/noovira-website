@@ -5,6 +5,24 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    // Explicit paths for dynamic routes (brackets are glob special chars)
+    "./app/[service]/[metier]/[ville]/page.tsx",
+    "./app/[service]/[metier]/page.tsx",
+    "./lib/seo-data.ts",
+  ],
+  safelist: [
+    // Rose scale — used in programmatic pages, not picked up by glob scan
+    "bg-rose-500", "bg-rose-600",
+    "hover:bg-rose-500", "hover:bg-rose-600",
+    "text-rose-300", "text-rose-400", "text-rose-500",
+    "hover:text-rose-300", "hover:text-rose-400",
+    "border-rose-300", "border-rose-400", "border-rose-500",
+    "hover:border-rose-400", "hover:border-rose-500",
+    "shadow-rose-500/30",
+    "from-rose-500", "to-rose-600",
+    "ring-rose-500",
+    "bg-rose-50", "bg-rose-100",
+    "text-rose-600",
   ],
   theme: {
     extend: {
