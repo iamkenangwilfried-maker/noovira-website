@@ -397,7 +397,7 @@ export default function ProgrammaticPage({ params }: Props) {
                   key={item.slug}
                   className="group bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-rose-400 transition-all flex flex-col"
                 >
-                  <div className="relative h-72 overflow-hidden bg-black flex-shrink-0">
+                  <div className="relative overflow-hidden bg-black flex-shrink-0" style={{ height: "560px" }}>
                     <video
                       src={item.video}
                       poster={item.poster}
@@ -405,18 +405,19 @@ export default function ProgrammaticPage({ params }: Props) {
                       muted
                       loop
                       playsInline
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-4 left-4">
-                      <p className="text-xs text-rose-400 uppercase tracking-wide font-semibold">{item.type}</p>
-                      <p className="text-white font-bold text-base mt-0.5">{item.label}</p>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <p className="text-xs text-rose-400 uppercase tracking-wide font-semibold mb-0.5">{item.type}</p>
+                      <p className="text-white font-bold text-lg">{item.label}</p>
                     </div>
                   </div>
                   <div className="p-5 flex-1 flex items-center justify-center">
                     <Link
                       href={`/realisations/${item.slug}`}
-                      className="inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-bold px-6 py-3 rounded-full transition-colors shadow-md shadow-rose-500/30 text-sm w-full justify-center"
+                      style={{ backgroundColor: "#f43f5e" }}
+                      className="inline-flex items-center gap-2 text-white font-bold px-6 py-3 rounded-full text-sm w-full justify-center hover:opacity-90 transition-opacity"
                     >
                       Voir le projet →
                     </Link>
@@ -427,7 +428,8 @@ export default function ProgrammaticPage({ params }: Props) {
             <div className="text-center mt-10">
               <Link
                 href="/realisations"
-                className="inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-bold px-8 py-4 rounded-full transition-colors shadow-lg shadow-rose-500/30"
+                style={{ backgroundColor: "#f43f5e" }}
+                className="inline-flex items-center gap-2 text-white font-bold px-8 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg"
               >
                 Voir toutes nos réalisations →
               </Link>
