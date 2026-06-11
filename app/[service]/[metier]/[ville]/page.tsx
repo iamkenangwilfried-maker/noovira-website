@@ -456,9 +456,19 @@ export default function ProgrammaticPage({ params }: Props) {
               {/* Étape 1 */}
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="relative rounded-2xl overflow-hidden bg-black h-64 shadow-xl">
-                  <video src="/videos/steps/step01.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
-                  <div className="absolute top-4 left-4 bg-rose-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                    Étape 01
+                  <Image
+                    src={villeImage}
+                    alt={`Audit visibilité Google ${metier.nomPluriel} ${ville.nom}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  <div className="absolute top-4 left-4" style={{ backgroundColor: "#f43f5e" }}>
+                    <span className="text-white text-xs font-bold px-3 py-1 rounded-full inline-block">Étape 01</span>
+                  </div>
+                  <div className="absolute bottom-4 left-4">
+                    <p className="text-white text-xs font-medium">📍 {ville.nom} · Canton {ville.canton}</p>
                   </div>
                 </div>
                 <div>
