@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { PROJECTS } from "@/lib/projects";
 import { getAllArticles } from "@/lib/articles";
+import { SERVICES, METIERS, VILLES } from "@/lib/seo-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://nooviraai.com";
@@ -26,12 +27,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const articles = getAllArticles();
-  const articlePages: MetadataRoute.Sitemap = articles.map((a) => ({
-    url: `${baseUrl}/blog/${a.slug}`,
-    lastModified: new Date(a.updatedAt ?? a.publishedAt),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+  const now = new Date();
+  const articlePages: MetadataRoute.Sitemap = articles.map((a) => {
+    const articleDate = new Date(a.updatedAt ?? a.publishedAt);
+    return {
+      url: `${baseUrl}/blog/${a.slug}`,
+      // Never emit a future date — cap to build time so Google doesn't see
+      // unpublished dates and deprioritise crawling.
+      lastModified: articleDate > now ? now : articleDate,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    };
+  });
 
-  return [...staticPages, ...projectPages, ...articlePages];
+  const programmaticPages: MetadataRoute.Sitemap = []
+  for (const service of SERVICES) {
+    for (const metier of METIERS) {
+      for (const ville of VILLES) {
+        programmaticPages.push({
+          url: `${baseUrl}/${service.slug}/${metier.slug}/${ville.slug}`,
+          lastModified: new Date(),
+          changeFrequency: "monthly" as const,
+          priority: 0.6,
+        })
+      }
+    }
+  }
+
+  return [...staticPages, ...projectPages, ...articlePages, ...programmaticPages];
 }
