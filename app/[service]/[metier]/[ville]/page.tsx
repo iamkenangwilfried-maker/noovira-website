@@ -547,8 +547,14 @@ export default function ProgrammaticPage({ params }: Props) {
                     ✓ Rapport positions Google &nbsp;·&nbsp; ✓ Suivi demandes de devis &nbsp;·&nbsp; ✓ Optimisation continue
                   </p>
                 </div>
-                <div className="relative rounded-2xl overflow-hidden bg-black h-64 shadow-xl order-1 md:order-2">
-                  <video src="/videos/steps/step05.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
+                <div className="relative rounded-2xl overflow-hidden bg-white h-64 shadow-xl order-1 md:order-2">
+                  <Image
+                    src="/results/r1.webp"
+                    alt="Résultats SEO et trafic Google Analytics artisan"
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
                   <div className="absolute top-4 left-4">
                     <span style={{ backgroundColor: "#f43f5e" }} className="text-white text-xs font-bold px-3 py-1 rounded-full inline-block">Étape 04</span>
                   </div>
@@ -557,13 +563,12 @@ export default function ProgrammaticPage({ params }: Props) {
             </div>
 
             <div className="text-center mt-16">
-              <Link
+              <a
                 href="/contact"
-                style={{ backgroundColor: "#f43f5e" }}
-                className="inline-flex items-center gap-2 text-white font-bold px-10 py-5 rounded-full hover:opacity-90 transition-opacity shadow-lg text-lg"
+                style={{ backgroundColor: "#f43f5e", color: "#ffffff", display: "inline-flex", alignItems: "center", gap: "8px", fontWeight: "700", padding: "20px 40px", borderRadius: "9999px", fontSize: "18px", textDecoration: "none" }}
               >
                 Démarrer mon audit gratuit →
-              </Link>
+              </a>
               <p className="text-gray-400 text-xs mt-4">100% gratuit · Sans engagement · Réponse sous 24h</p>
             </div>
           </div>
@@ -572,32 +577,36 @@ export default function ProgrammaticPage({ params }: Props) {
         {/* ── TÉMOIGNAGE ── */}
         <section className="bg-[#1C1C1C] py-24 px-6">
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
-              <Image
-                src={villeImage}
-                alt={`${ville.nom}, canton ${ville.canton}, Suisse — ${metier.nom} Noovira AI`}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-              <div className="absolute bottom-5 left-5 right-5">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-rose-400 text-xs">🇨🇭</span>
-                  <p className="text-white text-sm font-bold">{ville.nom} · Canton {ville.canton} · Suisse</p>
+            {/* Vidéo du site du témoignage — taille x2 */}
+            <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/10" style={{ height: "480px" }}>
+              {/* Barre navigateur décorative */}
+              <div className="bg-[#2a2a2a] px-4 py-2.5 flex items-center gap-2 border-b border-white/10 shrink-0">
+                <span className="w-3 h-3 rounded-full bg-red-500/70" />
+                <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
+                <span className="w-3 h-3 rounded-full bg-green-500/70" />
+                <div className="flex-1 ml-3 bg-white/10 rounded-full px-3 py-1 text-xs text-gray-400">
+                  {metier.temoignage.entreprise.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")}.ch
                 </div>
-                <p className="text-gray-300 text-xs">Marché artisanal en forte croissance en Suisse romande</p>
               </div>
+              <video
+                src="/videos/roulin-couverture/01.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full object-cover object-top"
+                style={{ height: "calc(480px - 44px)" }}
+              />
             </div>
             <div>
-              <p className="text-rose-400 text-xs font-semibold uppercase tracking-widest mb-4">
+              <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "#f43f5e" }}>
                 Témoignage client
               </p>
               <blockquote className="text-xl text-white font-medium leading-relaxed mb-6">
                 &ldquo;{metier.temoignage.texte}&rdquo;
               </blockquote>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-rose-500 flex items-center justify-center text-white font-bold text-sm shrink-0">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm shrink-0" style={{ backgroundColor: "#f43f5e" }}>
                   {metier.temoignage.nom[0]}
                 </div>
                 <div>
@@ -605,11 +614,11 @@ export default function ProgrammaticPage({ params }: Props) {
                   <p className="text-gray-400 text-xs">{metier.temoignage.entreprise}</p>
                 </div>
               </div>
-              <div className="flex gap-1 mt-4">
+              <div className="flex items-center gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <span key={i} className="text-rose-400">★</span>
+                  <span key={i} style={{ color: "#f43f5e" }}>★</span>
                 ))}
-                <span className="text-gray-400 text-xs ml-2">5.0 · Avis Google vérifié</span>
+                <span className="text-gray-400 text-xs ml-2">5.0 · Avis Google vérifié 🇨🇭</span>
               </div>
             </div>
           </div>
