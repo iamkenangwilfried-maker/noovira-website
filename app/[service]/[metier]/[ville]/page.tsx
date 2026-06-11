@@ -235,31 +235,33 @@ export default function ProgrammaticPage({ params }: Props) {
         </section>
 
         {/* ── STATS / COÛT DE L'INVISIBILITÉ ── */}
-        <section className="bg-[#F7F4EF] py-20 px-6">
+        <section className="bg-[#1C1C1C] py-24 px-6">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: DARK }}>
-                Opportunité locale
+            {/* Titre accrocheur */}
+            <div className="text-center mb-16">
+              <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: ROSE }}>
+                La réalité du marché local
               </p>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Ce que votre invisibilité vous coûte à {ville.nom}
+              <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 leading-tight">
+                Pendant que vous lisez ceci,<br />
+                <span style={{ color: ROSE }}>un concurrent à {ville.nom} décroche votre prochain client.</span>
               </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Chaque jour sans visibilité sur Google, c&apos;est un chantier que votre
-                concurrent décroche à votre place.
+              <p className="text-gray-400 max-w-2xl mx-auto text-base leading-relaxed">
+                Sans présence Google, vous êtes invisible pour 9 clients sur 10 qui cherchent un {metier.nom.toLowerCase()} à {ville.nom} en ce moment même.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
-              {/* Vidéo site créé */}
+            {/* Layout: vidéo à gauche, stats à droite */}
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              {/* Vidéo dans cadre navigateur */}
               <div className="relative">
-                <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-white">
-                  <div className="bg-gray-100 px-4 py-2.5 flex items-center gap-2 border-b border-gray-200">
-                    <span className="w-3 h-3 rounded-full bg-red-400" />
-                    <span className="w-3 h-3 rounded-full bg-yellow-400" />
-                    <span className="w-3 h-3 rounded-full bg-green-400" />
-                    <div className="flex-1 ml-3 bg-white rounded-full px-3 py-1 text-xs text-gray-400">
-                      roulin-couverture.ch
+                <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#2a2a2a]">
+                  <div className="bg-[#2a2a2a] px-4 py-3 flex items-center gap-2 border-b border-white/10">
+                    <span className="w-3 h-3 rounded-full bg-red-500/70" />
+                    <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
+                    <span className="w-3 h-3 rounded-full bg-green-500/70" />
+                    <div className="flex-1 ml-3 bg-white/10 rounded-full px-3 py-1 text-xs text-gray-400">
+                      roulin-couverture.ch — #1 Google &ldquo;couvreur Lausanne&rdquo;
                     </div>
                   </div>
                   <video
@@ -269,37 +271,55 @@ export default function ProgrammaticPage({ params }: Props) {
                     loop
                     playsInline
                     className="w-full object-cover object-top"
-                    style={{ height: "clamp(200px, 30vw, 320px)" }}
+                    style={{ height: "clamp(220px, 32vw, 380px)" }}
                   />
                 </div>
-                <div className="absolute -bottom-4 -right-4 rounded-2xl px-5 py-3 shadow-lg" style={{ backgroundColor: ROSE }}>
-                  <p className="text-xs font-semibold" style={{ color: DARK }}>Site livré en</p>
-                  <p className="text-xl font-bold" style={{ color: DARK }}>2 semaines</p>
+                {/* Badge flottant */}
+                <div className="absolute -bottom-5 -right-4 rounded-2xl px-5 py-3 shadow-xl" style={{ backgroundColor: ROSE }}>
+                  <p className="text-xs font-semibold" style={{ color: DARK }}>Client Noovira AI</p>
+                  <p className="text-lg font-bold" style={{ color: DARK }}>+3 chantiers/mois</p>
                 </div>
               </div>
 
-              {/* Stats */}
-              <div className="space-y-6">
+              {/* Stats percutantes */}
+              <div className="space-y-5 md:pl-4">
                 {[
-                  { val: "30%", unit: "des clics", title: "vont au 1er résultat Google", desc: `Si ce n'est pas vous sur "${metier.motCle} ${ville.nom}", c'est votre concurrent qui reçoit ces appels.` },
-                  { val: metier.panier, unit: "CHF / chantier", title: `panier moyen d'un ${metier.nom.toLowerCase()}`, desc: `2 chantiers en plus par mois à ${ville.nom} et votre investissement est rentabilisé.` },
-                  { val: "0", unit: "concurrent sérieux", title: "ne domine encore ces recherches", desc: `La fenêtre d'opportunité sur "${metier.motCle} ${ville.nom}" est ouverte — pas indéfiniment.` },
+                  {
+                    val: "9 / 10",
+                    label: "clients commencent sur Google",
+                    desc: `Quand quelqu'un cherche "${metier.motCle} ${ville.nom}", il appelle le premier résultat. Pas le deuxième. Pas vous, si vous n'êtes pas là.`,
+                  },
+                  {
+                    val: metier.panier + " CHF",
+                    label: "chantier perdu chaque semaine",
+                    desc: `C'est le panier moyen d'un ${metier.nom.toLowerCase()}. Chaque semaine sans visibilité, c'est ce montant qui part chez un concurrent. Calculez sur un an.`,
+                  },
+                  {
+                    val: "< 30 jours",
+                    label: "pour dominer Google à " + ville.nom,
+                    desc: `La plupart des ${metier.nomPluriel} à ${ville.nom} n'ont pas de site sérieux. La place de #1 est libre — mais pas pour longtemps.`,
+                  },
                 ].map((stat) => (
-                  <div key={stat.val} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-start gap-5">
-                    <div className="shrink-0">
-                      <div className="text-4xl font-bold" style={{ color: DARK }}>{stat.val}</div>
-                      <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: DARK }}>{stat.unit}</p>
+                  <div
+                    key={stat.val}
+                    className="rounded-2xl p-6 flex items-start gap-5"
+                    style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
+                  >
+                    <div className="shrink-0 min-w-[100px]">
+                      <div className="text-2xl font-bold" style={{ color: ROSE }}>{stat.val}</div>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 mt-0.5">{stat.label}</p>
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">{stat.title}</h3>
-                      <p className="text-gray-500 text-sm leading-relaxed">{stat.desc}</p>
-                    </div>
+                    <p className="text-gray-300 text-sm leading-relaxed">{stat.desc}</p>
                   </div>
                 ))}
-                <a href="/contact" style={{ ...btnRose, width: "100%", justifyContent: "center" }}>
+
+                <a
+                  href="/contact"
+                  style={{ ...btnRose, width: "100%", justifyContent: "center", padding: "18px 32px", fontSize: "16px" }}
+                >
                   Obtenir mon audit gratuit →
                 </a>
-                <p className="text-gray-400 text-xs text-center">100% gratuit · Sans engagement · Réponse sous 24h</p>
+                <p className="text-gray-500 text-xs text-center">100% gratuit · Sans engagement · Réponse sous 24h</p>
               </div>
             </div>
           </div>
