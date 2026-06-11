@@ -20,6 +20,20 @@ import {
 const ROSE = "#FFD6D8"
 const DARK = "#1C1C1C"
 
+// Vidéo du site de référence par métier
+const METIER_VIDEOS: Record<string, { src: string; label: string }> = {
+  "couvreur":                 { src: "/videos/roulin-couverture/01.mp4",  label: "roulin-couverture.ch" },
+  "charpentier":              { src: "/videos/muller-charpente/01.mp4",   label: "muller-charpente.ch" },
+  "electricien":              { src: "/videos/dupont-electricite/01.mp4", label: "dupont-electricite.ch" },
+  "peintre":                  { src: "/videos/rochat-peinture/01.mp4",    label: "rochat-peinture.ch" },
+  "renovateur-cuisine":       { src: "/videos/favre-renovation/01.mp4",   label: "favre-renovation.ch" },
+  "renovateur-salle-de-bain": { src: "/videos/favre-renovation/01.mp4",   label: "favre-renovation.ch" },
+  "paysagiste":               { src: "/videos/girardin-btp/01.mp4",       label: "girardin-btp.ch" },
+  "plombier":                 { src: "/videos/girardin-btp/01.mp4",       label: "girardin-btp.ch" },
+  "carreleur":                { src: "/videos/martinez-platrerie/01.mp4", label: "martinez-platrerie.ch" },
+  "macon":                    { src: "/videos/girardin-btp/01.mp4",       label: "girardin-btp.ch" },
+}
+
 type Props = {
   params: { service: string; metier: string; ville: string }
 }
@@ -69,6 +83,7 @@ export default function ProgrammaticPage({ params }: Props) {
   if (!service || !metier || !ville) notFound()
 
   const villeImage = VILLE_IMAGES[params.ville] ?? metier.image
+  const metierVideo = METIER_VIDEOS[params.metier] ?? { src: "/videos/roulin-couverture/01.mp4", label: "noovira-client.ch" }
   const autresServices = SERVICES.filter((s) => s.slug !== service.slug)
   const villesCantonSample = VILLES.filter(
     (v) => v.canton === ville.canton && v.slug !== ville.slug
@@ -328,13 +343,23 @@ export default function ProgrammaticPage({ params }: Props) {
         {/* ── CE QU'ON FAIT ── */}
         <section className="bg-[#1C1C1C] py-24 px-6">
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            <div className="relative h-80 rounded-2xl overflow-hidden">
-              <Image
-                src={metier.image}
-                alt={metier.imageAlt}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
+            {/* Vidéo du site client dans cadre navigateur */}
+            <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#2a2a2a] flex flex-col" style={{ height: "clamp(300px, 42vw, 500px)" }}>
+              <div className="bg-[#222] px-4 py-2.5 flex items-center gap-2 border-b border-white/10 shrink-0">
+                <span className="w-3 h-3 rounded-full bg-red-500/70" />
+                <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
+                <span className="w-3 h-3 rounded-full bg-green-500/70" />
+                <div className="flex-1 ml-3 bg-white/10 rounded-full px-3 py-1 text-xs text-gray-400 truncate">
+                  {metierVideo.label}
+                </div>
+              </div>
+              <video
+                src={metierVideo.src}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full flex-1 object-cover object-top"
               />
             </div>
             <div>
