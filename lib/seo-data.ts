@@ -12,6 +12,7 @@ export type Metier = {
   blogSlug: string
   blogTitle: string
   temoignage: { nom: string; entreprise: string; texte: string }
+  relatedArticles: { slug: string; title: string; image: string; readTime: string }[]
 }
 
 export type Ville = {
@@ -50,6 +51,11 @@ export const METIERS: Metier[] = [
       entreprise: "Roulin Couverture Sàrl, Lausanne",
       texte: "Depuis que Noovira a refait notre site, on reçoit 3 à 4 demandes de devis par semaine sans rien faire de plus. En 6 mois, on a signé pour plus de 200'000 CHF de chantiers supplémentaires.",
     },
+    relatedArticles: [
+      { slug: "creation-site-internet-couvreur-suisse", title: "Pourquoi chaque couvreur doit avoir un site en 2026", image: "/blog/creation-site-couvreur/equipe-toit.webp", readTime: "6 min" },
+      { slug: "seo-local-couvreur-suisse-romande", title: "SEO local pour couvreurs : dominer Google en Suisse romande", image: "/blog/couvreur-lausanne/lausanne-lac.webp", readTime: "8 min" },
+      { slug: "avis-google-couvreur-strategie", title: "Avis Google pour couvreurs : la stratégie qui convertit", image: "/blog/couvreur-geneve/geneve-vue.webp", readTime: "5 min" },
+    ],
   },
   {
     slug: "renovateur-cuisine",
@@ -69,6 +75,11 @@ export const METIERS: Metier[] = [
       entreprise: "Favre Rénovation, Genève",
       texte: "Je n'avais aucune présence en ligne avant. Maintenant j'ai un site superbe et les clients me trouvent sur Google. En 3 mois, j'ai eu 8 nouveaux chantiers directement depuis le site.",
     },
+    relatedArticles: [
+      { slug: "site-internet-renovateur-suisse", title: "Site internet pour rénovateur : trouver des chantiers en Suisse", image: "/blog/site-renovateur/hero.webp", readTime: "6 min" },
+      { slug: "generer-devis-couvreur-site-internet", title: "Comment générer des demandes de devis avec votre site", image: "/blog/site-renovateur/laptop-data.webp", readTime: "5 min" },
+      { slug: "reseaux-sociaux-artisans-batiment-suisse", title: "Réseaux sociaux pour artisans du bâtiment en Suisse", image: "/blog/reseaux-sociaux-artisans/hero.webp", readTime: "7 min" },
+    ],
   },
   {
     slug: "renovateur-salle-de-bain",
@@ -88,6 +99,11 @@ export const METIERS: Metier[] = [
       entreprise: "Berthoud Rénovation, Fribourg",
       texte: "Super collaboration du début à la fin. Ils ont parfaitement compris mon activité. Mon site génère maintenant 2 à 3 demandes par semaine pour des rénovations complètes.",
     },
+    relatedArticles: [
+      { slug: "site-internet-renovateur-suisse", title: "Site internet pour rénovateur de salle de bain en Suisse", image: "/blog/site-renovateur/hero.webp", readTime: "6 min" },
+      { slug: "photos-chantier-couvreur-guide", title: "Photos de chantier : attirer plus de clients avec vos réalisations", image: "/blog/site-renovateur/laptop-data.webp", readTime: "5 min" },
+      { slug: "roi-site-internet-couvreur", title: "ROI d'un site internet pour artisan : les chiffres réels", image: "/blog/creation-site-couvreur/couvreur-marteau.webp", readTime: "7 min" },
+    ],
   },
   {
     slug: "paysagiste",
@@ -107,6 +123,11 @@ export const METIERS: Metier[] = [
       entreprise: "Gaillard Paysages, Nyon",
       texte: "Je cherchais une agence spécialisée dans le bâtiment. Noovira connaît vraiment notre secteur. Le site a été fait vite et bien, et j'ai eu mes premiers contacts dans les 3 semaines.",
     },
+    relatedArticles: [
+      { slug: "reseaux-sociaux-artisans-batiment-suisse", title: "Réseaux sociaux pour paysagistes : montrer vos réalisations", image: "/blog/reseaux-sociaux-artisans/hero.webp", readTime: "7 min" },
+      { slug: "photos-chantier-couvreur-guide", title: "Photos de chantier : valoriser vos projets d'aménagement", image: "/blog/reseaux-sociaux-artisans/smartphone-maps.webp", readTime: "5 min" },
+      { slug: "generer-devis-couvreur-site-internet", title: "Comment générer des demandes de devis avec votre site", image: "/blog/site-renovateur/laptop-data.webp", readTime: "5 min" },
+    ],
   },
   {
     slug: "plombier",
@@ -126,6 +147,11 @@ export const METIERS: Metier[] = [
       entreprise: "Terrier Sanitaire, Lausanne",
       texte: "Service impeccable. Délais respectés, communication parfaite. Mon carnet de commandes s'est rempli bien plus vite depuis le lancement du site — je reçois des appels directs depuis Google.",
     },
+    relatedArticles: [
+      { slug: "site-internet-plombier-chauffagiste-suisse", title: "Site internet pour plombier-chauffagiste en Suisse romande", image: "/blog/site-plombier/hero.webp", readTime: "6 min" },
+      { slug: "whatsapp-business-artisans-suisse", title: "WhatsApp Business pour artisans : recevoir des demandes 24h/24", image: "/blog/site-plombier/smartphone-maps.webp", readTime: "5 min" },
+      { slug: "roi-site-internet-couvreur", title: "ROI d'un site internet pour artisan : les chiffres réels", image: "/blog/creation-site-couvreur/couvreur-marteau.webp", readTime: "7 min" },
+    ],
   },
   {
     slug: "charpentier",
@@ -145,6 +171,11 @@ export const METIERS: Metier[] = [
       entreprise: "Müller Charpente, Fribourg",
       texte: "Sceptique au départ, mais le résultat est vraiment impressionnant. Mon site est beau, rapide, et surtout il génère de vraies demandes de chantiers. Très satisfait du suivi mensuel.",
     },
+    relatedArticles: [
+      { slug: "site-internet-charpentier-suisse", title: "Site internet pour charpentier en Suisse romande", image: "/blog/site-charpentier/charpente-bois.webp", readTime: "6 min" },
+      { slug: "trouver-chantiers-couvreur-2026", title: "Trouver des chantiers en 2026 : les stratégies qui marchent", image: "/blog/site-charpentier/toit-travaux.webp", readTime: "8 min" },
+      { slug: "assurances-couvreur-suisse-rc-professionnelle", title: "Assurances pour artisans du bâtiment en Suisse", image: "/blog/creation-site-couvreur/equipe-toit.webp", readTime: "5 min" },
+    ],
   },
   {
     slug: "electricien",
@@ -164,6 +195,11 @@ export const METIERS: Metier[] = [
       entreprise: "Aubry Électricité, Sion",
       texte: "Excellent travail. L'équipe a su capturer l'identité de mon entreprise. Je reçois régulièrement des demandes depuis la mise en ligne — surtout pour des installations domotiques.",
     },
+    relatedArticles: [
+      { slug: "site-internet-electricien-suisse", title: "Site internet pour électricien en Suisse romande", image: "/blog/site-electricien/hero.webp", readTime: "6 min" },
+      { slug: "google-my-business-couvreur-suisse", title: "Google Business pour électricien : être visible localement", image: "/blog/site-electricien/smartphone-maps.webp", readTime: "5 min" },
+      { slug: "roi-site-internet-couvreur", title: "ROI d'un site internet pour artisan : les chiffres réels", image: "/blog/creation-site-couvreur/couvreur-marteau.webp", readTime: "7 min" },
+    ],
   },
   {
     slug: "peintre",
@@ -183,6 +219,11 @@ export const METIERS: Metier[] = [
       entreprise: "Schmitt Peinture, Neuchâtel",
       texte: "Professionnelle, créative et à l'écoute. Ils ont livré exactement ce que j'attendais. Mon site fait maintenant une excellente impression et j'ai doublé mes demandes de devis.",
     },
+    relatedArticles: [
+      { slug: "site-internet-peintre-suisse", title: "Site internet pour peintre en bâtiment en Suisse", image: "/blog/site-peintre/hero.webp", readTime: "6 min" },
+      { slug: "photos-chantier-couvreur-guide", title: "Photos de chantier : montrer vos réalisations pour convaincre", image: "/blog/site-peintre/smartphone-maps.webp", readTime: "5 min" },
+      { slug: "fidelisation-client-couvreur-recommandations", title: "Fidélisation client pour artisans : générer des recommandations", image: "/blog/creation-site-couvreur/couvreur-marteau.webp", readTime: "7 min" },
+    ],
   },
   {
     slug: "carreleur",
@@ -202,6 +243,11 @@ export const METIERS: Metier[] = [
       entreprise: "Santos Carrelage, Lausanne",
       texte: "J'avais essayé de créer mon site moi-même sans succès. Noovira a tout géré en 2 semaines. Maintenant je reçois des demandes de particuliers qui me trouvent directement sur Google.",
     },
+    relatedArticles: [
+      { slug: "checklist-digital-couvreur-2026", title: "Checklist digitale pour artisans du bâtiment en 2026", image: "/blog/checklist-digital-couvreur/hero.webp", readTime: "6 min" },
+      { slug: "generer-devis-couvreur-site-internet", title: "Générer des demandes de devis avec votre site internet", image: "/blog/checklist-digital-couvreur/analytics.webp", readTime: "5 min" },
+      { slug: "prix-site-internet-couvreur-suisse", title: "Prix d'un site internet pour artisan en Suisse romande", image: "/blog/creation-site-couvreur/equipe-toit.webp", readTime: "7 min" },
+    ],
   },
   {
     slug: "macon",
@@ -221,6 +267,11 @@ export const METIERS: Metier[] = [
       entreprise: "Girardin BTP, Bulle",
       texte: "Noovira a compris exactement ce dont j'avais besoin. Un site simple, professionnel, qui me représente bien. En 2 mois j'avais déjà rentabilisé l'investissement avec 2 nouveaux chantiers.",
     },
+    relatedArticles: [
+      { slug: "trouver-chantiers-couvreur-2026", title: "Trouver des chantiers en 2026 : les stratégies digitales", image: "/blog/site-charpentier/toit-travaux.webp", readTime: "8 min" },
+      { slug: "devis-couvreur-structure-qui-fait-signer", title: "Devis artisan : la structure qui fait signer plus de clients", image: "/blog/site-charpentier/charpente-bois.webp", readTime: "6 min" },
+      { slug: "roi-site-internet-couvreur", title: "ROI d'un site internet pour artisan : les chiffres réels", image: "/blog/creation-site-couvreur/couvreur-marteau.webp", readTime: "7 min" },
+    ],
   },
 ]
 

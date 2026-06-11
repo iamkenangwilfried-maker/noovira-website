@@ -624,71 +624,98 @@ export default function ProgrammaticPage({ params }: Props) {
           </div>
         </section>
 
-        {/* ── LIENS INTERNES ── */}
+        {/* ── ARTICLES LIÉS ── */}
         <section className="bg-[#F7F4EF] py-20 px-6">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
-              Nos autres services pour les {metier.nomPluriel} à {ville.nom}
-            </h2>
-            <div className="grid md:grid-cols-2 gap-6 mb-12">
-              {autresServices.map((s) => (
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#f43f5e" }}>Ressources utiles</p>
+              <h2 className="text-3xl font-bold text-gray-900">
+                Nos guides pour {metier.nomPluriel} en Suisse romande
+              </h2>
+              <p className="text-gray-500 mt-3 text-sm max-w-xl mx-auto">
+                Conseils pratiques, stratégies digitales et retours d&apos;expérience d&apos;artisans romands.
+              </p>
+            </div>
+
+            {/* 3 cartes articles */}
+            <div className="grid md:grid-cols-3 gap-6 mb-12">
+              {metier.relatedArticles.map((article) => (
                 <Link
-                  key={s.slug}
-                  href={`/${s.slug}/${metier.slug}/${ville.slug}`}
-                  className="group bg-white rounded-2xl p-6 border border-gray-200 hover:border-rose-400 hover:shadow-md transition-all"
+                  key={article.slug}
+                  href={`/blog/${article.slug}`}
+                  className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all flex flex-col"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center shrink-0 text-lg">
-                      {s.slug === "seo-local" ? "📍" : "📣"}
+                  <div className="relative h-44 overflow-hidden bg-gray-100 shrink-0">
+                    <Image
+                      src={article.image}
+                      alt={article.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                    <div className="absolute top-3 right-3 bg-white/90 text-gray-600 text-xs font-medium px-2 py-1 rounded-full">
+                      {article.readTime}
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 group-hover:text-rose-600 transition-colors mb-1">
-                        {s.nom} pour {metier.nomPluriel} à {ville.nom} →
-                      </h3>
-                      <p className="text-gray-500 text-xs leading-relaxed">{s.description}</p>
-                    </div>
+                  </div>
+                  <div className="p-5 flex flex-col flex-1">
+                    <h3 className="text-gray-900 font-semibold text-sm leading-snug mb-4 flex-1 group-hover:text-gray-700 transition-colors">
+                      {article.title}
+                    </h3>
+                    <span
+                      style={{ backgroundColor: "#f43f5e", color: "#fff", display: "inline-flex", alignItems: "center", gap: "6px", fontWeight: "600", padding: "8px 16px", borderRadius: "9999px", fontSize: "12px", textDecoration: "none" }}
+                    >
+                      Lire l&apos;article →
+                    </span>
                   </div>
                 </Link>
               ))}
             </div>
 
+            {/* Autres services */}
+            <div className="grid md:grid-cols-2 gap-4 mb-10">
+              {autresServices.map((s) => (
+                <Link
+                  key={s.slug}
+                  href={`/${s.slug}/${metier.slug}/${ville.slug}`}
+                  className="group bg-white rounded-2xl p-5 border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all flex items-start gap-4"
+                >
+                  <span className="text-xl shrink-0">{s.slug === "seo-local" ? "📍" : "📣"}</span>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 text-sm mb-1">
+                      {s.nom} pour {metier.nomPluriel} à {ville.nom} →
+                    </h3>
+                    <p className="text-gray-500 text-xs leading-relaxed">{s.description}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {/* Villes du canton */}
             {villesCantonSample.length > 0 && (
-              <>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">
+              <div className="text-center">
+                <p className="text-sm font-semibold text-gray-700 mb-4">
                   {service.nom} pour {metier.nomPluriel} — autres villes du canton {ville.canton}
-                </h3>
-                <div className="flex flex-wrap justify-center gap-3 mb-12">
+                </p>
+                <div className="flex flex-wrap justify-center gap-3">
                   {villesCantonSample.map((v) => (
                     <Link
                       key={v.slug}
                       href={`/${service.slug}/${metier.slug}/${v.slug}`}
-                      className="bg-white border border-gray-200 hover:border-rose-400 hover:text-rose-600 rounded-full px-5 py-2 text-sm text-gray-700 transition-all font-medium"
+                      className="bg-white border border-gray-200 hover:border-gray-400 rounded-full px-4 py-2 text-sm text-gray-700 transition-all font-medium"
                     >
-                      {v.nom} →
+                      {v.nom}
                     </Link>
                   ))}
-                  <Link
+                  <a
                     href={`/${service.slug}/${metier.slug}`}
-                    className="bg-rose-500 hover:bg-rose-600 text-white rounded-full px-5 py-2 text-sm font-semibold transition-all"
+                    style={{ backgroundColor: "#f43f5e", color: "#fff" }}
+                    className="rounded-full px-4 py-2 text-sm font-semibold"
                   >
                     Toutes les villes →
-                  </Link>
+                  </a>
                 </div>
-              </>
+              </div>
             )}
-
-            <div className="bg-white rounded-2xl p-6 border border-gray-200">
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Article recommandé</p>
-              <Link href={`/blog/${metier.blogSlug}`} className="flex items-center gap-3 group">
-                <span className="text-2xl">📖</span>
-                <div>
-                  <p className="text-gray-900 font-medium group-hover:text-rose-600 transition-colors text-sm">
-                    {metier.blogTitle}
-                  </p>
-                  <p className="text-rose-500 text-xs font-medium mt-0.5">Lire l&apos;article →</p>
-                </div>
-              </Link>
-            </div>
           </div>
         </section>
 
