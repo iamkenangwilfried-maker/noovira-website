@@ -7,6 +7,7 @@ import FinalCTA from "@/components/sections/final-cta"
 import Footer from "@/components/sections/footer"
 import SeoHub from "@/components/sections/seo-hub"
 import PortfolioScrollCard from "@/components/sections/portfolio-scroll-card"
+import TemoignageScroll from "@/components/sections/temoignage-scroll"
 import {
   SERVICES,
   METIERS,
@@ -595,24 +596,25 @@ export default function ProgrammaticPage({ params }: Props) {
         {/* ── TÉMOIGNAGE ── */}
         <section className="bg-[#1C1C1C] py-24 px-6">
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            {/* Vidéo du site du témoignage */}
-            <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex flex-col" style={{ height: "clamp(340px, 45vw, 520px)" }}>
+            {/* Screenshot auto-scroll du site du témoignage */}
+            <div
+              className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex flex-col"
+              style={{ height: "clamp(380px, 48vw, 540px)" }}
+            >
               <div className="bg-[#2a2a2a] px-4 py-2.5 flex items-center gap-2 border-b border-white/10 shrink-0">
                 <span className="w-3 h-3 rounded-full bg-red-500/70" />
                 <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
                 <span className="w-3 h-3 rounded-full bg-green-500/70" />
                 <div className="flex-1 ml-3 bg-white/10 rounded-full px-3 py-1 text-xs text-gray-400">
-                  {metier.temoignage.entreprise.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")}.ch
+                  roulin-couverture-srl-lausanne.ch
                 </div>
               </div>
-              <video
-                src="/videos/roulin-couverture/01.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full flex-1 object-cover object-top"
-              />
+              <div className="flex-1 overflow-hidden">
+                <TemoignageScroll
+                  domain="roulin-couverture-srl-lausanne.ch"
+                  cardHeight={490}
+                />
+              </div>
             </div>
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: ROSE }}>
@@ -665,7 +667,7 @@ export default function ProgrammaticPage({ params }: Props) {
                   href={`/blog/${article.slug}`}
                   className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all flex flex-col"
                 >
-                  <div className="relative h-44 overflow-hidden bg-gray-100 shrink-0">
+                  <div className="relative h-64 overflow-hidden bg-gray-100 shrink-0">
                     <Image
                       src={article.image}
                       alt={article.title}
