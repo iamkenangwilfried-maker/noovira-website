@@ -268,10 +268,10 @@ export default function ProgrammaticPage({ params }: Props) {
               </p>
             </div>
 
-            {/* Layout: vidéo à gauche, stats à droite */}
-            <div className="grid md:grid-cols-2 gap-12 items-start">
-              {/* Vidéo dans cadre navigateur — pleine largeur colonne */}
-              <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#2a2a2a] flex flex-col" style={{ height: "clamp(320px, 42vw, 520px)" }}>
+            {/* Layout: vidéo large à gauche, stats à droite */}
+            <div className="grid md:grid-cols-[1.5fr_1fr] gap-12 items-start">
+              {/* Vidéo dans cadre navigateur — colonne large */}
+              <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#2a2a2a] flex flex-col" style={{ height: "580px" }}>
                 <div className="bg-[#2a2a2a] px-4 py-3 flex items-center gap-2 border-b border-white/10 shrink-0">
                   <span className="w-3 h-3 rounded-full bg-red-500/70" />
                   <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
@@ -340,9 +340,9 @@ export default function ProgrammaticPage({ params }: Props) {
 
         {/* ── CE QU'ON FAIT ── */}
         <section className="bg-[#1C1C1C] py-24 px-6">
-          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            {/* Vidéo du site client dans cadre navigateur */}
-            <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#2a2a2a] flex flex-col" style={{ height: "clamp(300px, 42vw, 500px)" }}>
+          <div className="max-w-6xl mx-auto grid md:grid-cols-[1.5fr_1fr] gap-16 items-center">
+            {/* Vidéo du site client dans cadre navigateur — colonne large */}
+            <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#2a2a2a] flex flex-col" style={{ height: "580px" }}>
               <div className="bg-[#222] px-4 py-2.5 flex items-center gap-2 border-b border-white/10 shrink-0">
                 <span className="w-3 h-3 rounded-full bg-red-500/70" />
                 <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
@@ -460,7 +460,7 @@ export default function ProgrammaticPage({ params }: Props) {
 
         {/* ── PROCESSUS ── */}
         <section className="bg-[#F7F4EF] py-24 px-6">
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: DARK }}>
                 Notre process
@@ -475,8 +475,8 @@ export default function ProgrammaticPage({ params }: Props) {
 
             <div className="space-y-16">
               {/* Étape 1 */}
-              <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div className="relative rounded-2xl overflow-hidden bg-white shadow-xl" style={{ height: "clamp(280px, 38vw, 460px)" }}>
+              <div className="grid md:grid-cols-[1.5fr_1fr] gap-12 items-center">
+                <div className="relative rounded-2xl overflow-hidden bg-white shadow-xl" style={{ height: "580px" }}>
                   <Image
                     src="/results/audit-tool.webp"
                     alt={`Audit SEO visibilité Google ${metier.nomPluriel} ${ville.nom}`}
@@ -504,7 +504,7 @@ export default function ProgrammaticPage({ params }: Props) {
               </div>
 
               {/* Étape 2 */}
-              <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="grid md:grid-cols-[1fr_1.5fr] gap-12 items-center">
                 <div className="order-2 md:order-1">
                   <div className="flex items-center gap-3 mb-4">
                     <span style={circleBadge}>02</span>
@@ -518,7 +518,7 @@ export default function ProgrammaticPage({ params }: Props) {
                     ✓ Design 100% sur-mesure &nbsp;·&nbsp; ✓ Textes SEO rédigés &nbsp;·&nbsp; ✓ Mobile first
                   </p>
                 </div>
-                <div className="relative rounded-2xl overflow-hidden bg-black shadow-xl order-1 md:order-2" style={{ height: "clamp(280px, 38vw, 460px)" }}>
+                <div className="relative rounded-2xl overflow-hidden bg-black shadow-xl order-1 md:order-2" style={{ height: "580px" }}>
                   <video src="/videos/steps/step01.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
                   <div className="absolute top-4 left-4">
                     <span style={badgeRose}>Étape 02</span>
@@ -527,8 +527,8 @@ export default function ProgrammaticPage({ params }: Props) {
               </div>
 
               {/* Étape 3 */}
-              <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div className="relative rounded-2xl overflow-hidden bg-black shadow-xl" style={{ height: "clamp(280px, 38vw, 460px)" }}>
+              <div className="grid md:grid-cols-[1.5fr_1fr] gap-12 items-center">
+                <div className="relative rounded-2xl overflow-hidden bg-black shadow-xl" style={{ height: "580px" }}>
                   <video src="/videos/steps/step04.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
                   <div className="absolute top-4 left-4">
                     <span style={badgeRose}>Étape 03</span>
@@ -550,7 +550,7 @@ export default function ProgrammaticPage({ params }: Props) {
               </div>
 
               {/* Étape 4 */}
-              <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="grid md:grid-cols-[1fr_1.5fr] gap-12 items-center">
                 <div className="order-2 md:order-1">
                   <div className="flex items-center gap-3 mb-4">
                     <span style={circleBadge}>04</span>
@@ -564,7 +564,7 @@ export default function ProgrammaticPage({ params }: Props) {
                     ✓ Rapport positions Google &nbsp;·&nbsp; ✓ Suivi demandes de devis &nbsp;·&nbsp; ✓ Optimisation continue
                   </p>
                 </div>
-                <div className="relative rounded-2xl overflow-hidden bg-white shadow-xl order-1 md:order-2" style={{ height: "clamp(280px, 38vw, 460px)" }}>
+                <div className="relative rounded-2xl overflow-hidden bg-white shadow-xl order-1 md:order-2" style={{ height: "580px" }}>
                   <Image
                     src="/results/r1.webp"
                     alt="Résultats SEO et trafic Google Analytics artisan"
@@ -590,11 +590,11 @@ export default function ProgrammaticPage({ params }: Props) {
 
         {/* ── TÉMOIGNAGE ── */}
         <section className="bg-[#1C1C1C] py-24 px-6">
-          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            {/* Vidéo du site du témoignage */}
+          <div className="max-w-6xl mx-auto grid md:grid-cols-[1.5fr_1fr] gap-12 items-center">
+            {/* Vidéo du site du témoignage — colonne large */}
             <div
               className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex flex-col"
-              style={{ height: "clamp(380px, 48vw, 540px)" }}
+              style={{ height: "580px" }}
             >
               <div className="bg-[#2a2a2a] px-4 py-2.5 flex items-center gap-2 border-b border-white/10 shrink-0">
                 <span className="w-3 h-3 rounded-full bg-red-500/70" />
